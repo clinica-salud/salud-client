@@ -1,0 +1,19 @@
+@import '@nebular/theme/styles/theming';
+@import '@nebular/theme/styles/themes/default';
+
+$nb-themes: nb-register-theme(
+	(
+		// add your variables here like:
+		// color-bg: #4ca6ff,
+		header-padding: 1rem,
+		header-height: 4rem,
+		layout-padding: 0.5rem,
+		layout-medium-padding: 0.5rem,
+		layout-small-padding: 0.5rem,
+		footer-padding: 0.5rem,
+		sidebar-background-color: #f8f9fa,
+		menu-item-active-background-color: #fff
+	),
+	default,
+	default
+);

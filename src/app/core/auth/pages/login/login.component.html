@@ -1,0 +1,36 @@
+<nb-layout>
+	<nb-layout-column class="d-flex align-items-center justify-content-center p-0">
+		<nb-card class="py-4 px-2" style="border-radius: 10px">
+			<nb-card-body style="max-width: 98%; width: 400px">
+				<h3 class="text-center">Login</h3>
+				<hr />
+				<form [formGroup]="form" class="d-flex flex-column gap-4" (submit)="login()">
+					<div>
+						<input
+							nbInput
+							formControlName="username"
+							placeholder="Username"
+							type="text"
+							[status]="username.dirty ? (username.invalid ? 'danger' : 'success') : 'basic'"
+							fullWidth
+						/>
+						<control-error controlName="username" />
+					</div>
+					<div>
+						<input
+							nbInput
+							formControlName="password"
+							placeholder="Password"
+							status="primary"
+							type="password"
+							[status]="password.dirty ? (password.invalid ? 'danger' : 'success') : 'basic'"
+							fullWidth
+						/>
+						<control-error controlName="password" />
+					</div>
+					<button nbButton type="submit" status="primary" [disabled]="form.invalid" fullWidth>Login</button>
+				</form>
+			</nb-card-body>
+		</nb-card>
+	</nb-layout-column>
+</nb-layout>
