@@ -6,14 +6,16 @@ import { NbCardModule, NbLayoutModule, NbMenuModule, NbSidebarModule, NbSpinnerM
 import { FooterComponent } from '@src/app/core/layout/components/footer/footer.component'
 import { HeaderComponent } from '@src/app/core/layout/components/header/header.component'
 import { Menu, MenuService, SpinnerService } from '@src/app/core/services'
+import { BreadcrumbModule } from 'xng-breadcrumb'
 
+const OTHER_MODULES = [BreadcrumbModule]
 const NB_MODULES = [NbLayoutModule, NbSpinnerModule, NbSidebarModule, NbMenuModule, NbCardModule]
 const COMPONENTS = [FooterComponent, HeaderComponent]
 
 @Component({
 	selector: 'app-layout',
 	standalone: true,
-	imports: [RouterOutlet, ...NB_MODULES, ...COMPONENTS],
+	imports: [RouterOutlet, ...NB_MODULES, ...OTHER_MODULES, ...COMPONENTS],
 	template: `
 		<div [nbSpinner]="spinner" nbSpinnerMessage="Cargando..." nbSpinnerSize="giant" nbSpinnerStatus="primary">
 			<nb-layout windowMode>
@@ -28,6 +30,7 @@ const COMPONENTS = [FooterComponent, HeaderComponent]
 				<nb-layout-column>
 					<nb-card class="mb-0" style="min-height: calc(100dvh - 118px)">
 						<nb-card-body>
+							<xng-breadcrumb separator=">"></xng-breadcrumb>
 							<router-outlet />
 						</nb-card-body>
 					</nb-card>

@@ -15,7 +15,8 @@ export const APPOINTMENTS_ROUTES: Routes = [
 			},
 			{
 				path: 'new-appointment',
-				component: NewAppointmentComponent
+				component: NewAppointmentComponent,
+				data: { breadcrumb: 'Nueva cita' }
 			},
 			{
 				path: '',
