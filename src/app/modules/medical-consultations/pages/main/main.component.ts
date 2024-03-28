@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common'
+import { UpperCasePipe } from '@angular/common'
 import { Component } from '@angular/core'
 
 import {
@@ -15,7 +15,7 @@ const NB_MODULES = [NbCardModule, NbButtonModule, NbIconModule, NbUserModule, Nb
 @Component({
 	selector: 'app-main',
 	standalone: true,
-	imports: [CommonModule, ...NB_MODULES],
+	imports: [UpperCasePipe, ...NB_MODULES],
 	templateUrl: './main.component.html',
 	styleUrl: './main.component.scss'
 })

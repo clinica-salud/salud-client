@@ -4,7 +4,7 @@ import { provideAnimations } from '@angular/platform-browser/animations'
 import { provideRouter } from '@angular/router'
 
 import { NbDateFnsDateModule } from '@nebular/date-fns'
-import { NbDatepickerModule, NbMenuModule, NbSidebarModule, NbThemeModule } from '@nebular/theme'
+import { NbDatepickerModule, NbMenuModule, NbSidebarModule, NbThemeModule, NbTimepickerModule } from '@nebular/theme'
 
 import { spinnerInterceptor } from '@src/app/core/interceptors/spinner.interceptor'
 import { routes } from './app.routes'
@@ -17,6 +17,7 @@ export const appConfig: ApplicationConfig = {
 			NbMenuModule.forRoot(),
 			NbSidebarModule.forRoot(),
 			NbDatepickerModule.forRoot(),
+			NbTimepickerModule.forRoot(),
 			NbDateFnsDateModule.forRoot({ format: 'dd/MM/yyyy' })
 		]),
 		provideAnimations(),

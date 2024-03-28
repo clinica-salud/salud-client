@@ -1,6 +1,66 @@
 <nb-card class="border-0">
 	<nb-card-header class="border-0">
-		<span class="fs-5">Crear nueva cita</span>
+		<span class="fs-4">Crear nueva cita</span>
 	</nb-card-header>
-	<nb-card-body> </nb-card-body>
+	<nb-card-body>
+		<div class="row">
+			<div class="col-md-6 col-lg-6">
+				<div class="d-flex flex-column gap-4">
+					<p class="fs-6 fw-semibold">¿Cómo podemos apoyarte?</p>
+					<div>
+						<p class="fw-semibold mb-2 text-black d-block required">Titular de la cuenta</p>
+						<div class="d-flex gap-2">
+							<input type="text" nbInput fullWidth placeholder="72487768" />
+							<button nbButton>
+								<nb-icon icon="sync-outline"></nb-icon>
+							</button>
+						</div>
+						<small class="fw-semibold">
+							<nb-icon icon="done-all-outline" status="success" style="font-size: 0.9rem"></nb-icon>
+							<span class="text-secondary"> Pantigoso Puraca José Miguel</span>
+						</small>
+					</div>
+					<p class="fs-6 fw-semibold">Nuestros servicios</p>
+					<div>
+						<p class="fs-6 fw-semibold">Citas dentales</p>
+						<p class="text-black-50">Consultas con el mejor staff altamente calificado</p>
+					</div>
+					<div>
+						<p class="fs-6 fw-semibold">Servicios Odontológicos</p>
+						<p class="text-black-50">Contamos con equipos de última tecnología</p>
+					</div>
+					<div>
+						<p class="fs-6 fw-semibold">Especialidades destacadas</p>
+					</div>
+					<div>
+						<p class="fs-6 fw-semibold">Sede</p>
+					</div>
+				</div>
+			</div>
+			<div class="col-md-6 col-lg-6">
+				<div class="d-flex flex-column gap-4">
+					<p class="fs-6 fw-semibold">Escoge a tu especialista</p>
+					<nb-list>
+						@for (user of users; track $index) {
+						<nb-list-item class="align-items-center justify-content-between">
+							<nb-user [name]="user.name" [title]="user.title"> </nb-user>
+							<nb-checkbox status="success"></nb-checkbox>
+						</nb-list-item>
+						}
+					</nb-list>
+					<p class="fs-6 fw-semibold">Selecciona la fecha de tu cita</p>
+					<nb-calendar class="d-flex justify-content-center" [(date)]="date"></nb-calendar>
+					<p class="fs-6 fw-semibold">Selecciona la hora de tu cita</p>
+					<div>
+						<input nbInput [nbTimepicker]="timepicker" fullWidth />
+						<nb-timepicker #timepicker="nbTimepicker" twelveHoursFormat></nb-timepicker>
+					</div>
+					<div class="d-flex gap-2">
+						<button nbButton fullWidth>Cancelar</button>
+						<button nbButton status="primary" fullWidth>Guardar</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nb-card-body>
 </nb-card>

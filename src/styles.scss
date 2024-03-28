@@ -24,6 +24,13 @@ p {
 	cursor: pointer;
 }
 
+.required {
+	&::after {
+		content: ' *';
+		color: red;
+	}
+}
+
 // Breadcrumb
 .xng-breadcrumb-root {
 	padding-bottom: 1rem;
