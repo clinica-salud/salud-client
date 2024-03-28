@@ -9,11 +9,11 @@ const NB_MODULES = [NbCardModule, NbButtonModule]
 	standalone: true,
 	imports: [...NB_MODULES],
 	template: `
-		<div class="d-flex align-items-center justify-content-center" style="height: calc(100dvh - 152px)">
+		<div class="d-flex align-items-center justify-content-center" style="height: calc(100dvh - 188px)">
 			<div class="text-center">
-				<h2>404 Page Not Found</h2>
-				<small class="d-block mb-3">The page you were looking for doesn't exist</small>
-				<button nbButton fullWidth (click)="goToHome()" type="button" class="home-button">Take me home</button>
+				<h2>404 Página no encontrada</h2>
+				<small class="d-block mb-3 fw-semibold">La página que solicitaste no existe</small>
+				<button nbButton fullWidth (click)="goToHome()" type="button" class="mt-4">Ir a inicio</button>
 			</div>
 		</div>
 	`

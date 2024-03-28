@@ -6,17 +6,19 @@ import { map } from 'rxjs'
 import { NbEvaIconsModule } from '@nebular/eva-icons'
 import {
 	NbActionsModule,
+	NbButtonModule,
 	NbContextMenuModule,
 	NbIconModule,
 	NbMediaBreakpointsService,
+	NbMenuService,
 	NbSidebarService,
 	NbThemeService,
 	NbUserModule
 } from '@nebular/theme'
 
-import { MenuService, User, UserMenu } from '@src/app/core/services'
+import { AuthService, MenuService, User, UserMenu } from '@src/app/core/services'
 
-const NB_MODULES = [NbIconModule, NbActionsModule, NbUserModule, NbContextMenuModule, NbEvaIconsModule]
+const NB_MODULES = [NbIconModule, NbActionsModule, NbUserModule, NbContextMenuModule, NbEvaIconsModule, NbButtonModule]
 
 @Component({
 	selector: 'app-header',
@@ -26,11 +28,13 @@ const NB_MODULES = [NbIconModule, NbActionsModule, NbUserModule, NbContextMenuMo
 	styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
+	private _authService = inject(AuthService)
 	private _breakpointService = inject(NbMediaBreakpointsService)
 	private _menuService = inject(MenuService)
+	private _nbMenuService = inject(NbMenuService)
+	private _router = inject(Router)
 	private _sidebarService = inject(NbSidebarService)
 	private _themeService = inject(NbThemeService)
-	private _router = inject(Router)
 
 	public userPictureOnly: boolean = false
 	public user: User = { name: '', picture: '' }
@@ -49,11 +53,19 @@ export class HeaderComponent {
 
 		this.user = this._menuService.user
 		this.userMenu = this._menuService.userMenu
+
+		this._nbMenuService.onItemClick().subscribe(({ item }: any) => {
+			if (item.tag === 'logout') this._authService.logout()
+		})
 	}
 
 	public toggleSidebar(): boolean {
 		this._sidebarService.toggle(true, 'menu-sidebar')
 		return false
+	}
+
+	public newAppointment() {
+		this._router.navigateByUrl('/pages/appointments/new-appointment')
 	}
 
 	public navigateHome(): void {

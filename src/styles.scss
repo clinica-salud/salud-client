@@ -14,6 +14,11 @@
 	@include nb-theme-global();
 }
 
+// Overrides
+p {
+	margin-bottom: 0;
+}
+
 // Helpers
 .pointer {
 	cursor: pointer;
