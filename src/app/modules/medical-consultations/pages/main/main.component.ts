@@ -1,5 +1,5 @@
-import { UpperCasePipe } from '@angular/common'
-import { Component } from '@angular/core'
+import { UpperCasePipe } from '@angular/common';
+import { Component } from '@angular/core';
 
 import {
 	NbButtonModule,
@@ -8,9 +8,9 @@ import {
 	NbIconModule,
 	NbInputModule,
 	NbUserModule
-} from '@nebular/theme'
+} from '@nebular/theme';
 
-const NB_MODULES = [NbCardModule, NbButtonModule, NbIconModule, NbUserModule, NbInputModule, NbDatepickerModule]
+const NB_MODULES = [NbCardModule, NbButtonModule, NbIconModule, NbUserModule, NbInputModule, NbDatepickerModule];
 
 @Component({
 	selector: 'app-main',
@@ -23,8 +23,8 @@ export class MainComponent {
 	public user = {
 		name: 'Pantigoso Puraca José Miguel',
 		title: 'Titular de la cuenta'
-	}
-	public tableHeadings = ['Fecha', 'Tipo', 'Paciente', 'Odontologo', 'Sede', 'Acciones']
+	};
+	public tableHeadings = ['Fecha', 'Tipo', 'Paciente', 'Odontologo', 'Sede', 'Acciones'];
 	public data = [
 		{
 			id: 1,
@@ -50,5 +50,5 @@ export class MainComponent {
 			doctor: 'Andres Chumbiray R.',
 			location: 'Lima'
 		}
-	]
+	];
 }

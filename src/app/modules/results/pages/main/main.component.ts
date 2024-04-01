@@ -1,7 +1,8 @@
-import { Component } from '@angular/core'
-import { NbCardModule } from '@nebular/theme'
+import { Component } from '@angular/core';
 
-const NB_MODULES = [NbCardModule]
+import { NbCardModule } from '@nebular/theme';
+
+const NB_MODULES = [NbCardModule];
 
 @Component({
 	selector: 'app-main',

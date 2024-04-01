@@ -1,18 +1,18 @@
-import { Directive, ElementRef, Input, inject } from '@angular/core'
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import { map } from 'rxjs'
+import { Directive, ElementRef, Input, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { map } from 'rxjs';
 
-import { NbThemeService } from '@nebular/theme'
+import { NbThemeService } from '@nebular/theme';
 
 @Directive({
 	selector: '[appWindow]',
 	standalone: true
 })
 export class WindowDirective {
-	private _themeService = inject(NbThemeService)
-	private _el = inject(ElementRef)
+	private _themeService = inject(NbThemeService);
+	private _el = inject(ElementRef);
 
-	@Input() widthSize?: string
+	@Input() widthSize?: string;
 
 	private SIZES_MODAL: any = {
 		TN: 420,
@@ -21,10 +21,10 @@ export class WindowDirective {
 		LG: 992,
 		XL: 1200,
 		XXL: 1400
-	}
+	};
 
 	constructor() {
-		this._el.nativeElement.style.maxHeight = 'calc(100vh - 5rem)'
+		this._el.nativeElement.style.maxHeight = 'calc(100vh - 5rem)';
 
 		this._themeService
 			.onMediaQueryChange()
@@ -32,16 +32,16 @@ export class WindowDirective {
 				map(([, currentBreakpoint]) => currentBreakpoint.width),
 				map((width: number) => {
 					if (this.widthSize) {
-						const newWidth = this.SIZES_MODAL[this.widthSize.toUpperCase()]
-						return newWidth && width >= newWidth ? newWidth : width
+						const newWidth = this.SIZES_MODAL[this.widthSize.toUpperCase()];
+						return newWidth && width >= newWidth ? newWidth : width;
 					} else {
-						return width
+						return width;
 					}
 				}),
 				takeUntilDestroyed()
 			)
 			.subscribe((value) => {
-				this._el.nativeElement.style.width = `calc(${value}px - 1.5rem)`
-			})
+				this._el.nativeElement.style.width = `calc(${value}px - 1.5rem)`;
+			});
 	}
 }

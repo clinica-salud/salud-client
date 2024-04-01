@@ -1,7 +1,7 @@
-import { InjectionToken } from '@angular/core'
+import { InjectionToken } from '@angular/core';
 
 const defaultErrors: {
-	[key: string]: any
+	[key: string]: any;
 } = {
 	required: () => 'Este campo es requerido.',
 	minlength: ({ requiredLength, actualLength }: any) =>
@@ -9,9 +9,9 @@ const defaultErrors: {
 	maxlength: ({ requiredLength, actualLength }: any) =>
 		`Este campo debe tener un maximo de ${requiredLength} caracteres.`,
 	email: () => 'Email no es valido.'
-}
+};
 
 export const FORM_ERRORS = new InjectionToken('FORM_ERRORS', {
 	providedIn: 'root',
 	factory: () => defaultErrors
-})
+});

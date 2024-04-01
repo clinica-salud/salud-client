@@ -1,9 +1,9 @@
-import { Component, inject } from '@angular/core'
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop'
-import { Router } from '@angular/router'
-import { map } from 'rxjs'
+import { Component, inject } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Router } from '@angular/router';
+import { map } from 'rxjs';
 
-import { NbEvaIconsModule } from '@nebular/eva-icons'
+import { NbEvaIconsModule } from '@nebular/eva-icons';
 import {
 	NbActionsModule,
 	NbButtonModule,
@@ -14,11 +14,11 @@ import {
 	NbSidebarService,
 	NbThemeService,
 	NbUserModule
-} from '@nebular/theme'
+} from '@nebular/theme';
 
-import { AuthService, MenuService, User, UserMenu } from '@src/app/core/services'
+import { AuthService, MenuService, User, UserMenu } from '@src/app/core/services';
 
-const NB_MODULES = [NbIconModule, NbActionsModule, NbUserModule, NbContextMenuModule, NbEvaIconsModule, NbButtonModule]
+const NB_MODULES = [NbIconModule, NbActionsModule, NbUserModule, NbContextMenuModule, NbEvaIconsModule, NbButtonModule];
 
 @Component({
 	selector: 'app-header',
@@ -28,20 +28,20 @@ const NB_MODULES = [NbIconModule, NbActionsModule, NbUserModule, NbContextMenuMo
 	styleUrl: './header.component.scss'
 })
 export class HeaderComponent {
-	private _authService = inject(AuthService)
-	private _breakpointService = inject(NbMediaBreakpointsService)
-	private _menuService = inject(MenuService)
-	private _nbMenuService = inject(NbMenuService)
-	private _router = inject(Router)
-	private _sidebarService = inject(NbSidebarService)
-	private _themeService = inject(NbThemeService)
+	private _authService = inject(AuthService);
+	private _breakpointService = inject(NbMediaBreakpointsService);
+	private _menuService = inject(MenuService);
+	private _nbMenuService = inject(NbMenuService);
+	private _router = inject(Router);
+	private _sidebarService = inject(NbSidebarService);
+	private _themeService = inject(NbThemeService);
 
-	public userPictureOnly: boolean = false
-	public user: User = { name: '', picture: '' }
-	public userMenu: UserMenu[] = []
+	public userPictureOnly: boolean = false;
+	public user: User = { name: '', picture: '' };
+	public userMenu: UserMenu[] = [];
 
 	constructor() {
-		const { xl } = this._breakpointService.getBreakpointsMap()
+		const { xl } = this._breakpointService.getBreakpointsMap();
 
 		this._themeService
 			.onMediaQueryChange()
@@ -49,26 +49,26 @@ export class HeaderComponent {
 				map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
 				takeUntilDestroyed()
 			)
-			.subscribe((isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl))
+			.subscribe((isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl));
 
-		this.user = this._menuService.user
-		this.userMenu = this._menuService.userMenu
+		this.user = this._menuService.user;
+		this.userMenu = this._menuService.userMenu;
 
 		this._nbMenuService.onItemClick().subscribe(({ item }: any) => {
-			if (item.tag === 'logout') this._authService.logout()
-		})
+			if (item.tag === 'logout') this._authService.logout();
+		});
 	}
 
 	public toggleSidebar(): boolean {
-		this._sidebarService.toggle(true, 'menu-sidebar')
-		return false
+		this._sidebarService.toggle(true, 'menu-sidebar');
+		return false;
 	}
 
 	public newAppointment() {
-		this._router.navigateByUrl('/pages/appointments/new-appointment')
+		this._router.navigateByUrl('/pages/appointments/new-appointment');
 	}
 
 	public navigateHome(): void {
-		this._router.navigateByUrl('/')
+		this._router.navigateByUrl('/');
 	}
 }

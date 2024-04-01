@@ -1,4 +1,4 @@
-import { Component, signal } from '@angular/core'
+import { Component, signal } from '@angular/core';
 
 @Component({
 	selector: 'app-footer',
@@ -8,6 +8,6 @@ import { Component, signal } from '@angular/core'
 	styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-	private date: Date = new Date()
-	public currentYear = signal(this.date.getFullYear())
+	private date: Date = new Date();
+	public currentYear = signal(this.date.getFullYear());
 }

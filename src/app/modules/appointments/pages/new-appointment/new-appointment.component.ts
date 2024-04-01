@@ -1,4 +1,4 @@
-import { Component } from '@angular/core'
+import { Component } from '@angular/core';
 
 import {
 	NbButtonModule,
@@ -10,7 +10,7 @@ import {
 	NbListModule,
 	NbTimepickerModule,
 	NbUserModule
-} from '@nebular/theme'
+} from '@nebular/theme';
 
 const NB_MODULES = [
 	NbCardModule,
@@ -22,11 +22,11 @@ const NB_MODULES = [
 	NbCheckboxModule,
 	NbCalendarModule,
 	NbTimepickerModule
-]
+];
 
 interface User {
-	name: string
-	title: string
+	name: string;
+	title: string;
 }
 
 @Component({
@@ -37,14 +37,14 @@ interface User {
 	styleUrl: './new-appointment.component.scss'
 })
 export class NewAppointmentComponent {
-	public date = new Date()
+	public date = new Date();
 	public users: User[] = [
 		{ name: 'Carla Espinosa', title: 'Ortodoncista' },
 		{ name: 'Bob Kelso', title: 'Endodoncista' },
 		{ name: 'Janitor', title: 'Dentista General' }
-	]
+	];
 	public options = [
 		{ value: 'am', label: 'AM' },
 		{ value: 'pm', label: 'PM' }
-	]
+	];
 }

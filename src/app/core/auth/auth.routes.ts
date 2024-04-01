@@ -1,7 +1,7 @@
-import { Routes } from '@angular/router'
+import { Routes } from '@angular/router';
 
-import { AuthComponent } from '@src/app/core/auth/auth.component'
-import { LoginComponent } from '@src/app/core/auth/pages/login/login.component'
+import { AuthComponent } from '@src/app/core/auth/auth.component';
+import { LoginComponent } from '@src/app/core/auth/pages/login/login.component';
 
 export const AUTH_ROUTES: Routes = [
 	{
@@ -16,4 +16,4 @@ export const AUTH_ROUTES: Routes = [
 			{ path: '**', redirectTo: 'login' }
 		]
 	}
-]
+];

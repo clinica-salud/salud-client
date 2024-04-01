@@ -1,7 +1,7 @@
-import { Routes } from '@angular/router'
+import { Routes } from '@angular/router';
 
-import { LayoutComponent } from '@src/app/core/layout/layout.component'
-import { NotFoundComponent } from '@src/app/modules/not-found/not-found.component'
+import { LayoutComponent } from '@src/app/core/layout/layout.component';
+import { NotFoundComponent } from '@src/app/modules/not-found/not-found.component';
 
 export const routes: Routes = [
 	{
@@ -42,4 +42,4 @@ export const routes: Routes = [
 	},
 	{ path: '', pathMatch: 'full', redirectTo: 'pages' },
 	{ path: '**', redirectTo: 'pages' }
-]
+];
