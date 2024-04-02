@@ -4,4 +4,19 @@
 	.menu-sidebar ::ng-deep .scrollable {
 		padding-top: nb-theme(layout-padding-top);
 	}
+
+	::ng-deep router-outlet + * {
+		display: block;
+		animation: fade 0.5s;
+
+		@keyframes fade {
+			from {
+				opacity: 0;
+			}
+
+			to {
+				opacity: 1;
+			}
+		}
+	}
 }

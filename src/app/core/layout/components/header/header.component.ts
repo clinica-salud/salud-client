@@ -37,24 +37,29 @@ export class HeaderComponent {
 	private _themeService = inject(NbThemeService);
 
 	public userPictureOnly: boolean = false;
+	public hideMenuOnClick: boolean = false;
 	public user: User = { name: '', picture: '' };
 	public userMenu: UserMenu[] = [];
 
 	constructor() {
-		const { xl } = this._breakpointService.getBreakpointsMap();
+		const { xl, is } = this._breakpointService.getBreakpointsMap();
 
 		this._themeService
 			.onMediaQueryChange()
 			.pipe(
-				map(([, currentBreakpoint]) => currentBreakpoint.width < xl),
+				map(([, currentBreakpoint]) => currentBreakpoint),
 				takeUntilDestroyed()
 			)
-			.subscribe((isLessThanXl: boolean) => (this.userPictureOnly = isLessThanXl));
+			.subscribe((currentBreakpoint) => {
+				this.userPictureOnly = currentBreakpoint.width < xl;
+				this.hideMenuOnClick = currentBreakpoint.width <= is;
+			});
 
 		this.user = this._menuService.user;
 		this.userMenu = this._menuService.userMenu;
 
 		this._nbMenuService.onItemClick().subscribe(({ item }: any) => {
+			if (this.hideMenuOnClick) this._sidebarService.collapse('menu-sidebar');
 			if (item.tag === 'logout') this._authService.logout();
 		});
 	}
