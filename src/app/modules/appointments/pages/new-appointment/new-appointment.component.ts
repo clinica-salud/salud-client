@@ -1,16 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 
 import {
 	NbButtonModule,
 	NbCalendarModule,
 	NbCardModule,
 	NbCheckboxModule,
+	NbDialogService,
 	NbIconModule,
 	NbInputModule,
 	NbListModule,
 	NbTimepickerModule,
 	NbUserModule
 } from '@nebular/theme';
+import { SummaryModalComponent } from '@src/app/modules/appointments/components/summary-modal/summary-modal.component';
 
 const NB_MODULES = [
 	NbCardModule,
@@ -37,6 +39,8 @@ interface User {
 	styleUrl: './new-appointment.component.scss'
 })
 export class NewAppointmentComponent {
+	private _dialogService = inject(NbDialogService);
+
 	public date = new Date();
 	public users: User[] = [
 		{ name: 'Carla Espinosa', title: 'Ortodoncista' },
@@ -47,4 +51,8 @@ export class NewAppointmentComponent {
 		{ value: 'am', label: 'AM' },
 		{ value: 'pm', label: 'PM' }
 	];
+
+	public saveAppointment() {
+		this._dialogService.open(SummaryModalComponent);
+	}
 }

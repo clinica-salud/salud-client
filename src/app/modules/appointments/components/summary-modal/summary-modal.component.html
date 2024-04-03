@@ -1,1 +1,35 @@
-<p>summary-modal works!</p>
+<nb-card appWindow widthSize="sm">
+	<nb-card-header class="d-flex align-items-center justify-content-between">
+		<p class="fs-5 fw-bold">Resumen</p>
+		<div class="d-flex flex-column align-items-end">
+			<small class="fw-bold">Importe</small>
+			<span class="fw-light fs-5">S/. 180.00</span>
+		</div>
+	</nb-card-header>
+	<nb-card-body class="d-flex flex-column gap-3">
+		<nb-user size="medium" [name]="user.name" [title]="user.title" />
+		<div class="row">
+			@for (item of summaryList; track $index) {
+			<div class="col-md-6 border-bottom py-3">
+				<div class="d-flex align-items-center gap-4">
+					<nb-icon class="fs-3" [icon]="item.icon"></nb-icon>
+					<div class="d-flex flex-column gap-1">
+						<small class="fw-bold">{{ item.title }}</small>
+						<span class="fw-light text-secondary fs-7">{{ item.value }}</span>
+					</div>
+				</div>
+			</div>
+			}
+		</div>
+	</nb-card-body>
+	<nb-card-footer class="d-flex gap-4">
+		<button nbButton fullWidth>
+			<nb-icon icon="sync-outline"></nb-icon>
+			Pagar después
+		</button>
+		<button nbButton status="primary" fullWidth>
+			<nb-icon icon="credit-card-outline"></nb-icon>
+			Pagar
+		</button>
+	</nb-card-footer>
+</nb-card>

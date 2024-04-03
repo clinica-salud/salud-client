@@ -40,7 +40,7 @@ export class MenuService {
 			link: '/pages/dashboard'
 		},
 		{
-			title: 'Citas',
+			title: 'Mis citas',
 			icon: 'calendar-outline',
 			link: '/pages/appointments'
 		},

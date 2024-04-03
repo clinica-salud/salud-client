@@ -16,7 +16,7 @@ export const routes: Routes = [
 			{
 				path: 'dashboard',
 				loadChildren: () => import('./modules/dashboard/dashboard.routes').then((m) => m.DASHBOARD_ROUTES),
-				data: { breadcrumb: { skip: true } }
+				data: { breadcrumb: 'Dashboard' }
 			},
 			{
 				path: 'appointments',

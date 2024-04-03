@@ -35,19 +35,21 @@
 					<div>
 						<p class="fs-6 fw-semibold">Sede</p>
 					</div>
+					<div>
+						<p class="fs-6 fw-semibold">Escoge a tu especialista</p>
+						<nb-list>
+							@for (user of users; track $index) {
+							<nb-list-item class="align-items-center justify-content-between">
+								<nb-user [name]="user.name" [title]="user.title"> </nb-user>
+								<nb-checkbox status="success"></nb-checkbox>
+							</nb-list-item>
+							}
+						</nb-list>
+					</div>
 				</div>
 			</div>
 			<div class="col-md-6 col-lg-6">
 				<div class="d-flex flex-column gap-4">
-					<p class="fs-6 fw-semibold">Escoge a tu especialista</p>
-					<nb-list>
-						@for (user of users; track $index) {
-						<nb-list-item class="align-items-center justify-content-between">
-							<nb-user [name]="user.name" [title]="user.title"> </nb-user>
-							<nb-checkbox status="success"></nb-checkbox>
-						</nb-list-item>
-						}
-					</nb-list>
 					<p class="fs-6 fw-semibold">Selecciona la fecha de tu cita</p>
 					<nb-calendar class="d-flex justify-content-center" [(date)]="date"></nb-calendar>
 					<p class="fs-6 fw-semibold">Selecciona la hora de tu cita</p>
@@ -57,7 +59,7 @@
 					</div>
 					<div class="d-flex gap-2">
 						<button nbButton fullWidth>Cancelar</button>
-						<button nbButton status="primary" fullWidth>Guardar</button>
+						<button nbButton status="primary" (click)="saveAppointment()" fullWidth>Guardar</button>
 					</div>
 				</div>
 			</div>

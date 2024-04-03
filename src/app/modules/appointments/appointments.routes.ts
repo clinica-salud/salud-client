@@ -9,10 +9,10 @@ export const APPOINTMENTS_ROUTES: Routes = [
 		path: '',
 		component: AppointmentsComponent,
 		children: [
-			{
-				path: '',
-				component: MainComponent
-			},
+			// {
+			// 	path: '',
+			// 	component: MainComponent
+			// },
 			{
 				path: 'new-appointment',
 				component: NewAppointmentComponent,
@@ -21,7 +21,7 @@ export const APPOINTMENTS_ROUTES: Routes = [
 			{
 				path: '',
 				pathMatch: 'full',
-				redirectTo: ''
+				redirectTo: 'new-appointment'
 			}
 		]
 	},

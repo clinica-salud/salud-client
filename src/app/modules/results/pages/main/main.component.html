@@ -2,5 +2,73 @@
 	<nb-card-header class="border-0">
 		<span class="fs-4"> Lista de resultados laboratorio </span>
 	</nb-card-header>
-	<nb-card-body> </nb-card-body>
+	<nb-card-body>
+		<div class="row">
+			<div class="col-md-5 col-xl-4 col-xxl-3">
+				<nb-card>
+					<nb-card-body class="d-flex flex-column gap-3 py-4">
+						<p class="fw-semibold">Buscar por fecha</p>
+						<div class="d-flex flex-column gap-2">
+							<label class="label">Desde: </label>
+							<div class="d-flex position-relative">
+								<input
+									nbInput
+									#dateFromInput
+									placeholder="Seleccione fecha"
+									[nbDatepicker]="dateFromPicker"
+									fullWidth
+								/>
+								<button class="position-absolute end-0" nbButton ghost (click)="dateFromInput.click()">
+									<nb-icon icon="calendar-outline"></nb-icon>
+								</button>
+								<nb-datepicker #dateFromPicker> </nb-datepicker>
+							</div>
+						</div>
+						<div class="d-flex flex-column gap-2">
+							<label class="label">Hasta: </label>
+							<div class="d-flex position-relative">
+								<input nbInput #dateToInput placeholder="Seleccione fecha" [nbDatepicker]="dateToPicker" fullWidth />
+								<button class="position-absolute end-0" nbButton ghost (click)="dateToInput.click()">
+									<nb-icon icon="calendar-outline"></nb-icon>
+								</button>
+								<nb-datepicker #dateToPicker> </nb-datepicker>
+							</div>
+						</div>
+						<button nbButton status="primary" fullWidth>
+							Filtrar
+							<nb-icon icon="options-2-outline"></nb-icon>
+						</button>
+					</nb-card-body>
+				</nb-card>
+			</div>
+			<div class="col-md-7 col-xl-8 col-xxl-9">
+				<div class="table-responsive">
+					<table class="table table-borderless">
+						<thead class="border-bottom border-top">
+							<tr class="text-center">
+								@for (heading of tableHeadings; track $index) {
+								<th>{{ heading | uppercase }}</th>
+								}
+							</tr>
+						</thead>
+						<tbody>
+							@for (item of data; track item.id) {
+							<tr class="align-middle text-center">
+								<td>{{ item.date }}</td>
+								<td>{{ item.patient }}</td>
+								<td>{{ item.doctor }}</td>
+								<td>{{ item.location }}</td>
+								<td>
+									<button nbButton size="small">
+										<nb-icon icon="download-outline"></nb-icon>
+									</button>
+								</td>
+							</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</div>
+	</nb-card-body>
 </nb-card>
