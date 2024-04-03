@@ -1,0 +1,36 @@
+.images-container {
+	display: grid;
+	position: relative;
+	grid-template-columns: repeat(2, 1fr);
+	grid-template-rows: repeat(3, calc(100dvh / 3));
+
+	&::before {
+		content: '';
+		position: absolute;
+		background-color: rgba(0, 0, 0, 0.4);
+		height: 100%;
+		left: 0;
+		top: 0;
+		width: 100%;
+		z-index: 1;
+	}
+
+	.image {
+		height: 100%;
+		width: 100%;
+		object-fit: cover;
+
+		&_01,
+		&_04 {
+			grid-column: 1 / 3;
+		}
+
+		&_02 {
+			grid-column: 1;
+		}
+
+		&_03 {
+			grid-column: 2;
+		}
+	}
+}
