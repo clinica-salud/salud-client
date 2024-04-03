@@ -1,36 +1,43 @@
-<nb-layout>
-	<nb-layout-column class="d-flex align-items-center justify-content-center p-0">
-		<nb-card class="py-4 px-2" style="border-radius: 10px">
-			<nb-card-body style="max-width: 98%; width: 400px">
-				<h3 class="text-center">Login</h3>
-				<hr />
-				<form [formGroup]="form" class="d-flex flex-column gap-4" (submit)="login()">
-					<div>
-						<input
-							nbInput
-							formControlName="username"
-							placeholder="Username"
-							type="text"
-							[status]="username.dirty ? (username.invalid ? 'danger' : 'success') : 'basic'"
-							fullWidth
-						/>
-						<control-error controlName="username" />
-					</div>
-					<div>
-						<input
-							nbInput
-							formControlName="password"
-							placeholder="Password"
-							status="primary"
-							type="password"
-							[status]="password.dirty ? (password.invalid ? 'danger' : 'success') : 'basic'"
-							fullWidth
-						/>
-						<control-error controlName="password" />
-					</div>
-					<button nbButton type="submit" status="primary" [disabled]="form.invalid" fullWidth>Ingresar</button>
-				</form>
-			</nb-card-body>
-		</nb-card>
-	</nb-layout-column>
-</nb-layout>
+<p class="fs-4 fw-semibold py-4">¡Nos apasiona tu sonrisa!</p>
+<form [formGroup]="form" class="d-flex flex-column gap-4" (submit)="login()">
+	<div>
+		<label class="fw-semibold mb-2" for="email">Correo electrónico</label>
+		<input
+			nbInput
+			type="email"
+			id="email"
+			placeholder="Introduce tu correo electrónico"
+			formControlName="email"
+			[status]="email.dirty ? (email.invalid ? 'danger' : 'success') : 'basic'"
+			fullWidth
+		/>
+		<control-error controlName="email" />
+	</div>
+	<div>
+		<label class="fw-semibold mb-2" for="username">Contraseña</label>
+		<input
+			nbInput
+			type="password"
+			id="password"
+			placeholder="Introduce tu contraseña"
+			formControlName="password"
+			[status]="password.dirty ? (password.invalid ? 'danger' : 'success') : 'basic'"
+			fullWidth
+		/>
+		<control-error controlName="password" />
+	</div>
+	<div class="d-flex align-items-center justify-content-between">
+		<nb-checkbox>Recuérdame</nb-checkbox>
+		<a href="#"><small>¿Olvidaste la contraseña?</small></a>
+	</div>
+	<button nbButton type="submit" status="primary" [disabled]="form.invalid" fullWidth>Iniciar Sesión</button>
+	<hr />
+	<button nbButton type="submit" class="black-button" [disabled]="form.invalid" fullWidth>
+		<nb-icon icon="google"></nb-icon>
+		Iniciar Sesión con Google
+	</button>
+	<small class="text-center"
+		>¿No tienes cuenta?
+		<a routerLink="/auth/register" routerLinkActive="router-link-active" class="ms-2">Registrate</a></small
+	>
+</form>
