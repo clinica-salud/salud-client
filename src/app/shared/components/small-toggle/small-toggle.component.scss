@@ -36,14 +36,23 @@ input:checked {
 	&.black + .slider {
 		background-color: #000;
 	}
+	&.basic + .slider {
+		background-color: var(--color-basic-500);
+	}
+	&.primary + .slider {
+		background-color: var(--color-primary-500);
+	}
 	&.success + .slider {
 		background-color: var(--color-success-500);
+	}
+	&.warning + .slider {
+		background-color: var(--color-warning-500);
 	}
 	&.danger + .slider {
 		background-color: var(--color-danger-500);
 	}
-	&.warning + .slider {
-		background-color: var(--color-warning-500);
+	&.info + .slider {
+		background-color: var(--color-info-500);
 	}
 	& + .slider:before {
 		transform: translateX(13px);

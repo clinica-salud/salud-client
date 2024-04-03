@@ -1,1 +1,15 @@
-<p>calendar works!</p>
+<nb-card class="border-0">
+	<nb-card-header class="border-0 d-flex justify-content-between align-items-end flex-wrap">
+		<div class="d-flex flex-column gap-2">
+			<span class="fs-4">Calendario</span>
+			<small class="fs-6 text-secondary fw-light">Consultas odontológicas</small>
+		</div>
+		<div class="d-flex align-items-center flex-wrap gap-3 gap-md-5">
+			<small-toggle leftLabel="Ninguno" label="Todos" status="black" (onToggle)="onToggleAll($event)" />
+			<small-toggle label="Finalizadas" status="success" (onToggle)="onToggleFinished($event)" />
+			<small-toggle label="Canceladas" status="danger" (onToggle)="onToggleCancelled($event)" />
+			<small-toggle label="Próximas" status="warning" (onToggle)="onToggleNext($event)" />
+		</div>
+	</nb-card-header>
+	<nb-card-body> </nb-card-body>
+</nb-card>
