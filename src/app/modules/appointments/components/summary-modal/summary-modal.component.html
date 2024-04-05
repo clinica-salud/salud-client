@@ -1,10 +1,22 @@
 <nb-card appWindow widthSize="sm">
 	<nb-card-header class="d-flex align-items-center justify-content-between">
 		<p class="fs-5 fw-bold">Resumen</p>
+		@switch (summaryType) { @case ("finished") {
+		<div class="text-success">
+			<nb-icon icon="checkmark-circle-outline"></nb-icon>
+			<span> Cita finalizada </span>
+		</div>
+		} @case ("cancelled") {
+		<div class="text-danger">
+			<nb-icon icon="close-circle-outline"></nb-icon>
+			<span> Cita cancelada </span>
+		</div>
+		} @default {
 		<div class="d-flex flex-column align-items-end">
 			<small class="fw-bold">Importe</small>
 			<span class="fw-light fs-5">S/. 180.00</span>
 		</div>
+		} }
 	</nb-card-header>
 	<nb-card-body class="d-flex flex-column gap-3">
 		<nb-user size="medium" [name]="user.name" [title]="user.title" />
@@ -22,7 +34,30 @@
 			}
 		</div>
 	</nb-card-body>
-	<nb-card-footer class="d-flex gap-4">
+	<nb-card-footer class="d-flex gap-4 border-none">
+		@switch (summaryType) { @case ('next') {
+		<button nbButton status="danger" fullWidth>
+			<nb-icon icon="close-outline"></nb-icon>
+			Cancelar cita
+		</button>
+		<button nbButton status="primary" fullWidth>
+			<nb-icon icon="credit-card-outline"></nb-icon>
+			Pagar
+		</button>
+		} @case ('finished') {
+		<button nbButton status="success" (click)="viewDetail()" fullWidth>
+			<nb-icon icon="eye-outline"></nb-icon>
+			Ver detalle
+		</button>
+		} @case ('cancelled') {
+		<div class="d-flex flex-column gap-3">
+			<p class="fw-bold">Motivo</p>
+			<span class="border rounded text-black-50 fs-7 py-2 px-3">
+				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci, eligendi. Voluptatibus aut deleniti hic rem
+				laborum molestiae alias odit earum.
+			</span>
+		</div>
+		} @default {
 		<button nbButton fullWidth>
 			<nb-icon icon="sync-outline"></nb-icon>
 			Pagar después
@@ -31,5 +66,6 @@
 			<nb-icon icon="credit-card-outline"></nb-icon>
 			Pagar
 		</button>
+		} }
 	</nb-card-footer>
 </nb-card>

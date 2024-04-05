@@ -1,5 +1,6 @@
 import { NgClass } from '@angular/common';
 import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { FormControl, ReactiveFormsModule } from '@angular/forms';
 
 const STATUS = {
 	basic: 'basic',
@@ -13,7 +14,7 @@ const STATUS = {
 @Component({
 	selector: 'small-toggle',
 	standalone: true,
-	imports: [NgClass],
+	imports: [NgClass, ReactiveFormsModule],
 	templateUrl: './small-toggle.component.html',
 	styleUrl: './small-toggle.component.scss'
 })
@@ -22,7 +23,7 @@ export class SmallToggleComponent {
 	@Input() label = '';
 	@Input() status = STATUS.basic;
 	@Input() checked = false;
-	@Input() disabled = false;
+	@Input() control: FormControl = new FormControl();
 
 	@Output() onToggle = new EventEmitter<boolean>();
 

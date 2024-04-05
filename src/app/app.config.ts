@@ -1,5 +1,7 @@
+import { registerLocaleData } from '@angular/common';
 import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/common/http';
-import { ApplicationConfig, importProvidersFrom } from '@angular/core';
+import localeEsPe from '@angular/common/locales/es';
+import { ApplicationConfig, LOCALE_ID, importProvidersFrom } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter } from '@angular/router';
 
@@ -13,11 +15,17 @@ import {
 	NbTimepickerModule
 } from '@nebular/theme';
 
+import { CalendarModule, DateAdapter } from 'angular-calendar';
+import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
+
 import { spinnerInterceptor } from '@src/app/core/interceptors/spinner.interceptor';
 import { routes } from './app.routes';
 
+registerLocaleData(localeEsPe, 'es-PE');
+
 export const appConfig: ApplicationConfig = {
 	providers: [
+		{ provide: LOCALE_ID, useValue: 'es-PE' },
 		importProvidersFrom([
 			HttpClientModule,
 			NbDateFnsDateModule.forRoot({ format: 'dd/MM/yyyy' }),
@@ -26,7 +34,11 @@ export const appConfig: ApplicationConfig = {
 			NbMenuModule.forRoot(),
 			NbSidebarModule.forRoot(),
 			NbThemeModule.forRoot(),
-			NbTimepickerModule.forRoot()
+			NbTimepickerModule.forRoot(),
+			CalendarModule.forRoot({
+				provide: DateAdapter,
+				useFactory: adapterFactory
+			})
 		]),
 		provideAnimations(),
 		provideRouter(routes),

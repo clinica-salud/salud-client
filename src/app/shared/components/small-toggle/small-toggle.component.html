@@ -1,7 +1,7 @@
 <div class="d-flex align-items-center gap-2">
 	<small>{{ leftLabel }}</small>
 	<label class="switch">
-		<input [ngClass]="status" type="checkbox" (change)="toggle($event)" [disabled]="disabled" [checked]="checked" />
+		<input [ngClass]="status" type="checkbox" [formControl]="control" (change)="toggle($event)" [checked]="checked" />
 		<span class="slider round"></span>
 	</label>
 	<small>{{ label }}</small>

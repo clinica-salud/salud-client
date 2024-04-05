@@ -1,5 +1,6 @@
 import { UpperCasePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
 
 import {
 	NbButtonModule,
@@ -20,6 +21,9 @@ const NB_MODULES = [NbCardModule, NbButtonModule, NbIconModule, NbUserModule, Nb
 	styleUrl: './main.component.scss'
 })
 export class MainComponent {
+	private _router = inject(Router);
+	private _activatedRoute = inject(ActivatedRoute);
+
 	public user = {
 		name: 'Pantigoso Puraca José Miguel',
 		title: 'Titular de la cuenta'
@@ -51,4 +55,8 @@ export class MainComponent {
 			location: 'Lima'
 		}
 	];
+
+	public goToCalendar() {
+		this._router.navigate(['calendar'], { relativeTo: this._activatedRoute });
+	}
 }

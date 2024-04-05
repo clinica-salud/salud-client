@@ -5,11 +5,50 @@
 			<small class="fs-6 text-secondary fw-light">Consultas odontológicas</small>
 		</div>
 		<div class="d-flex align-items-center flex-wrap gap-3 gap-md-5">
-			<small-toggle leftLabel="Ninguno" label="Todos" status="black" (onToggle)="onToggleAll($event)" />
-			<small-toggle label="Finalizadas" status="success" (onToggle)="onToggleFinished($event)" />
-			<small-toggle label="Canceladas" status="danger" (onToggle)="onToggleCancelled($event)" />
-			<small-toggle label="Próximas" status="warning" (onToggle)="onToggleNext($event)" />
+			<small-toggle label="Todos" status="black" [control]="allControl" (onToggle)="onToggleAll($event)" />
+			<small-toggle
+				label="Finalizadas"
+				status="success"
+				[control]="finishedControl"
+				(onToggle)="onToggleFinished($event)"
+			/>
+			<small-toggle
+				label="Canceladas"
+				status="danger"
+				[control]="cancelledControl"
+				(onToggle)="onToggleCancelled($event)"
+			/>
+			<small-toggle label="Próximas" status="warning" [control]="nextControl" (onToggle)="onToggleNext($event)" />
 		</div>
 	</nb-card-header>
-	<nb-card-body> </nb-card-body>
+	<nb-card-body class="pb-0">
+		<div class="d-flex justify-content-between align-items-center">
+			<div>
+				<h6>{{ today | date : 'y' }}</h6>
+			</div>
+			<div class="">
+				<h5>{{ today | date : 'MMMM' | titlecase }}</h5>
+			</div>
+			<div class="">
+				<div class="d-flex gap-2">
+					<button nbButton mwlCalendarPreviousView status="primary" view="month" [(viewDate)]="today">
+						<nb-icon icon="chevron-left-outline"></nb-icon>
+					</button>
+					<button nbButton mwlCalendarToday [(viewDate)]="today">Hoy</button>
+					<button nbButton mwlCalendarNextView status="primary" view="month" [(viewDate)]="today">
+						<nb-icon icon="chevron-right-outline"></nb-icon>
+					</button>
+				</div>
+			</div>
+		</div>
+		<br />
+		<div>
+			<mwl-calendar-month-view
+				[viewDate]="today"
+				[events]="filteredEvents"
+				(eventClicked)="showEvent($event.event.meta)"
+			>
+			</mwl-calendar-month-view>
+		</div>
+	</nb-card-body>
 </nb-card>

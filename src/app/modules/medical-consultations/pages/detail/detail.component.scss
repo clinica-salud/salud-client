@@ -1,0 +1,23 @@
+:host {
+	--custom-color: #4fd1c5;
+}
+
+::ng-deep {
+	nb-tabset {
+		.tab:hover .tab-link {
+			color: var(--custom-color);
+
+			&::before {
+				background-color: var(--custom-color);
+			}
+		}
+
+		.tab.active .tab-link {
+			color: var(--custom-color);
+
+			&::before {
+				background-color: var(--custom-color);
+			}
+		}
+	}
+}

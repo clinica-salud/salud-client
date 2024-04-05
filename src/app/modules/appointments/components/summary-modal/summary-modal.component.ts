@@ -1,9 +1,17 @@
-import { Component } from '@angular/core';
-import { NbButtonModule, NbCardModule, NbIconModule, NbUserModule } from '@nebular/theme';
+import { Component, Input, inject } from '@angular/core';
+import { Router } from '@angular/router';
+import { NbButtonModule, NbCardModule, NbDialogRef, NbIconModule, NbUserModule } from '@nebular/theme';
 import { WindowDirective } from '@src/app/shared/helpers/window/window.directive';
 
 const NB_MODULES = [NbCardModule, NbUserModule, NbIconModule, NbButtonModule];
 const DIRECTIVES = [WindowDirective];
+
+export enum SummaryType {
+	DEFAULT = 'default',
+	NEXT = 'next',
+	FINISHED = 'finished',
+	CANCELLED = 'cancelled'
+}
 
 @Component({
 	selector: 'app-summary-modal',
@@ -13,6 +21,11 @@ const DIRECTIVES = [WindowDirective];
 	styleUrl: './summary-modal.component.scss'
 })
 export class SummaryModalComponent {
+	private _router = inject(Router);
+	private _dialogRef = inject(NbDialogRef<SummaryModalComponent>);
+
+	@Input() summaryType: SummaryType = SummaryType.DEFAULT;
+
 	public user = {
 		name: 'Pantigoso Puraca José Miguel',
 		title: 'Paciente'
@@ -50,4 +63,10 @@ export class SummaryModalComponent {
 			value: 'Ortodoncista'
 		}
 	];
+
+	public viewDetail() {
+		const id = 12;
+		this._router.navigate(['pages/medical-consultations/detail', id]);
+		this._dialogRef.close();
+	}
 }

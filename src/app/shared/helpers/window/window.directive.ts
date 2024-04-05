@@ -26,6 +26,8 @@ export class WindowDirective implements OnInit {
 
 	constructor() {
 		this._el.nativeElement.style.maxHeight = 'calc(100vh - 5rem)';
+		this._el.nativeElement.style.borderRadius = '10px';
+		this._el.nativeElement.style.paddingBlock = '10px';
 	}
 
 	ngOnInit(): void {
@@ -35,7 +37,6 @@ export class WindowDirective implements OnInit {
 				map(([, currentBreakpoint]) => currentBreakpoint.width),
 				map((width: number) => {
 					if (this.widthSize) {
-						console.log(this.widthSize);
 						const newWidth = this.SIZES_MODAL[this.widthSize.toUpperCase()];
 						return newWidth && width >= newWidth ? newWidth : width;
 					} else {
