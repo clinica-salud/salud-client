@@ -31,7 +31,7 @@ const COMPONENTS = [FooterComponent, HeaderComponent];
 				<nb-layout-column>
 					<nb-card class="mb-0" style="min-height: calc(100dvh - 118px)">
 						<nb-card-body>
-							<xng-breadcrumb separator=">"></xng-breadcrumb>
+							<xng-breadcrumb separator="&rsaquo;"></xng-breadcrumb>
 							<router-outlet />
 						</nb-card-body>
 					</nb-card>
