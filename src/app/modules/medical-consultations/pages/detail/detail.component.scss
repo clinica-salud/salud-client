@@ -4,6 +4,17 @@
 
 ::ng-deep {
 	nb-tabset {
+		.tabset {
+			flex-wrap: wrap;
+		}
+
+		a.tab-link {
+			&:focus,
+			&:hover {
+				color: var(--custom-color);
+			}
+		}
+
 		.tab:hover .tab-link {
 			color: var(--custom-color);
 

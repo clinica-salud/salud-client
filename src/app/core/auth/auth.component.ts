@@ -85,12 +85,6 @@ const COMPONENTS = [BackgroundComponent, LogoNameComponent];
 				}
 			}
 
-			@media screen and (max-width: 768px) {
-				.main-container {
-					align-content: center;
-				}
-			}
-
 			@media screen and (max-height: 800px) {
 				nb-card-body {
 					padding-block: 2rem;
