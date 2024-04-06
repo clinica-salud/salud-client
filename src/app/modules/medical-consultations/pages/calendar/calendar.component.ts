@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import { NbButtonModule, NbCardModule, NbDialogService, NbIconModule } from '@nebular/theme';
 
-import { CalendarEvent, CalendarModule, CalendarView } from 'angular-calendar';
+import { CalendarEvent, CalendarModule } from 'angular-calendar';
 import { addDays, startOfDay } from 'date-fns';
 
 import {
@@ -124,7 +124,7 @@ export class CalendarComponent {
 	public nextControl = this._fb.control(false, { nonNullable: true });
 
 	constructor() {
-		this.onToggleAll(this.allControl.value);
+		this.toggleAll(this.allControl.value);
 
 		this.finishedControl.valueChanges.subscribe(() => this.updateAllControl());
 		this.cancelledControl.valueChanges.subscribe(() => this.updateAllControl());
@@ -146,7 +146,7 @@ export class CalendarComponent {
 		this.allControl.patchValue(false);
 	}
 
-	public onToggleAll(value: boolean) {
+	public toggleAll(value: boolean) {
 		this.finishedControl.setValue(value);
 		this.cancelledControl.setValue(value);
 		this.nextControl.setValue(value);
@@ -154,7 +154,7 @@ export class CalendarComponent {
 		value ? (this.filteredEvents = this.originalEvents) : (this.filteredEvents = []);
 	}
 
-	public onToggleFinished(value: boolean) {
+	public toggleFinished(value: boolean) {
 		this.finishedControl.setValue(value);
 
 		const finishedEvents = this.originalEvents.filter((event) => event.meta.type === SummaryType.FINISHED);
@@ -163,7 +163,7 @@ export class CalendarComponent {
 			: (this.filteredEvents = this.filteredEvents.filter((event) => event.meta.type !== SummaryType.FINISHED));
 	}
 
-	public onToggleCancelled(value: boolean) {
+	public toggleCancelled(value: boolean) {
 		this.cancelledControl.setValue(value);
 
 		const cancelledEvents = this.originalEvents.filter((event) => event.meta.type === SummaryType.CANCELLED);
@@ -172,7 +172,7 @@ export class CalendarComponent {
 			: (this.filteredEvents = this.filteredEvents.filter((event) => event.meta.type !== SummaryType.CANCELLED));
 	}
 
-	public onToggleNext(value: boolean) {
+	public toggleNext(value: boolean) {
 		this.nextControl.setValue(value);
 
 		const nextEvents = this.originalEvents.filter((event) => event.meta.type === SummaryType.NEXT);

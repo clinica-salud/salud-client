@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { NbCardModule, NbLayoutModule, NbMenuModule, NbSidebarModule, NbSpinnerModule } from '@nebular/theme';
@@ -18,7 +18,7 @@ const COMPONENTS = [FooterComponent, HeaderComponent];
 	standalone: true,
 	imports: [RouterOutlet, ...NB_MODULES, ...OTHER_MODULES, ...COMPONENTS],
 	template: `
-		<div [nbSpinner]="spinner" nbSpinnerMessage="Cargando..." nbSpinnerSize="giant" nbSpinnerStatus="primary">
+		<div [nbSpinner]="spinner()" nbSpinnerMessage="Cargando..." nbSpinnerSize="giant" nbSpinnerStatus="primary">
 			<nb-layout windowMode>
 				<nb-layout-header fixed>
 					<app-header></app-header>
@@ -49,14 +49,14 @@ export class LayoutComponent {
 	private _spinnerService = inject(SpinnerService);
 	private _menuService = inject(MenuService);
 
-	public spinner: boolean = false;
+	public spinner = signal(false);
 	public menu: Menu[] = [];
 
 	constructor() {
 		this.menu = this._menuService.menu;
 
 		effect(() => {
-			this.spinner = this._spinnerService.getStatusSpinner;
+			this.spinner.set(this._spinnerService.getStatusSpinner);
 		});
 	}
 }

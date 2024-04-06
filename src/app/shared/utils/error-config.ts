@@ -4,10 +4,8 @@ const defaultErrors: {
 	[key: string]: any;
 } = {
 	required: () => 'Este campo es requerido.',
-	minlength: ({ requiredLength, actualLength }: any) =>
-		`Este campo debe tener un minimo de ${requiredLength} caracteres.`,
-	maxlength: ({ requiredLength, actualLength }: any) =>
-		`Este campo debe tener un maximo de ${requiredLength} caracteres.`,
+	minlength: ({ requiredLength, _ }: any) => `Este campo debe tener un minimo de ${requiredLength} caracteres.`,
+	maxlength: ({ requiredLength, _ }: any) => `Este campo debe tener un maximo de ${requiredLength} caracteres.`,
 	email: () => 'Email no es valido.'
 };
 

@@ -25,10 +25,10 @@ export class SmallToggleComponent {
 	@Input() checked = false;
 	@Input() control: FormControl = new FormControl();
 
-	@Output() onToggle = new EventEmitter<boolean>();
+	@Output() toggle = new EventEmitter<boolean>();
 
-	toggle($event: Event) {
+	onToggle($event: Event) {
 		const checked = ($event.target as HTMLInputElement).checked;
-		this.onToggle.emit(checked);
+		this.toggle.emit(checked);
 	}
 }

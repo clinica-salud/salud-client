@@ -1,6 +1,8 @@
 import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
+
 import { NbButtonModule, NbCardModule, NbDialogRef, NbIconModule, NbUserModule } from '@nebular/theme';
+
 import { WindowDirective } from '@src/app/shared/helpers/window/window.directive';
 
 const NB_MODULES = [NbCardModule, NbUserModule, NbIconModule, NbButtonModule];
@@ -65,8 +67,8 @@ export class SummaryModalComponent {
 	];
 
 	public viewDetail() {
-		const id = 12;
-		this._router.navigate(['pages/medical-consultations/detail', id]);
+		const id = '0010';
+		this._router.navigateByUrl(`/pages/medical-consultations/detail/${id}`);
 		this._dialogRef.close();
 	}
 }

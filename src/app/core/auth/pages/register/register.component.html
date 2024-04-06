@@ -54,8 +54,8 @@
 	</div>
 	<button nbButton type="submit" status="primary" [disabled]="form.invalid" fullWidth>Registrate</button>
 	<hr />
-	<small class="text-center"
-		>¿Tienes cuenta?
-		<a routerLink="/auth/login" routerLinkActive="router-link-active" class="ms-2">Iniciar Sesión</a></small
-	>
+	<div class="d-flex align-items-center justify-content-center gap-2">
+		<small>¿Tienes cuenta?</small>
+		<a routerLink="/auth/login">Iniciar Sesión</a>
+	</div>
 </form>

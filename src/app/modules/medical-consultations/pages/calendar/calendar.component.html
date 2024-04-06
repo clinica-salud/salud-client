@@ -5,20 +5,20 @@
 			<small class="fs-6 text-secondary fw-light">Consultas odontológicas</small>
 		</div>
 		<div class="d-flex align-items-center flex-wrap gap-3 gap-md-5">
-			<small-toggle label="Todos" status="black" [control]="allControl" (onToggle)="onToggleAll($event)" />
+			<small-toggle label="Todos" status="black" [control]="allControl" (toggle)="toggleAll($event)" />
 			<small-toggle
 				label="Finalizadas"
 				status="success"
 				[control]="finishedControl"
-				(onToggle)="onToggleFinished($event)"
+				(toggle)="toggleFinished($event)"
 			/>
 			<small-toggle
 				label="Canceladas"
 				status="danger"
 				[control]="cancelledControl"
-				(onToggle)="onToggleCancelled($event)"
+				(toggle)="toggleCancelled($event)"
 			/>
-			<small-toggle label="Próximas" status="warning" [control]="nextControl" (onToggle)="onToggleNext($event)" />
+			<small-toggle label="Próximas" status="warning" [control]="nextControl" (toggle)="toggleNext($event)" />
 		</div>
 	</nb-card-header>
 	<nb-card-body class="pb-0">

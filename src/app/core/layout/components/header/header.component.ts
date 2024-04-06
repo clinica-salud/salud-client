@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
@@ -36,8 +36,9 @@ export class HeaderComponent {
 	private _sidebarService = inject(NbSidebarService);
 	private _themeService = inject(NbThemeService);
 
-	public userPictureOnly: boolean = false;
-	public hideMenuOnClick: boolean = false;
+	public hideMenuOnClick = signal(false);
+	public userPictureOnly = signal(false);
+
 	public user: User = { name: '', picture: '' };
 	public userMenu: UserMenu[] = [];
 
@@ -51,15 +52,15 @@ export class HeaderComponent {
 				takeUntilDestroyed()
 			)
 			.subscribe((currentBreakpoint) => {
-				this.userPictureOnly = currentBreakpoint.width < xl;
-				this.hideMenuOnClick = currentBreakpoint.width <= is;
+				this.userPictureOnly.set(currentBreakpoint.width < xl);
+				this.hideMenuOnClick.set(currentBreakpoint.width <= is);
 			});
 
 		this.user = this._menuService.user;
 		this.userMenu = this._menuService.userMenu;
 
 		this._nbMenuService.onItemClick().subscribe(({ item }: any) => {
-			if (this.hideMenuOnClick) this._sidebarService.collapse('menu-sidebar');
+			if (this.hideMenuOnClick()) this._sidebarService.collapse('menu-sidebar');
 			if (item.tag === 'logout') this._authService.logout();
 		});
 	}
