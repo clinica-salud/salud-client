@@ -39,8 +39,8 @@ export class HeaderComponent {
 	public hideMenuOnClick = signal(false);
 	public userPictureOnly = signal(false);
 
-	public user: User = { name: '', picture: '' };
-	public userMenu: UserMenu[] = [];
+	public user = signal<User>({ name: '', picture: '' });
+	public userMenu = signal<UserMenu[]>([]);
 
 	constructor() {
 		const { xl, is } = this._breakpointService.getBreakpointsMap();
@@ -56,8 +56,8 @@ export class HeaderComponent {
 				this.hideMenuOnClick.set(currentBreakpoint.width <= is);
 			});
 
-		this.user = this._menuService.user;
-		this.userMenu = this._menuService.userMenu;
+		this.user.set(this._menuService.user);
+		this.userMenu.set(this._menuService.userMenu);
 
 		this._nbMenuService.onItemClick().subscribe(({ item }: any) => {
 			if (this.hideMenuOnClick()) this._sidebarService.collapse('menu-sidebar');

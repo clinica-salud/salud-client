@@ -46,13 +46,13 @@
 					<table class="table table-borderless">
 						<thead class="border-bottom border-top">
 							<tr class="text-center">
-								@for (heading of tableHeadings; track $index) {
+								@for (heading of tableHeadings(); track $index) {
 								<th>{{ heading | uppercase }}</th>
 								}
 							</tr>
 						</thead>
 						<tbody>
-							@for (item of data; track item.id) {
+							@for (item of data(); track item.id) {
 							<tr class="align-middle text-center">
 								<td>{{ item.date }}</td>
 								<td>{{ item.patient }}</td>

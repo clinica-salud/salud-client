@@ -8,6 +8,5 @@ import { Component, signal } from '@angular/core';
 	styleUrl: './footer.component.scss'
 })
 export class FooterComponent {
-	private date: Date = new Date();
-	public currentYear = signal(this.date.getFullYear());
+	public currentYear = signal(new Date().getFullYear());
 }

@@ -14,7 +14,7 @@ const NB_MODULES = [NbCardModule, NbButtonModule];
 			<div class="text-center">
 				<h2>404 Página no encontrada</h2>
 				<small class="d-block mb-3 fw-semibold">La página que solicitaste no existe</small>
-				<button nbButton fullWidth (click)="goToHome()" type="button" class="mt-4">Ir a inicio</button>
+				<button nbButton fullWidth (click)="returnToHome()" type="button" class="mt-4">Ir a inicio</button>
 			</div>
 		</div>
 	`
@@ -22,7 +22,7 @@ const NB_MODULES = [NbCardModule, NbButtonModule];
 export class NotFoundComponent {
 	private _router = inject(Router);
 
-	goToHome() {
+	returnToHome() {
 		this._router.navigateByUrl('/');
 	}
 }

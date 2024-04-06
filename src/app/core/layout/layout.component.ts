@@ -18,14 +18,14 @@ const COMPONENTS = [FooterComponent, HeaderComponent];
 	standalone: true,
 	imports: [RouterOutlet, ...NB_MODULES, ...OTHER_MODULES, ...COMPONENTS],
 	template: `
-		<div [nbSpinner]="spinner()" nbSpinnerMessage="Cargando..." nbSpinnerSize="giant" nbSpinnerStatus="primary">
+		<div [nbSpinner]="spinner" nbSpinnerMessage="Cargando..." nbSpinnerSize="giant" nbSpinnerStatus="primary">
 			<nb-layout windowMode>
 				<nb-layout-header fixed>
 					<app-header></app-header>
 				</nb-layout-header>
 
 				<nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
-					<nb-menu [items]="menu"></nb-menu>
+					<nb-menu [items]="menu()"></nb-menu>
 				</nb-sidebar>
 
 				<nb-layout-column>
@@ -49,14 +49,14 @@ export class LayoutComponent {
 	private _spinnerService = inject(SpinnerService);
 	private _menuService = inject(MenuService);
 
-	public spinner = signal(false);
-	public menu: Menu[] = [];
+	public spinner = false;
+	public menu = signal<Menu[]>([]);
 
 	constructor() {
-		this.menu = this._menuService.menu;
+		this.menu.set(this._menuService.menu);
 
 		effect(() => {
-			this.spinner.set(this._spinnerService.getStatusSpinner);
+			this.spinner = this._spinnerService.getStatusSpinner;
 		});
 	}
 }
