@@ -1,5 +1,5 @@
 import { UpperCasePipe } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, signal } from '@angular/core';
 
 import {
 	NbButtonModule,
@@ -12,6 +12,30 @@ import {
 
 const NB_MODULES = [NbCardModule, NbButtonModule, NbIconModule, NbUserModule, NbInputModule, NbDatepickerModule];
 
+const DATA = [
+	{
+		id: 1,
+		date: '22/03/2024',
+		patient: 'Titular',
+		doctor: 'Andres Chumbiray R.',
+		location: 'Lima'
+	},
+	{
+		id: 2,
+		date: '22/03/2024',
+		patient: 'Titular',
+		doctor: 'Andres Chumbiray R.',
+		location: 'Lima'
+	},
+	{
+		id: 3,
+		date: '22/03/2024',
+		patient: 'Titular',
+		doctor: 'Andres Chumbiray R.',
+		location: 'Lima'
+	}
+];
+
 @Component({
 	selector: 'app-main',
 	standalone: true,
@@ -20,32 +44,6 @@ const NB_MODULES = [NbCardModule, NbButtonModule, NbIconModule, NbUserModule, Nb
 	styleUrl: './main.component.scss'
 })
 export class MainComponent {
-	public user = {
-		name: 'Pantigoso Puraca José Miguel',
-		title: 'Titular de la cuenta'
-	};
-	public tableHeadings = ['Fecha', 'Paciente', 'Odontologo', 'Estado', 'Acciones'];
-	public data = [
-		{
-			id: 1,
-			date: '22/03/2024',
-			patient: 'Titular',
-			doctor: 'Andres Chumbiray R.',
-			location: 'Lima'
-		},
-		{
-			id: 2,
-			date: '22/03/2024',
-			patient: 'Titular',
-			doctor: 'Andres Chumbiray R.',
-			location: 'Lima'
-		},
-		{
-			id: 3,
-			date: '22/03/2024',
-			patient: 'Titular',
-			doctor: 'Andres Chumbiray R.',
-			location: 'Lima'
-		}
-	];
+	public tableHeadings = signal(['Fecha', 'Paciente', 'Doctor', 'Lugar']);
+	public data = signal(DATA);
 }

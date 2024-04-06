@@ -1,4 +1,4 @@
-import { Component, effect, inject } from '@angular/core';
+import { Component, effect, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { NbCardModule, NbLayoutModule, NbMenuModule, NbSidebarModule, NbSpinnerModule } from '@nebular/theme';
@@ -25,7 +25,7 @@ const COMPONENTS = [FooterComponent, HeaderComponent];
 				</nb-layout-header>
 
 				<nb-sidebar class="menu-sidebar" tag="menu-sidebar" responsive>
-					<nb-menu [items]="menu"></nb-menu>
+					<nb-menu [items]="menu()"></nb-menu>
 				</nb-sidebar>
 
 				<nb-layout-column>
@@ -49,11 +49,11 @@ export class LayoutComponent {
 	private _spinnerService = inject(SpinnerService);
 	private _menuService = inject(MenuService);
 
-	public spinner: boolean = false;
-	public menu: Menu[] = [];
+	public spinner = false;
+	public menu = signal<Menu[]>([]);
 
 	constructor() {
-		this.menu = this._menuService.menu;
+		this.menu.set(this._menuService.menu);
 
 		effect(() => {
 			this.spinner = this._spinnerService.getStatusSpinner;

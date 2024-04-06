@@ -19,16 +19,23 @@ const STATUS = {
 	styleUrl: './small-toggle.component.scss'
 })
 export class SmallToggleComponent {
+	@Input() control: FormControl = new FormControl();
+	@Output() toggle = new EventEmitter<boolean>();
+
 	@Input() leftLabel = '';
 	@Input() label = '';
 	@Input() status = STATUS.basic;
-	@Input() checked = false;
-	@Input() control: FormControl = new FormControl();
 
-	@Output() onToggle = new EventEmitter<boolean>();
+	@Input() set checked(value: boolean) {
+		this.control.setValue(value);
+	}
 
-	toggle($event: Event) {
+	@Input() set disabled(value: boolean) {
+		value ? this.control.disable() : this.control.enable();
+	}
+
+	onToggle($event: Event) {
 		const checked = ($event.target as HTMLInputElement).checked;
-		this.onToggle.emit(checked);
+		this.toggle.emit(checked);
 	}
 }

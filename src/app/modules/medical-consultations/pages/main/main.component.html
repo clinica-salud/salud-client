@@ -7,7 +7,7 @@
 			<div class="col-md-5 col-xl-4 col-xxl-3">
 				<nb-card>
 					<nb-card-header>
-						<nb-user size="medium" [name]="user.name" [title]="user.title" />
+						<nb-user size="medium" [name]="user().name" [title]="user().title" />
 					</nb-card-header>
 					<nb-card-body class="d-flex flex-column gap-3 py-4">
 						<p class="fw-semibold">Buscar por fecha</p>
@@ -56,13 +56,13 @@
 					<table class="table table-borderless">
 						<thead class="border-bottom border-top">
 							<tr class="text-center">
-								@for (heading of tableHeadings; track $index) {
+								@for (heading of tableHeadings(); track $index) {
 								<th>{{ heading | uppercase }}</th>
 								}
 							</tr>
 						</thead>
 						<tbody>
-							@for (item of data; track item.id) {
+							@for (item of data(); track item.id) {
 							<tr class="align-middle text-center">
 								<td>{{ item.date }}</td>
 								<td>{{ item.type }}</td>

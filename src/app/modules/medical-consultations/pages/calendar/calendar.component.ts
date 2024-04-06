@@ -1,10 +1,10 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
-import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { Component, inject, signal } from '@angular/core';
+import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
 import { NbButtonModule, NbCardModule, NbDialogService, NbIconModule } from '@nebular/theme';
 
-import { CalendarEvent, CalendarModule, CalendarView } from 'angular-calendar';
+import { CalendarEvent, CalendarModule } from 'angular-calendar';
 import { addDays, startOfDay } from 'date-fns';
 
 import {
@@ -32,6 +32,72 @@ const COLORS = {
 	}
 };
 
+const EVENTS = [
+	{
+		start: startOfDay(new Date()),
+		title: 'Cita finalizada',
+		color: { ...COLORS.finished },
+		meta: {
+			type: SummaryType.FINISHED,
+			detail: 'some data'
+		}
+	},
+	{
+		start: startOfDay(new Date()),
+		title: 'Cita cancelada',
+		color: { ...COLORS.cancelled },
+		meta: {
+			type: SummaryType.CANCELLED,
+			detail: 'some data'
+		}
+	},
+	{
+		start: startOfDay(addDays(new Date(), -1)),
+		title: 'Cita cancelada',
+		color: { ...COLORS.cancelled },
+		meta: {
+			type: SummaryType.CANCELLED,
+			detail: 'some data'
+		}
+	},
+	{
+		start: startOfDay(addDays(new Date(), 1)),
+		title: 'Cita próxima',
+		color: { ...COLORS.next },
+		meta: {
+			type: SummaryType.NEXT,
+			detail: 'some data'
+		}
+	},
+	{
+		start: startOfDay(addDays(new Date(), 3)),
+		title: 'Cita próxima',
+		color: { ...COLORS.next },
+		meta: {
+			type: SummaryType.NEXT,
+			detail: 'some data'
+		}
+	},
+	{
+		start: startOfDay(addDays(new Date(), 8)),
+		title: 'Cita cancelada',
+		color: { ...COLORS.cancelled },
+		meta: {
+			type: SummaryType.CANCELLED,
+			detail: 'some data'
+		}
+	},
+	{
+		start: startOfDay(addDays(new Date(), 10)),
+		title: 'Cita finalizada',
+		color: { ...COLORS.finished },
+		meta: {
+			type: SummaryType.FINISHED,
+			detail: 'some data'
+		}
+	}
+];
+
 type EventMeta = {
 	type: SummaryType;
 	detail: string;
@@ -48,83 +114,32 @@ export class CalendarComponent {
 	private _dialogService = inject(NbDialogService);
 	private _fb = inject(FormBuilder);
 
-	public today: Date = new Date();
+	public today = signal(new Date());
+	public originalEvents = signal<CalendarEvent[]>(EVENTS);
+	public filteredEvents = signal<CalendarEvent[]>([]);
 
-	public filteredEvents: CalendarEvent[] = [];
+	public form = this._fb.group({
+		all: [true],
+		finished: [false],
+		cancelled: [false],
+		next: [false]
+	});
 
-	public originalEvents: CalendarEvent[] = [
-		{
-			start: startOfDay(new Date()),
-			title: 'Cita finalizada',
-			color: { ...COLORS.finished },
-			meta: {
-				type: SummaryType.FINISHED,
-				detail: 'some data'
-			}
-		},
-		{
-			start: startOfDay(new Date()),
-			title: 'Cita cancelada',
-			color: { ...COLORS.cancelled },
-			meta: {
-				type: SummaryType.CANCELLED,
-				detail: 'some data'
-			}
-		},
-		{
-			start: startOfDay(addDays(new Date(), -1)),
-			title: 'Cita cancelada',
-			color: { ...COLORS.cancelled },
-			meta: {
-				type: SummaryType.CANCELLED,
-				detail: 'some data'
-			}
-		},
-		{
-			start: startOfDay(addDays(new Date(), 1)),
-			title: 'Cita próxima',
-			color: { ...COLORS.next },
-			meta: {
-				type: SummaryType.NEXT,
-				detail: 'some data'
-			}
-		},
-		{
-			start: startOfDay(addDays(new Date(), 3)),
-			title: 'Cita próxima',
-			color: { ...COLORS.next },
-			meta: {
-				type: SummaryType.NEXT,
-				detail: 'some data'
-			}
-		},
-		{
-			start: startOfDay(addDays(new Date(), 8)),
-			title: 'Cita cancelada',
-			color: { ...COLORS.cancelled },
-			meta: {
-				type: SummaryType.CANCELLED,
-				detail: 'some data'
-			}
-		},
-		{
-			start: startOfDay(addDays(new Date(), 10)),
-			title: 'Cita finalizada',
-			color: { ...COLORS.finished },
-			meta: {
-				type: SummaryType.FINISHED,
-				detail: 'some data'
-			}
-		}
-	];
-
-	public allControl = this._fb.control(true, { nonNullable: true });
-	public finishedControl = this._fb.control(false, { nonNullable: true });
-	public cancelledControl = this._fb.control(false, { nonNullable: true });
-	public nextControl = this._fb.control(false, { nonNullable: true });
+	get allControl() {
+		return this.form.controls['all'];
+	}
+	get finishedControl() {
+		return this.form.controls['finished'];
+	}
+	get cancelledControl() {
+		return this.form.controls['cancelled'];
+	}
+	get nextControl() {
+		return this.form.controls['next'];
+	}
 
 	constructor() {
-		this.onToggleAll(this.allControl.value);
+		this.toggleAll(this.allControl.value!);
 
 		this.finishedControl.valueChanges.subscribe(() => this.updateAllControl());
 		this.cancelledControl.valueChanges.subscribe(() => this.updateAllControl());
@@ -146,45 +161,49 @@ export class CalendarComponent {
 		this.allControl.patchValue(false);
 	}
 
-	public onToggleAll(value: boolean) {
+	public toggleAll(value: boolean) {
 		this.finishedControl.setValue(value);
 		this.cancelledControl.setValue(value);
 		this.nextControl.setValue(value);
 
-		value ? (this.filteredEvents = this.originalEvents) : (this.filteredEvents = []);
+		value ? this.filteredEvents.set(this.originalEvents()) : this.filteredEvents.set([]);
 	}
 
-	public onToggleFinished(value: boolean) {
+	public toggleFinished(value: boolean) {
 		this.finishedControl.setValue(value);
 
-		const finishedEvents = this.originalEvents.filter((event) => event.meta.type === SummaryType.FINISHED);
+		const finishedEvents = this.originalEvents().filter((event) => event.meta.type === SummaryType.FINISHED);
+		const filteredEvents = this.filteredEvents().filter((event) => event.meta.type !== SummaryType.FINISHED);
 		value
-			? (this.filteredEvents = [...this.filteredEvents, ...finishedEvents])
-			: (this.filteredEvents = this.filteredEvents.filter((event) => event.meta.type !== SummaryType.FINISHED));
+			? this.filteredEvents.set([...this.filteredEvents(), ...finishedEvents])
+			: this.filteredEvents.set(filteredEvents);
 	}
 
-	public onToggleCancelled(value: boolean) {
+	public toggleCancelled(value: boolean) {
 		this.cancelledControl.setValue(value);
 
-		const cancelledEvents = this.originalEvents.filter((event) => event.meta.type === SummaryType.CANCELLED);
+		const cancelledEvents = this.originalEvents().filter((event) => event.meta.type === SummaryType.CANCELLED);
+		const filteredEvents = this.filteredEvents().filter((event) => event.meta.type !== SummaryType.CANCELLED);
 		value
-			? (this.filteredEvents = [...this.filteredEvents, ...cancelledEvents])
-			: (this.filteredEvents = this.filteredEvents.filter((event) => event.meta.type !== SummaryType.CANCELLED));
+			? this.filteredEvents.set([...this.filteredEvents(), ...cancelledEvents])
+			: this.filteredEvents.set(filteredEvents);
 	}
 
-	public onToggleNext(value: boolean) {
+	public toggleNext(value: boolean) {
 		this.nextControl.setValue(value);
 
-		const nextEvents = this.originalEvents.filter((event) => event.meta.type === SummaryType.NEXT);
+		const nextEvents = this.originalEvents().filter((event) => event.meta.type === SummaryType.NEXT);
+		const filteredEvents = this.filteredEvents().filter((event) => event.meta.type !== SummaryType.NEXT);
 		value
-			? (this.filteredEvents = [...this.filteredEvents, ...nextEvents])
-			: (this.filteredEvents = this.filteredEvents.filter((event) => event.meta.type !== SummaryType.NEXT));
+			? this.filteredEvents.set([...this.filteredEvents(), ...nextEvents])
+			: this.filteredEvents.set(filteredEvents);
 	}
 
 	public showEvent(meta: EventMeta): void {
 		this._dialogService.open(SummaryModalComponent, {
 			context: {
-				summaryType: meta.type
+				summaryType: meta.type,
+				detail: meta.detail
 			}
 		});
 		console.log(meta);

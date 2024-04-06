@@ -1,5 +1,5 @@
 import { UpperCasePipe } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
@@ -13,6 +13,38 @@ import {
 
 const NB_MODULES = [NbCardModule, NbButtonModule, NbIconModule, NbUserModule, NbInputModule, NbDatepickerModule];
 
+const USER = {
+	name: 'Pantigoso Puraca José Miguel',
+	title: 'Titular de la cuenta'
+};
+
+const DATA = [
+	{
+		id: 1,
+		date: '22/03/2024',
+		type: 'Especialidad',
+		patient: 'Titular',
+		doctor: 'Andres Chumbiray R.',
+		location: 'Lima'
+	},
+	{
+		id: 2,
+		date: '22/03/2024',
+		type: 'Especialidad',
+		patient: 'Titular',
+		doctor: 'Andres Chumbiray R.',
+		location: 'Lima'
+	},
+	{
+		id: 3,
+		date: '22/03/2024',
+		type: 'Especialidad',
+		patient: 'Titular',
+		doctor: 'Andres Chumbiray R.',
+		location: 'Lima'
+	}
+];
+
 @Component({
 	selector: 'app-main',
 	standalone: true,
@@ -24,37 +56,9 @@ export class MainComponent {
 	private _router = inject(Router);
 	private _activatedRoute = inject(ActivatedRoute);
 
-	public user = {
-		name: 'Pantigoso Puraca José Miguel',
-		title: 'Titular de la cuenta'
-	};
-	public tableHeadings = ['Fecha', 'Tipo', 'Paciente', 'Odontologo', 'Sede', 'Acciones'];
-	public data = [
-		{
-			id: 1,
-			date: '22/03/2024',
-			type: 'Especialidad',
-			patient: 'Titular',
-			doctor: 'Andres Chumbiray R.',
-			location: 'Lima'
-		},
-		{
-			id: 2,
-			date: '22/03/2024',
-			type: 'Especialidad',
-			patient: 'Titular',
-			doctor: 'Andres Chumbiray R.',
-			location: 'Lima'
-		},
-		{
-			id: 3,
-			date: '22/03/2024',
-			type: 'Especialidad',
-			patient: 'Titular',
-			doctor: 'Andres Chumbiray R.',
-			location: 'Lima'
-		}
-	];
+	public user = signal(USER);
+	public tableHeadings = signal(['Fecha', 'Tipo', 'Paciente', 'Doctor', 'Ubicación']);
+	public data = signal(DATA);
 
 	public goToCalendar() {
 		this._router.navigate(['calendar'], { relativeTo: this._activatedRoute });

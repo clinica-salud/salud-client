@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 
 import {
 	NbButtonModule,
@@ -31,6 +31,12 @@ interface User {
 	title: string;
 }
 
+const USERS: User[] = [
+	{ name: 'Carla Espinosa', title: 'Ortodoncista' },
+	{ name: 'Bob Kelso', title: 'Endodoncista' },
+	{ name: 'Janitor', title: 'Dentista General' }
+];
+
 @Component({
 	selector: 'app-new-appointment',
 	standalone: true,
@@ -41,16 +47,7 @@ interface User {
 export class NewAppointmentComponent {
 	private _dialogService = inject(NbDialogService);
 
-	public date = new Date();
-	public users: User[] = [
-		{ name: 'Carla Espinosa', title: 'Ortodoncista' },
-		{ name: 'Bob Kelso', title: 'Endodoncista' },
-		{ name: 'Janitor', title: 'Dentista General' }
-	];
-	public options = [
-		{ value: 'am', label: 'AM' },
-		{ value: 'pm', label: 'PM' }
-	];
+	public users = signal(USERS);
 
 	public saveAppointment() {
 		this._dialogService.open(SummaryModalComponent);

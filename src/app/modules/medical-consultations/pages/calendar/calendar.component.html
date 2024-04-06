@@ -4,30 +4,30 @@
 			<span class="fs-4">Calendario</span>
 			<small class="fs-6 text-secondary fw-light">Consultas odontológicas</small>
 		</div>
-		<div class="d-flex align-items-center flex-wrap gap-3 gap-md-5">
-			<small-toggle label="Todos" status="black" [control]="allControl" (onToggle)="onToggleAll($event)" />
+		<div class="d-flex align-items-center flex-wrap gap-3 gap-md-5" [formGroup]="form">
+			<small-toggle label="Todos" status="black" [control]="allControl" (toggle)="toggleAll($event)" />
 			<small-toggle
 				label="Finalizadas"
 				status="success"
 				[control]="finishedControl"
-				(onToggle)="onToggleFinished($event)"
+				(toggle)="toggleFinished($event)"
 			/>
 			<small-toggle
 				label="Canceladas"
 				status="danger"
 				[control]="cancelledControl"
-				(onToggle)="onToggleCancelled($event)"
+				(toggle)="toggleCancelled($event)"
 			/>
-			<small-toggle label="Próximas" status="warning" [control]="nextControl" (onToggle)="onToggleNext($event)" />
+			<small-toggle label="Próximas" status="warning" [control]="nextControl" (toggle)="toggleNext($event)" />
 		</div>
 	</nb-card-header>
 	<nb-card-body class="pb-0">
 		<div class="d-flex justify-content-between align-items-center">
 			<div>
-				<h6>{{ today | date : 'y' }}</h6>
+				<h6>{{ today() | date : 'y' }}</h6>
 			</div>
 			<div class="">
-				<h5>{{ today | date : 'MMMM' | titlecase }}</h5>
+				<h5>{{ today() | date : 'MMMM' | titlecase }}</h5>
 			</div>
 			<div class="">
 				<div class="d-flex gap-2">
@@ -44,8 +44,8 @@
 		<br />
 		<div>
 			<mwl-calendar-month-view
-				[viewDate]="today"
-				[events]="filteredEvents"
+				[viewDate]="today()"
+				[events]="filteredEvents()"
 				(eventClicked)="showEvent($event.event.meta)"
 			>
 			</mwl-calendar-month-view>

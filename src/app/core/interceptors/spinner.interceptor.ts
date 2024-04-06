@@ -6,6 +6,7 @@ import { SpinnerService } from '@src/app/core/services/spinner.service';
 
 export const spinnerInterceptor: HttpInterceptorFn = (req, next) => {
 	const _spinnerService = inject(SpinnerService);
+
 	let countRequest = 0;
 
 	if (!countRequest) {
