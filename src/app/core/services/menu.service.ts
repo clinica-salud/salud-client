@@ -42,7 +42,7 @@ export class MenuService {
 		{
 			title: 'Mis citas',
 			icon: 'calendar-outline',
-			link: '/pages/appointments'
+			link: '/pages/appointments/new-appointment'
 		},
 		{
 			title: 'Consultas médicas',
