@@ -8,34 +8,48 @@
 				<div class="d-flex flex-column gap-4">
 					<p class="fs-6 fw-semibold">¿Cómo podemos apoyarte?</p>
 					<div>
-						<p class="fw-semibold mb-2 text-black d-block required">Titular de la cuenta</p>
+						<p class="fw-medium mb-2 text-black d-block required">Titular de la cuenta</p>
 						<div class="d-flex gap-2">
 							<input type="text" nbInput fullWidth placeholder="72487768" />
 							<button nbButton>
 								<nb-icon icon="sync-outline"></nb-icon>
 							</button>
 						</div>
-						<small class="fw-semibold">
+						<small class="fw-medium">
 							<nb-icon icon="done-all-outline" status="success" style="font-size: 0.9rem"></nb-icon>
-							<span class="text-secondary"> Pantigoso Puraca José Miguel</span>
+							<span class="text-secondary"> Pantigoso Puraca José Miguel </span>
 						</small>
 					</div>
 					<p class="fs-6 fw-semibold">Nuestros servicios</p>
 					<div>
-						<p class="fs-6 fw-semibold">Citas dentales</p>
-						<p class="text-black-50">Consultas con el mejor staff altamente calificado</p>
+						<p class="fs-6 fw-medium">Citas dentales</p>
+						<p class="fs-7 text-black-50">Consultas con el mejor staff altamente calificado</p>
+					</div>
+					<div class="d-flex flex-wrap gap-3">
+						<button nbButton>______________</button>
+						<button nbButton>______________</button>
+						<button nbButton>______________</button>
 					</div>
 					<div>
-						<p class="fs-6 fw-semibold">Servicios Odontológicos</p>
-						<p class="text-black-50">Contamos con equipos de última tecnología</p>
+						<p class="fs-6 fw-medium">Servicios Odontológicos</p>
+						<p class="fs-7 text-black-50">Contamos con equipos de última tecnología</p>
+					</div>
+					<div class="d-flex flex-wrap gap-3">
+						<button nbButton>______________</button>
+						<button nbButton>______________</button>
+						<button nbButton>______________</button>
 					</div>
 					<div>
-						<p class="fs-6 fw-semibold">Especialidades destacadas</p>
+						<p class="fs-6 fw-medium">Especialidades destacadas</p>
 					</div>
-					<div>
-						<p class="fs-6 fw-semibold">Sede</p>
+					<div class="d-flex flex-wrap gap-3">
+						<button nbButton>______________</button>
+						<button nbButton>______________</button>
+						<button nbButton>______________</button>
+						<button nbButton>______________</button>
+						<button nbButton>______________</button>
 					</div>
-					<div>
+					<div class="d-flex flex-column gap-3">
 						<p class="fs-6 fw-semibold">Escoge a tu especialista</p>
 						<nb-list>
 							@for (user of users(); track $index) {
@@ -52,10 +66,34 @@
 				<div class="d-flex flex-column gap-4">
 					<p class="fs-6 fw-semibold">Selecciona la fecha de tu cita</p>
 					<nb-calendar class="d-flex justify-content-center"></nb-calendar>
-					<p class="fs-6 fw-semibold">Selecciona la hora de tu cita</p>
-					<div>
-						<input nbInput [nbTimepicker]="timepicker" fullWidth />
-						<nb-timepicker #timepicker="nbTimepicker" twelveHoursFormat></nb-timepicker>
+					<p class="fs-6 fw-semibold">Selecciona el horario de tu cita</p>
+					<div class="row">
+						<div class="col-md-6">
+							<p class="fs-7 fw-medium text-center mb-3">Por la mañana</p>
+							<div class="d-flex flex-wrap gap-2">
+								<!-- <div class="d-flex flex-column gap-2"> -->
+								<button nbButton>8:15 AM</button>
+								<button nbButton>8:30 AM</button>
+								<!-- </div> -->
+								<!-- <div class="d-flex flex-column gap-2"> -->
+								<button nbButton>8:45 AM</button>
+								<button nbButton>9:00 AM</button>
+								<!-- </div> -->
+							</div>
+						</div>
+						<div class="col-md-6">
+							<p class="fs-7 fw-medium text-center mb-3">Por la tarde</p>
+							<div class="d-flex flex-wrap gap-2">
+								<!-- <div class="d-flex flex-column gap-2"> -->
+								<button nbButton>12:00 PM</button>
+								<button nbButton>12:15 PM</button>
+								<!-- </div> -->
+								<!-- <div class="d-flex flex-column gap-2"> -->
+								<button nbButton>12:30 PM</button>
+								<button nbButton>12:45 PM</button>
+								<!-- </div> -->
+							</div>
+						</div>
 					</div>
 					<div class="d-flex gap-2">
 						<button nbButton fullWidth>Cancelar</button>

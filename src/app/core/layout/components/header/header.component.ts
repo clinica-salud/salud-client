@@ -65,7 +65,7 @@ export class HeaderComponent {
 		});
 	}
 
-	public toggleSidebar(): boolean {
+	public toggleSidebar() {
 		this._sidebarService.toggle(true, 'menu-sidebar');
 		return false;
 	}
@@ -74,7 +74,7 @@ export class HeaderComponent {
 		this._router.navigateByUrl('/pages/appointments/new-appointment');
 	}
 
-	public navigateHome(): void {
+	public navigateHome() {
 		this._router.navigateByUrl('/');
 	}
 }

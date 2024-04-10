@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -28,23 +28,23 @@ export class RegisterComponent {
 		password: ['', [Validators.required, Validators.minLength(6)]]
 	});
 
-	get doc_type(): FormControl {
-		return this.form.get('doc_type') as FormControl;
+	get doc_type() {
+		return this.form.controls['doc_type'];
 	}
 
-	get doc_number(): FormControl {
-		return this.form.get('doc_number') as FormControl;
+	get doc_number() {
+		return this.form.controls['doc_number'];
 	}
 
-	get email(): FormControl {
-		return this.form.get('email') as FormControl;
+	get email() {
+		return this.form.controls['email'];
 	}
 
-	get password(): FormControl {
-		return this.form.get('password') as FormControl;
+	get password() {
+		return this.form.controls['password'];
 	}
 
-	public login(): void {
+	public login() {
 		this._router.navigateByUrl('/');
 	}
 }

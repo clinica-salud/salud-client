@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
 import { NbEvaIconsModule } from '@nebular/eva-icons';
@@ -22,19 +22,21 @@ export class LoginComponent {
 	private _router = inject(Router);
 
 	public form: FormGroup = this._fb.group({
-		email: ['', [Validators.required, Validators.email]],
-		password: ['', [Validators.required, Validators.minLength(6)]]
+		// email: ['', [Validators.required, Validators.email]],
+		// password: ['', [Validators.required, Validators.minLength(6)]]
+		email: [''],
+		password: ['']
 	});
 
-	get email(): FormControl {
-		return this.form.get('email') as FormControl;
+	get email() {
+		return this.form.controls['email'];
 	}
 
-	get password(): FormControl {
-		return this.form.get('password') as FormControl;
+	get password() {
+		return this.form.controls['password'];
 	}
 
-	public login(): void {
+	public login() {
 		this._router.navigateByUrl('/');
 	}
 }
