@@ -9,14 +9,14 @@ const NB_MODULES = [NbCardModule, NbTabsetModule, NbIconModule];
 const COMPONENTS = [DetailTabComponent];
 
 // Teeth base
-const ADULT_TEETH_BASE: any = {
+const ADULT_TEETH_BASE = {
 	top_left: [18, 17, 16, 15, 14, 13, 12, 11],
 	top_right: [21, 22, 23, 24, 25, 26, 27, 28],
 	bottom_left: [48, 47, 46, 45, 44, 43, 42, 41],
 	bottom_right: [31, 32, 33, 34, 35, 36, 37, 38]
 };
 
-const ADULT_TEETH_ALL: number[] = [
+const ADULT_TEETH_ALL = [
 	...ADULT_TEETH_BASE.top_left,
 	...ADULT_TEETH_BASE.top_right,
 	...ADULT_TEETH_BASE.bottom_left,
@@ -25,21 +25,22 @@ const ADULT_TEETH_ALL: number[] = [
 
 // Teeth results
 const ADULT_TEETH_RESULT = [
+	{ tooth: 14, zones: ['left'] },
 	{ tooth: 18, zones: ['top', 'left'] },
 	{ tooth: 21, zones: ['right'] },
-	{ tooth: 48, zones: ['bottom', 'left'] },
 	{ tooth: 33, zones: ['center'] },
-	{ tooth: 36, zones: ['top', 'right', 'bottom', 'left', 'center'] }
+	{ tooth: 36, zones: ['top', 'right', 'bottom', 'left', 'center'] },
+	{ tooth: 48, zones: ['bottom', 'left'] }
 ];
 
-const CHILD_TEETH_BASE: any = {
+const CHILD_TEETH_BASE = {
 	top_left: [55, 54, 53, 52, 51],
 	top_right: [61, 62, 63, 64, 65],
 	bottom_left: [85, 84, 83, 82, 81],
 	bottom_right: [71, 72, 73, 74, 75]
 };
 
-const CHILD_TEETH_ALL: number[] = [
+const CHILD_TEETH_ALL = [
 	...CHILD_TEETH_BASE.top_left,
 	...CHILD_TEETH_BASE.top_right,
 	...CHILD_TEETH_BASE.bottom_left,
@@ -49,9 +50,9 @@ const CHILD_TEETH_ALL: number[] = [
 const CHILD_TEETH_RESULT = [
 	{ tooth: 55, zones: ['top', 'left'] },
 	{ tooth: 61, zones: ['right'] },
-	{ tooth: 85, zones: ['bottom', 'left'] },
 	{ tooth: 71, zones: ['center'] },
-	{ tooth: 75, zones: ['top', 'right', 'bottom', 'left'] }
+	{ tooth: 75, zones: ['top', 'right', 'bottom', 'left'] },
+	{ tooth: 85, zones: ['bottom', 'left'] }
 ];
 
 type ToothType = 'adult' | 'child';
@@ -66,7 +67,7 @@ type ToothPosition = { x: number; y: number; toothID: number };
 })
 export class DetailComponent implements OnInit {
 	@ViewChild('odontogramContainer', { static: true }) private odontogramContainer!: ElementRef;
-	private teethType: ToothType = 'child';
+	private teethType: ToothType = 'adult';
 
 	private teethGroup = this.teethType === 'adult' ? ADULT_TEETH_ALL : CHILD_TEETH_ALL;
 	private teethResult = this.teethType === 'adult' ? ADULT_TEETH_RESULT : CHILD_TEETH_RESULT;
@@ -77,8 +78,8 @@ export class DetailComponent implements OnInit {
 	}));
 
 	ngOnInit(): void {
-		console.log('Type: ', this.teethType);
-		console.log('Teeth: ', this.teethFiltered);
+		// console.log('Type: ', this.teethType);
+		// console.log('Teeth: ', this.teethFiltered);
 		this.drawOdontogram();
 	}
 
@@ -95,7 +96,6 @@ export class DetailComponent implements OnInit {
 			.style('overflow-x', 'auto')
 			.style('text-align', 'center'); // Enable horizontal scrolling
 		const svg = wrapper.append('svg').attr('width', width).attr('height', '155px');
-		// .style('background-color', '#edf1f7');
 
 		const toothWidth = 40; // Width of each tooth section
 		const toothHeight = 40; // Height of each tooth section
@@ -177,16 +177,17 @@ export class DetailComponent implements OnInit {
 							// .style('cursor', 'pointer');
 						}
 
-						shape
-							// .on('mouseover', () => {
-							// 	shape.style('fill', 'orange');
-							// })
-							// .on('mouseout', () => {
-							// 	shape.style('fill', fillColor);
-							// })
-							.on('click', () => {
-								console.log(`${toothID}: ${d.label}`);
-							});
+						// shape
+						// .on('mouseover', () => {
+						// 	shape.select('rect, polygon').style('fill', 'orange'); // Highlight on mouseover
+						// })
+						// .on('mouseout', () => {
+						// 	shape.select('rect, polygon').style('fill', fillColor); // Restore original fill on mouseout
+						// })
+						// .on('click', () => {
+						// 	shape.select('rect, polygon').style('fill', 'purple'); // Change to purple on click
+						// 	console.log(`${toothID}: ${d.label}`);
+						// });
 					}
 				});
 
@@ -202,7 +203,6 @@ export class DetailComponent implements OnInit {
 
 			// Draw a line separator between the two rows of teeth
 			if (index === 5) {
-				// Adjust based on your layout
 				svg
 					.append('line')
 					.attr('x1', x - (toothWidth + paddingX * 2.6) * 5) // Line start X position
@@ -216,7 +216,6 @@ export class DetailComponent implements OnInit {
 			// Draw a line separator between the two columns of teeth
 			const middleToothIndex = Math.floor(this.teethFiltered.length / 4 - 1);
 			if (index === middleToothIndex) {
-				// Adjust based on your layout
 				svg
 					.append('line')
 					.attr('x1', x + toothWidth / 2 + paddingX) // Line start X position
