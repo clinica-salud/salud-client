@@ -199,7 +199,7 @@ export class CalendarComponent {
 			: this.filteredEvents.set(filteredEvents);
 	}
 
-	public showEvent(meta: EventMeta): void {
+	public showEvent(meta: EventMeta) {
 		this._dialogService.open(SummaryModalComponent, {
 			context: {
 				summaryType: meta.type,

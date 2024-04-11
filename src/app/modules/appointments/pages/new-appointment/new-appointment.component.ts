@@ -12,6 +12,7 @@ import {
 	NbTimepickerModule,
 	NbUserModule
 } from '@nebular/theme';
+
 import { SummaryModalComponent } from '@src/app/modules/appointments/components/summary-modal/summary-modal.component';
 
 const NB_MODULES = [
