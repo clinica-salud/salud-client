@@ -1,21 +1,21 @@
-@import 'src/styles.scss';
+:host {
+	::ng-deep {
+		.scrollable {
+			padding-top: var(--layout-padding-top);
+		}
 
-@include nb-install-component() {
-	.menu-sidebar ::ng-deep .scrollable {
-		padding-top: nb-theme(layout-padding-top);
-	}
+		router-outlet + * {
+			display: block;
+			animation: fade 0.5s;
 
-	::ng-deep router-outlet + * {
-		display: block;
-		animation: fade 0.5s;
+			@keyframes fade {
+				from {
+					opacity: 0;
+				}
 
-		@keyframes fade {
-			from {
-				opacity: 0;
-			}
-
-			to {
-				opacity: 1;
+				to {
+					opacity: 1;
+				}
 			}
 		}
 	}
