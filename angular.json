@@ -3,7 +3,7 @@
 	"version": 1,
 	"newProjectRoot": "projects",
 	"projects": {
-		"amaro": {
+		"salud-client": {
 			"projectType": "application",
 			"schematics": {
 				"@schematics/angular:component": {
@@ -39,7 +39,7 @@
 				"build": {
 					"builder": "@angular-devkit/build-angular:application",
 					"options": {
-						"outputPath": "dist/amaro",
+						"outputPath": "dist/salud-client",
 						"index": "src/index.html",
 						"browser": "src/main.ts",
 						"polyfills": ["zone.js"],
@@ -79,10 +79,10 @@
 					"builder": "@angular-devkit/build-angular:dev-server",
 					"configurations": {
 						"production": {
-							"buildTarget": "amaro:build:production"
+							"buildTarget": "salud-client:build:production"
 						},
 						"development": {
-							"buildTarget": "amaro:build:development"
+							"buildTarget": "salud-client:build:development"
 						}
 					},
 					"defaultConfiguration": "development"
@@ -90,7 +90,7 @@
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",
 					"options": {
-						"buildTarget": "amaro:build"
+						"buildTarget": "salud-client:build"
 					}
 				},
 				"test": {
