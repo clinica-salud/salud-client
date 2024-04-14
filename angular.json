@@ -45,7 +45,7 @@
 						"polyfills": ["zone.js"],
 						"tsConfig": "tsconfig.app.json",
 						"inlineStyleLanguage": "scss",
-						"assets": ["src/favicon.ico", "src/assets"],
+						"assets": ["src/favicon.ico", "src/assets", "src/_redirects"],
 						"styles": ["src/styles.scss"],
 						"allowedCommonJsDependencies": ["eva-icons"],
 						"extractLicenses": false,
@@ -65,7 +65,13 @@
 							"outputHashing": "all",
 							"sourceMap": false,
 							"namedChunks": false,
-							"extractLicenses": true
+							"extractLicenses": true,
+							"fileReplacements": [
+								{
+									"replace": "src/environments/environment.ts",
+									"with": "src/environments/environment.prod.ts"
+								}
+							]
 						},
 						"development": {
 							"optimization": false,
@@ -85,7 +91,10 @@
 							"buildTarget": "salud-client:build:development"
 						}
 					},
-					"defaultConfiguration": "development"
+					"defaultConfiguration": "development",
+					"options": {
+						"proxyConfig": "src/proxy.conf.json"
+					}
 				},
 				"extract-i18n": {
 					"builder": "@angular-devkit/build-angular:extract-i18n",

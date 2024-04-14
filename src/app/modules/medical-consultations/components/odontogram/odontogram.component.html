@@ -1,4 +1,7 @@
 <app-detail-tab>
+	<button nbButton size="small" class="button-black" (click)="toggleTeethType()">
+		Ver de {{ teethType === 'adult' ? 'Niño' : 'Adulto' }}
+	</button>
 	<div class="mt-4 mb-5" #odontogramContainer></div>
 	<div class="table-responsive">
 		<table class="table">

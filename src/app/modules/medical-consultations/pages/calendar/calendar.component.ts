@@ -206,6 +206,6 @@ export class CalendarComponent {
 				detail: meta.detail
 			}
 		});
-		console.log(meta);
+		// console.log(meta);
 	}
 }

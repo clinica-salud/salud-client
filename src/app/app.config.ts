@@ -12,12 +12,14 @@ import {
 	NbMenuModule,
 	NbSidebarModule,
 	NbThemeModule,
-	NbTimepickerModule
+	NbTimepickerModule,
+	NbToastrModule
 } from '@nebular/theme';
 
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
+import { authInterceptor } from '@src/app/core/interceptors';
 import { spinnerInterceptor } from '@src/app/core/interceptors/spinner.interceptor';
 import { routes } from './app.routes';
 
@@ -35,6 +37,7 @@ export const appConfig: ApplicationConfig = {
 			NbSidebarModule.forRoot(),
 			NbThemeModule.forRoot(),
 			NbTimepickerModule.forRoot(),
+			NbToastrModule.forRoot(),
 			CalendarModule.forRoot({
 				provide: DateAdapter,
 				useFactory: adapterFactory
@@ -42,6 +45,6 @@ export const appConfig: ApplicationConfig = {
 		]),
 		provideAnimations(),
 		provideRouter(routes),
-		provideHttpClient(withInterceptors([spinnerInterceptor]))
+		provideHttpClient(withInterceptors([spinnerInterceptor, authInterceptor]))
 	]
 };

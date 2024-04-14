@@ -1,0 +1,13 @@
+:host {
+	nb-calendar {
+		::ng-deep {
+			nb-base-calendar {
+				max-width: 100%;
+			}
+
+			nb-card {
+				max-width: 100%;
+			}
+		}
+	}
+}

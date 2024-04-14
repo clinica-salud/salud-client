@@ -37,6 +37,8 @@ export class WindowDirective implements OnInit {
 				map(([, currentBreakpoint]) => currentBreakpoint.width),
 				map((width: number) => {
 					if (this.widthSize) {
+						if (width === 0) return 'calc(100dvw - 0.5rem)';
+
 						const newWidth = this.SIZES_MODAL[this.widthSize.toUpperCase()];
 						return newWidth && width >= newWidth ? newWidth : width;
 					} else {

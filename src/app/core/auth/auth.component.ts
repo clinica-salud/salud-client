@@ -22,7 +22,7 @@ const COMPONENTS = [BackgroundComponent, LogoNameComponent];
 						<nb-card class="p-0 mb-0">
 							<nb-card-body class="px-5">
 								<app-logo-name />
-								<div class="mt-5">
+								<div class="mt-0">
 									<router-outlet />
 								</div>
 							</nb-card-body>
@@ -52,7 +52,7 @@ const COMPONENTS = [BackgroundComponent, LogoNameComponent];
 			}
 
 			nb-card-body {
-				padding-block: 4rem;
+				padding-block: 2rem;
 			}
 
 			@media screen and (max-width: 1200px) {

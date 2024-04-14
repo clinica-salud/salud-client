@@ -2,8 +2,10 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 
 import * as d3 from 'd3';
 
+import { NbButtonModule } from '@nebular/theme';
 import { DetailTabComponent } from '@src/app/modules/medical-consultations/components/detail-tab/detail-tab.component';
 
+const NB_MODULES = [NbButtonModule];
 const COMPONENTS = [DetailTabComponent];
 
 // Teeth base
@@ -59,13 +61,13 @@ type ToothPosition = { x: number; y: number; toothID: number };
 @Component({
 	selector: 'app-odontogram',
 	standalone: true,
-	imports: [...COMPONENTS],
+	imports: [...COMPONENTS, ...NB_MODULES],
 	templateUrl: './odontogram.component.html',
 	styleUrl: './odontogram.component.scss'
 })
 export class OdontogramComponent implements OnInit {
 	@ViewChild('odontogramContainer', { static: true }) private odontogramContainer!: ElementRef;
-	private teethType: ToothType = 'child';
+	public teethType: ToothType = 'adult';
 
 	private teethGroup = this.teethType === 'adult' ? ADULT_TEETH_ALL : CHILD_TEETH_ALL;
 	private teethResult = this.teethType === 'adult' ? ADULT_TEETH_RESULT : CHILD_TEETH_RESULT;
@@ -76,8 +78,8 @@ export class OdontogramComponent implements OnInit {
 	}));
 
 	ngOnInit(): void {
-		console.log('Type: ', this.teethType);
-		console.log('Teeth: ', this.teethFiltered);
+		// console.log('Type: ', this.teethType);
+		// console.log('Teeth: ', this.teethFiltered);
 		this.drawOdontogram();
 	}
 
@@ -173,17 +175,17 @@ export class OdontogramComponent implements OnInit {
 							// .style('cursor', 'pointer');
 						}
 
-						// shape
-						// .on('mouseover', () => {
-						// 	shape.select('rect, polygon').style('fill', 'orange'); // Highlight on mouseover
-						// })
-						// .on('mouseout', () => {
-						// 	shape.select('rect, polygon').style('fill', fillColor); // Restore original fill on mouseout
-						// })
-						// .on('click', () => {
-						// 	shape.select('rect, polygon').style('fill', 'purple'); // Change to purple on click
-						// 	console.log(`${toothID}: ${d.label}`);
-						// });
+						shape
+							.on('mouseover', () => {
+								shape.select('rect, polygon').style('fill', 'orange'); // Highlight on mouseover
+							})
+							.on('mouseout', () => {
+								shape.select('rect, polygon').style('fill', fillColor); // Restore original fill on mouseout
+							})
+							.on('click', () => {
+								shape.select('rect, polygon').style('fill', 'purple'); // Change to purple on click
+								console.log(`${toothID}: ${d.label}`);
+							});
 					}
 				});
 
@@ -222,5 +224,25 @@ export class OdontogramComponent implements OnInit {
 					.style('stroke-width', 2);
 			}
 		});
+	}
+
+	private cleanOdontogram() {
+		const container = d3.select(this.odontogramContainer.nativeElement);
+		container.selectAll('*').remove();
+
+		this.teethGroup = this.teethType === 'adult' ? ADULT_TEETH_ALL : CHILD_TEETH_ALL;
+		this.teethResult = this.teethType === 'adult' ? ADULT_TEETH_RESULT : CHILD_TEETH_RESULT;
+
+		this.teethFiltered = this.teethGroup.map((tooth) => ({
+			toothID: tooth,
+			zones: this.teethResult.filter((result) => result.tooth === tooth).flatMap(({ zones }) => zones)
+		}));
+	}
+
+	public toggleTeethType() {
+		this.teethType = this.teethType === 'adult' ? 'child' : 'adult';
+
+		this.cleanOdontogram();
+		this.drawOdontogram();
 	}
 }
