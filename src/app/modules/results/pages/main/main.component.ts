@@ -44,6 +44,6 @@ const DATA = [
 	styleUrl: './main.component.scss'
 })
 export class MainComponent {
-	public tableHeadings = signal(['Fecha', 'Paciente', 'Doctor', 'Lugar']);
+	public tableHeadings = signal(['Fecha', 'Paciente', 'Doctor', 'Lugar', 'Acciones']);
 	public data = signal(DATA);
 }

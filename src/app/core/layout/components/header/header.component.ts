@@ -10,13 +10,14 @@ import {
 	NbContextMenuModule,
 	NbIconModule,
 	NbMediaBreakpointsService,
+	NbMenuItem,
 	NbMenuService,
 	NbSidebarService,
 	NbThemeService,
 	NbUserModule
 } from '@nebular/theme';
 
-import { AuthService, MenuService, User, UserMenu } from '@src/app/core/services';
+import { AuthService, MenuService, User } from '@src/app/core/services';
 
 const NB_MODULES = [NbIconModule, NbActionsModule, NbUserModule, NbContextMenuModule, NbEvaIconsModule, NbButtonModule];
 
@@ -40,7 +41,7 @@ export class HeaderComponent {
 	public userPictureOnly = signal(false);
 
 	public user = signal<User>({ name: '', picture: '' });
-	public userMenu = signal<UserMenu[]>([]);
+	public userMenu = signal<NbMenuItem[]>([]);
 
 	constructor() {
 		const { xl, is } = this._breakpointService.getBreakpointsMap();
@@ -59,9 +60,9 @@ export class HeaderComponent {
 		this.user.set(this._menuService.user);
 		this.userMenu.set(this._menuService.userMenu);
 
-		this._nbMenuService.onItemClick().subscribe(({ item }: any) => {
+		this._nbMenuService.onItemClick().subscribe(({ item }) => {
 			if (this.hideMenuOnClick()) this._sidebarService.collapse('menu-sidebar');
-			if (item.tag === 'logout') this._authService.logout();
+			if (item.data.action === 'logout') this._authService.logout();
 		});
 	}
 

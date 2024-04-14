@@ -4,69 +4,13 @@
 			<div class="col-md-8 p-0">
 				<nb-tabset>
 					<nb-tab class="p-0" tabTitle="Odontograma">
-						<app-detail-tab>
-							<div class="mt-4 mb-5" #odontogramContainer></div>
-							<div class="table-responsive">
-								<table class="table">
-									<thead>
-										<tr>
-											<th style="width: 300px; min-width: 300px">Diagnóstico</th>
-											<th>Práctica</th>
-											<th class="text-center" style="width: 120px; min-width: 120px">Pieza Dental</th>
-											<th class="text-center">Cara</th>
-										</tr>
-									</thead>
-									<tbody>
-										<tr class="align-middle">
-											<td>
-												<p>K020 - Caries limitada al esmalte</p>
-												<small class="text-black-50">Descripción: Caries limitada al esmalte</small>
-											</td>
-											<td>Restauración de Caries</td>
-											<td class="text-center">Pieza 14</td>
-											<td class="text-center">Vestibular</td>
-										</tr>
-										<tr class="align-middle">
-											<td>
-												<p>K020 - Caries limitada al esmalte</p>
-												<small class="text-black-50">Descripción: Caries limitada al esmalte</small>
-											</td>
-											<td>Restauración de Caries</td>
-											<td class="text-center">Pieza 14</td>
-											<td class="text-center">Vestibular</td>
-										</tr>
-										<tr class="align-middle">
-											<td>
-												<p>K020 - Caries limitada al esmalte</p>
-												<small class="text-black-50">Descripción: Caries limitada al esmalte</small>
-											</td>
-											<td>Restauración de Caries</td>
-											<td class="text-center">Pieza 14</td>
-											<td class="text-center">Vestibular</td>
-										</tr>
-										<tr class="align-middle">
-											<td>
-												<p>K020 - Caries limitada al esmalte</p>
-												<small class="text-black-50">Descripción: Caries limitada al esmalte</small>
-											</td>
-											<td>Restauración de Caries</td>
-											<td class="text-center">Pieza 14</td>
-											<td class="text-center">Vestibular</td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</app-detail-tab>
+						<app-odontogram />
 					</nb-tab>
 					<nb-tab class="p-0" tabTitle="Historial">
-						<app-detail-tab>
-							<span>Historial</span>
-						</app-detail-tab>
+						<app-history />
 					</nb-tab>
 					<nb-tab class="p-0" tabTitle="Diagnóstico y Tratamiento">
-						<app-detail-tab>
-							<span>Diagnóstico y Tratamiento</span>
-						</app-detail-tab>
+						<app-diagnosis-treatment />
 					</nb-tab>
 				</nb-tabset>
 			</div>

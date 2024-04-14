@@ -19,10 +19,5 @@ export const APPOINTMENTS_ROUTES: Routes = [
 				redirectTo: 'new-appointment'
 			}
 		]
-	},
-	{
-		path: '',
-		pathMatch: 'full',
-		redirectTo: ''
 	}
 ];

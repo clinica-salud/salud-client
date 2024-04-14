@@ -12,10 +12,5 @@ export const DASHBOARD_ROUTES: Routes = [
 				component: MainComponent
 			}
 		]
-	},
-	{
-		path: '',
-		pathMatch: 'full',
-		redirectTo: ''
 	}
 ];

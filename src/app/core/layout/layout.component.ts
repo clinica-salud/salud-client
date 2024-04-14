@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal } from '@angular/core';
+import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import { NbCardModule, NbLayoutModule, NbMenuModule, NbSidebarModule, NbSpinnerModule } from '@nebular/theme';
@@ -49,14 +49,13 @@ export class LayoutComponent {
 	private _spinnerService = inject(SpinnerService);
 	private _menuService = inject(MenuService);
 
-	public spinner = false;
 	public menu = signal<Menu[]>([]);
 
 	constructor() {
 		this.menu.set(this._menuService.menu);
+	}
 
-		effect(() => {
-			this.spinner = this._spinnerService.getStatusSpinner;
-		});
+	get spinner() {
+		return this._spinnerService.getStatusSpinner;
 	}
 }
