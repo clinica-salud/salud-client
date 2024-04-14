@@ -24,17 +24,7 @@ export const MEDICAL_CONSULTATIONS_ROUTES: Routes = [
 				path: 'detail/:id',
 				component: DetailComponent,
 				data: { breadcrumb: (id: string) => `Cita n° ${formatRoute(id)}` }
-			},
-			{
-				path: '',
-				pathMatch: 'full',
-				redirectTo: ''
 			}
 		]
-	},
-	{
-		path: '',
-		pathMatch: 'full',
-		redirectTo: ''
 	}
 ];

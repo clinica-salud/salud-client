@@ -11,17 +11,7 @@ export const RESULTS_ROUTES: Routes = [
 			{
 				path: '',
 				component: MainComponent
-			},
-			{
-				path: '',
-				pathMatch: 'full',
-				redirectTo: ''
 			}
 		]
-	},
-	{
-		path: '',
-		pathMatch: 'full',
-		redirectTo: ''
 	}
 ];

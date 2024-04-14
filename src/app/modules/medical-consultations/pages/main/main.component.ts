@@ -57,7 +57,7 @@ export class MainComponent {
 	private _activatedRoute = inject(ActivatedRoute);
 
 	public user = signal(USER);
-	public tableHeadings = signal(['Fecha', 'Tipo', 'Paciente', 'Doctor', 'Ubicación']);
+	public tableHeadings = signal(['Fecha', 'Tipo', 'Paciente', 'Doctor', 'Ubicación', 'Acciones']);
 	public data = signal(DATA);
 
 	public goToCalendar() {

@@ -1,14 +1,9 @@
 import { Injectable } from '@angular/core';
+import { NbMenuItem } from '@nebular/theme';
 
 export interface User {
 	name: string;
 	picture: string;
-}
-
-export interface UserMenu {
-	title: string;
-	icon: string;
-	tag: string;
 }
 
 export interface Menu {
@@ -28,9 +23,9 @@ export class MenuService {
 			'https://static.vecteezy.com/system/resources/previews/005/129/844/original/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg'
 	};
 
-	private _userMenu: UserMenu[] = [
-		// { title: 'Profile', icon: 'person-outline', tag: 'profile' },
-		{ title: 'Cerrar sesión', icon: 'power-outline', tag: 'logout' }
+	private _userMenu: NbMenuItem[] = [
+		// { title: 'Profile', icon: 'person-outline', data: { action: 'profile' } },
+		{ title: 'Cerrar sesión', icon: 'power-outline', data: { action: 'logout' } }
 	];
 
 	private _menu: Menu[] = [
