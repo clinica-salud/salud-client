@@ -1,30 +1,71 @@
 <p class="fs-4 fw-semibold py-4">¡Únete a nosotros!</p>
-<form [formGroup]="form" class="d-flex flex-column gap-4" (submit)="login()">
+<form [formGroup]="form" class="d-flex flex-column gap-2 gap-lg-3" (submit)="register()">
 	<div>
-		<label class="fw-semibold mb-2" for="doc_type">Tipo de documento</label>
-		<nb-select
-			id="doc_type"
-			placeholder="Selecciona tu tipo de documento"
-			formControlName="doc_type"
-			[status]="doc_type.dirty ? (doc_type.invalid ? 'danger' : 'success') : 'basic'"
-			fullWidth
-		>
-			<nb-option>DNI</nb-option>
-		</nb-select>
-		<control-error controlName="email" />
-	</div>
-	<div>
-		<label class="fw-semibold mb-2" for="doc_number">Número de documento</label>
+		<label class="fw-semibold mb-2" for="name">Nombre</label>
 		<input
 			nbInput
 			type="text"
-			id="doc_number"
-			placeholder="Introduce tu número de documento"
-			formControlName="doc_number"
-			[status]="doc_number.dirty ? (doc_number.invalid ? 'danger' : 'success') : 'basic'"
+			id="name"
+			placeholder="Introduce tu nombre"
+			formControlName="name"
+			[status]="name.dirty ? (name.invalid ? 'danger' : 'success') : 'basic'"
 			fullWidth
 		/>
-		<control-error controlName="email" />
+		<control-error controlName="name" />
+	</div>
+	<div>
+		<label class="fw-semibold mb-2" for="ape_pat">Apellido paterno</label>
+		<input
+			nbInput
+			type="text"
+			id="ape_pat"
+			placeholder="Introduce tu apellido paterno"
+			formControlName="ape_pat"
+			[status]="ape_pat.dirty ? (ape_pat.invalid ? 'danger' : 'success') : 'basic'"
+			fullWidth
+		/>
+		<control-error controlName="ape_pat" />
+	</div>
+	<div>
+		<label class="fw-semibold mb-2" for="ape_mat">Apellido materno</label>
+		<input
+			nbInput
+			type="text"
+			id="ape_mat"
+			placeholder="Introduce tu apellido materno"
+			formControlName="ape_mat"
+			[status]="ape_mat.dirty ? (ape_mat.invalid ? 'danger' : 'success') : 'basic'"
+			fullWidth
+		/>
+		<control-error controlName="ape_mat" />
+	</div>
+	<div>
+		<label class="fw-semibold mb-2" for="tipoid">Tipo de documento</label>
+		<nb-select
+			id="tipoid"
+			placeholder="Selecciona tu tipo de documento"
+			formControlName="tipoid"
+			[status]="tipoid.dirty ? (tipoid.invalid ? 'danger' : 'success') : 'basic'"
+			fullWidth
+		>
+			@for (docType of documentTypes(); track docType.tipoid) {
+			<nb-option [value]="docType.tipoid">{{ docType.nombre }}</nb-option>
+			}
+		</nb-select>
+		<control-error controlName="tipoid" />
+	</div>
+	<div>
+		<label class="fw-semibold mb-2" for="numero">Número de documento</label>
+		<input
+			nbInput
+			type="text"
+			id="numero"
+			placeholder="Introduce tu número de documento"
+			formControlName="numero"
+			[status]="numero.dirty ? (numero.invalid ? 'danger' : 'success') : 'basic'"
+			fullWidth
+		/>
+		<control-error controlName="numero" />
 	</div>
 	<div>
 		<label class="fw-semibold mb-2" for="email">Correo electrónico</label>
@@ -52,10 +93,16 @@
 		/>
 		<control-error controlName="password" />
 	</div>
-	<button nbButton type="submit" status="primary" [disabled]="form.invalid" fullWidth>Registrate</button>
-	<hr />
-	<div class="d-flex align-items-center justify-content-center gap-2">
-		<small>¿Tienes cuenta?</small>
-		<a routerLink="/auth/login">Iniciar Sesión</a>
+	<div>
+		<button nbButton type="submit" status="primary" [disabled]="form.invalid || isLoading()" fullWidth>
+			Registrate
+		</button>
+		@if (!isLoading()) {
+		<hr />
+		<div class="d-flex align-items-center justify-content-center gap-2">
+			<small>¿Tienes cuenta?</small>
+			<a routerLink="/auth/login">Iniciar Sesión</a>
+		</div>
+		}
 	</div>
 </form>

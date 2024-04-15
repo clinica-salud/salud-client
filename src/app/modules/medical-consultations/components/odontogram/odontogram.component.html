@@ -1,6 +1,9 @@
 <app-detail-tab>
+	<button nbButton size="small" class="button-black" (click)="toggleTeethType()">
+		Ver de {{ teethType === 'adult' ? 'Niño' : 'Adulto' }}
+	</button>
 	<div class="mt-4 mb-5" #odontogramContainer></div>
-	<div class="table-responsive">
+	<div class="table-responsive d-none d-xxl-table w-100">
 		<table class="table">
 			<thead>
 				<tr>
@@ -11,42 +14,45 @@
 				</tr>
 			</thead>
 			<tbody>
+				@for (item of data(); track $index) {
 				<tr class="align-middle">
 					<td>
-						<p>K020 - Caries limitada al esmalte</p>
-						<small class="text-black-50">Descripción: Caries limitada al esmalte</small>
+						<p>{{ item?.diagnostico }}</p>
+						<small class="text-black-50">Descripción: {{ item?.descripcion }}</small>
 					</td>
-					<td>Restauración de Caries</td>
-					<td class="text-center">Pieza 14</td>
-					<td class="text-center">Vestibular</td>
+					<td>{{ item?.practica }}</td>
+					<td class="text-center">{{ item?.pieza }}</td>
+					<td class="text-center">{{ item?.cara }}</td>
 				</tr>
-				<tr class="align-middle">
-					<td>
-						<p>K020 - Caries limitada al esmalte</p>
-						<small class="text-black-50">Descripción: Caries limitada al esmalte</small>
-					</td>
-					<td>Restauración de Caries</td>
-					<td class="text-center">Pieza 14</td>
-					<td class="text-center">Vestibular</td>
+				}
+			</tbody>
+		</table>
+	</div>
+	<div class="table-responsive d-block d-xxl-none">
+		<table class="table table-sm table-bordered">
+			<tbody>
+				@for (item of data(); track $index) {
+				<tr>
+					<th>Diagnóstico:</th>
+					<td>{{ item?.diagnostico }}</td>
 				</tr>
-				<tr class="align-middle">
-					<td>
-						<p>K020 - Caries limitada al esmalte</p>
-						<small class="text-black-50">Descripción: Caries limitada al esmalte</small>
-					</td>
-					<td>Restauración de Caries</td>
-					<td class="text-center">Pieza 14</td>
-					<td class="text-center">Vestibular</td>
+				<tr>
+					<th>Descripción:</th>
+					<td>{{ item?.descripcion }}</td>
 				</tr>
-				<tr class="align-middle">
-					<td>
-						<p>K020 - Caries limitada al esmalte</p>
-						<small class="text-black-50">Descripción: Caries limitada al esmalte</small>
-					</td>
-					<td>Restauración de Caries</td>
-					<td class="text-center">Pieza 14</td>
-					<td class="text-center">Vestibular</td>
+				<tr>
+					<th>Práctica:</th>
+					<td>{{ item?.practica }}</td>
 				</tr>
+				<tr>
+					<th>Pieza Dental:</th>
+					<td>{{ item?.pieza }}</td>
+				</tr>
+				<tr class="last-row">
+					<th>Cara:</th>
+					<td>{{ item?.cara }}</td>
+				</tr>
+				}
 			</tbody>
 		</table>
 	</div>

@@ -36,16 +36,16 @@
 	</nb-card-body>
 	<nb-card-footer class="d-flex gap-4 border-none">
 		@switch (summaryType) { @case ('next') {
-		<button nbButton status="danger" fullWidth>
+		<button nbButton (click)="close()" status="danger" fullWidth>
 			<nb-icon icon="close-outline"></nb-icon>
 			Cancelar cita
 		</button>
-		<button nbButton status="primary" fullWidth>
+		<button nbButton (click)="close()" status="primary" fullWidth>
 			<nb-icon icon="credit-card-outline"></nb-icon>
 			Pagar
 		</button>
 		} @case ('finished') {
-		<button nbButton status="success" (click)="viewDetail()" fullWidth>
+		<button nbButton (click)="close()" status="success" (click)="viewDetail()" fullWidth>
 			<nb-icon icon="eye-outline"></nb-icon>
 			Ver detalle
 		</button>
@@ -56,13 +56,17 @@
 				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci, eligendi. Voluptatibus aut deleniti hic rem
 				laborum molestiae alias odit earum.
 			</span>
+			<button nbButton (click)="close()" status="danger">
+				<nb-icon icon="close-outline"></nb-icon>
+				Cerrar
+			</button>
 		</div>
 		} @default {
-		<button nbButton fullWidth>
+		<button nbButton (click)="close()" fullWidth>
 			<nb-icon icon="sync-outline"></nb-icon>
 			Pagar después
 		</button>
-		<button nbButton status="primary" fullWidth>
+		<button nbButton (click)="close()" status="primary" fullWidth>
 			<nb-icon icon="credit-card-outline"></nb-icon>
 			Pagar
 		</button>

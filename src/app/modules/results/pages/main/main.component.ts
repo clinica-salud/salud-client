@@ -7,10 +7,19 @@ import {
 	NbDatepickerModule,
 	NbIconModule,
 	NbInputModule,
+	NbTooltipModule,
 	NbUserModule
 } from '@nebular/theme';
 
-const NB_MODULES = [NbCardModule, NbButtonModule, NbIconModule, NbUserModule, NbInputModule, NbDatepickerModule];
+const NB_MODULES = [
+	NbCardModule,
+	NbButtonModule,
+	NbIconModule,
+	NbUserModule,
+	NbInputModule,
+	NbDatepickerModule,
+	NbTooltipModule
+];
 
 const DATA = [
 	{

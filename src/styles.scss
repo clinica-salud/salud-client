@@ -51,6 +51,10 @@
 	border: none;
 }
 
+.last-row {
+	border-bottom: 3px solid #ccc !important;
+}
+
 // Overrides
 p {
 	margin-bottom: 0;
@@ -92,6 +96,10 @@ table {
 
 // Calendar
 .cal-month-view {
+	.cal-day-cell.cal-in-month.cal-has-events {
+		cursor: auto;
+	}
+
 	.cal-header {
 		.cal-cell {
 			text-transform: capitalize;
@@ -102,6 +110,7 @@ table {
 		height: 20px;
 		border-radius: 20px;
 		position: relative;
+		cursor: pointer;
 
 		&::before,
 		&::after {

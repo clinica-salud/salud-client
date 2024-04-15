@@ -62,7 +62,10 @@ export class HeaderComponent {
 
 		this._nbMenuService.onItemClick().subscribe(({ item }) => {
 			if (this.hideMenuOnClick()) this._sidebarService.collapse('menu-sidebar');
-			if (item.data.action === 'logout') this._authService.logout();
+			if (item.data?.action === 'logout') {
+				this._authService.logout().subscribe(() => this._router.navigateByUrl('/auth'));
+				// this._router.navigateByUrl('/auth');
+			}
 		});
 	}
 
