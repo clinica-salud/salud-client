@@ -19,8 +19,8 @@ import {
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
-import { authInterceptor } from '@src/app/core/interceptors';
-import { spinnerInterceptor } from '@src/app/core/interceptors/spinner.interceptor';
+import { authInterceptor, catchErrorInterceptor, spinnerInterceptor } from '@src/app/core/interceptors';
+
 import { routes } from './app.routes';
 
 registerLocaleData(localeEsPe, 'es-PE');
@@ -30,7 +30,6 @@ export const appConfig: ApplicationConfig = {
 		{ provide: LOCALE_ID, useValue: 'es-PE' },
 		importProvidersFrom([
 			HttpClientModule,
-			NbDateFnsDateModule.forRoot({ format: 'dd/MM/yyyy' }),
 			NbDatepickerModule.forRoot(),
 			NbDialogModule.forRoot(),
 			NbMenuModule.forRoot(),
@@ -38,6 +37,7 @@ export const appConfig: ApplicationConfig = {
 			NbThemeModule.forRoot(),
 			NbTimepickerModule.forRoot(),
 			NbToastrModule.forRoot(),
+			NbDateFnsDateModule.forRoot({ format: 'dd/MM/yyyy' }),
 			CalendarModule.forRoot({
 				provide: DateAdapter,
 				useFactory: adapterFactory
@@ -45,6 +45,6 @@ export const appConfig: ApplicationConfig = {
 		]),
 		provideAnimations(),
 		provideRouter(routes),
-		provideHttpClient(withInterceptors([spinnerInterceptor, authInterceptor]))
+		provideHttpClient(withInterceptors([spinnerInterceptor, authInterceptor, catchErrorInterceptor]))
 	]
 };

@@ -10,7 +10,7 @@ const NB_MODULES = [NbCardModule];
 	imports: [...NB_MODULES],
 	template: `
 		<nb-card class="border-0 m-0">
-			<nb-card-body style="min-height: calc(100dvh - 245px)">
+			<nb-card-body style="min-height: calc(100dvh - 198px)">
 				<ng-content></ng-content>
 			</nb-card-body>
 		</nb-card>

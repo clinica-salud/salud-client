@@ -1,5 +1,5 @@
 <p class="fs-4 fw-semibold py-4">¡Únete a nosotros!</p>
-<form [formGroup]="form" class="d-flex flex-column gap-2 gap-lg-3" (submit)="fakeRegister()">
+<form [formGroup]="form" class="d-flex flex-column gap-2 gap-lg-3" (submit)="register()">
 	<div>
 		<label class="fw-semibold mb-2" for="name">Nombre</label>
 		<input
@@ -48,8 +48,8 @@
 			[status]="tipoid.dirty ? (tipoid.invalid ? 'danger' : 'success') : 'basic'"
 			fullWidth
 		>
-			@for (docType of documentTypes(); track docType?.tipoid) {
-			<nb-option [value]="docType?.tipoid">{{ docType?.nombre }}</nb-option>
+			@for (docType of documentTypes(); track docType.tipoid) {
+			<nb-option [value]="docType.tipoid">{{ docType.nombre }}</nb-option>
 			}
 		</nb-select>
 		<control-error controlName="tipoid" />
@@ -97,10 +97,12 @@
 		<button nbButton type="submit" status="primary" [disabled]="form.invalid || isLoading()" fullWidth>
 			Registrate
 		</button>
+		@if (!isLoading()) {
 		<hr />
 		<div class="d-flex align-items-center justify-content-center gap-2">
 			<small>¿Tienes cuenta?</small>
 			<a routerLink="/auth/login">Iniciar Sesión</a>
 		</div>
+		}
 	</div>
 </form>

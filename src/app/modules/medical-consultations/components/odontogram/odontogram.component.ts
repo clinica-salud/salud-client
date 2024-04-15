@@ -1,4 +1,4 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild, signal } from '@angular/core';
 
 import * as d3 from 'd3';
 
@@ -55,6 +55,30 @@ const CHILD_TEETH_RESULT = [
 	{ tooth: 85, zones: ['bottom', 'left'] }
 ];
 
+const DATA = [
+	{
+		diagnostico: 'K020 - Caries limitada al esmalte',
+		descripcion: 'Caries limitada al esmalte',
+		practica: 'Restauración de Caries',
+		pieza: 'Pieza 14',
+		cara: 'Vestibular'
+	},
+	{
+		diagnostico: 'K020 - Caries limitada al esmalte',
+		descripcion: 'Caries limitada al esmalte',
+		practica: 'Restauración de Caries',
+		pieza: 'Pieza 14',
+		cara: 'Vestibular'
+	},
+	{
+		diagnostico: 'K020 - Caries limitada al esmalte',
+		descripcion: 'Caries limitada al esmalte',
+		practica: 'Restauración de Caries',
+		pieza: 'Pieza 14',
+		cara: 'Vestibular'
+	}
+];
+
 type ToothType = 'adult' | 'child';
 type ToothPosition = { x: number; y: number; toothID: number };
 
@@ -68,6 +92,8 @@ type ToothPosition = { x: number; y: number; toothID: number };
 export class OdontogramComponent implements OnInit {
 	@ViewChild('odontogramContainer', { static: true }) private odontogramContainer!: ElementRef;
 	public teethType: ToothType = 'adult';
+
+	public data = signal(DATA);
 
 	private teethGroup = this.teethType === 'adult' ? ADULT_TEETH_ALL : CHILD_TEETH_ALL;
 	private teethResult = this.teethType === 'adult' ? ADULT_TEETH_RESULT : CHILD_TEETH_RESULT;
@@ -116,7 +142,7 @@ export class OdontogramComponent implements OnInit {
 		});
 
 		// Draw each tooth based on its calculated position
-		toothPositions.forEach(({ x, y, toothID }: any, index: any) => {
+		toothPositions.forEach(({ x, y, toothID }: { x: number; y: number; toothID: number }, index: number) => {
 			const toothGroup = svg.append('g').attr('transform', `translate(${x}, ${y})`);
 
 			toothGroup
@@ -183,7 +209,7 @@ export class OdontogramComponent implements OnInit {
 								shape.select('rect, polygon').style('fill', fillColor); // Restore original fill on mouseout
 							})
 							.on('click', () => {
-								shape.select('rect, polygon').style('fill', 'purple'); // Change to purple on click
+								shape.select('rect, polygon').style('fill', 'orange'); // Change to purple on click
 								console.log(`${toothID}: ${d.label}`);
 							});
 					}

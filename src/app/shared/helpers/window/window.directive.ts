@@ -25,7 +25,7 @@ export class WindowDirective implements OnInit {
 	};
 
 	constructor() {
-		this._el.nativeElement.style.maxHeight = 'calc(100vh - 5rem)';
+		this._el.nativeElement.style.maxHeight = 'calc(100dvh - 5rem)';
 		this._el.nativeElement.style.borderRadius = '10px';
 		this._el.nativeElement.style.paddingBlock = '10px';
 	}
@@ -37,7 +37,7 @@ export class WindowDirective implements OnInit {
 				map(([, currentBreakpoint]) => currentBreakpoint.width),
 				map((width: number) => {
 					if (this.widthSize) {
-						if (width === 0) return 'calc(100dvw - 0.5rem)';
+						if (width === 0) return 'calc(100vw - 0.5rem)';
 
 						const newWidth = this.SIZES_MODAL[this.widthSize.toUpperCase()];
 						return newWidth && width >= newWidth ? newWidth : width;

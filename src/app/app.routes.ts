@@ -1,6 +1,6 @@
 import { Routes } from '@angular/router';
 
-// import { validateTokenGuard } from '@src/app/core/guards/validate-token.guard';
+import { validateTokenGuard } from '@src/app/core/guards/validate-token.guard';
 import { LayoutComponent } from '@src/app/core/layout/layout.component';
 import { NotFoundComponent } from '@src/app/modules/not-found/not-found.component';
 
@@ -12,7 +12,7 @@ export const routes: Routes = [
 	{
 		path: 'pages',
 		component: LayoutComponent,
-		// canActivate: [validateTokenGuard],
+		canActivate: [validateTokenGuard],
 		data: { breadcrumb: 'Amaro' },
 		children: [
 			{

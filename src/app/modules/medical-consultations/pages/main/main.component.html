@@ -4,7 +4,7 @@
 	</nb-card-header>
 	<nb-card-body>
 		<div class="row">
-			<div class="col-md-5 col-xl-4 col-xxl-3">
+			<div class="col-lg-6 col-xl-4 col-xxl-3">
 				<nb-card>
 					<nb-card-header>
 						<nb-user size="medium" [name]="user().name" [title]="user().title" />
@@ -51,8 +51,8 @@
 					</nb-card-body>
 				</nb-card>
 			</div>
-			<div class="col-md-7 col-xl-8 col-xxl-9">
-				<div class="table-responsive">
+			<div class="col-lg-6 col-xl-8 col-xxl-9">
+				<div class="table-responsive d-none d-xxl-block">
 					<table class="table table-borderless">
 						<thead class="border-bottom border-top">
 							<tr class="text-center">
@@ -72,6 +72,39 @@
 								<td>
 									<button nbButton size="small">
 										<nb-icon icon="eye-outline"></nb-icon>
+									</button>
+								</td>
+							</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+				<div class="table-responsive d-block d-xxl-none">
+					<table class="table table-sm table-bordered">
+						<tbody>
+							@for (item of data(); track item.id) {
+							<tr>
+								<th>Fecha:</th>
+								<td>{{ item.date }}</td>
+							</tr>
+							<tr>
+								<th>Paciente:</th>
+								<td>{{ item.patient }}</td>
+							</tr>
+							<tr>
+								<th>Doctor:</th>
+								<td>{{ item.doctor }}</td>
+							</tr>
+							<tr>
+								<th>Ubicación:</th>
+								<td>{{ item.location }}</td>
+							</tr>
+							<tr class="align-middle last-row">
+								<th>Acciones:</th>
+								<td>
+									<button nbButton size="tiny">
+										<nb-icon icon="download-outline"></nb-icon>
+										Descargar
 									</button>
 								</td>
 							</tr>

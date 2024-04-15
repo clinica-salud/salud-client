@@ -75,4 +75,8 @@ export class SummaryModalComponent {
 		this._router.navigateByUrl(`/pages/medical-consultations/detail/${id}`);
 		this._dialogRef.close();
 	}
+
+	public close() {
+		this._dialogRef.close();
+	}
 }

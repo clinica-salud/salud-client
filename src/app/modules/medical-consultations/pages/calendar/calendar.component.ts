@@ -35,7 +35,8 @@ const COLORS = {
 const EVENTS = [
 	{
 		start: startOfDay(new Date()),
-		title: 'Cita finalizada',
+		// title: 'Cita finalizada',
+		title: '',
 		color: { ...COLORS.finished },
 		meta: {
 			type: SummaryType.FINISHED,
@@ -44,7 +45,8 @@ const EVENTS = [
 	},
 	{
 		start: startOfDay(new Date()),
-		title: 'Cita cancelada',
+		// title: 'Cita cancelada',
+		title: '',
 		color: { ...COLORS.cancelled },
 		meta: {
 			type: SummaryType.CANCELLED,
@@ -53,7 +55,8 @@ const EVENTS = [
 	},
 	{
 		start: startOfDay(addDays(new Date(), -1)),
-		title: 'Cita cancelada',
+		// title: 'Cita cancelada',
+		title: '',
 		color: { ...COLORS.cancelled },
 		meta: {
 			type: SummaryType.CANCELLED,
@@ -62,7 +65,8 @@ const EVENTS = [
 	},
 	{
 		start: startOfDay(addDays(new Date(), 1)),
-		title: 'Cita próxima',
+		// title: 'Cita próxima',
+		title: '',
 		color: { ...COLORS.next },
 		meta: {
 			type: SummaryType.NEXT,
@@ -71,7 +75,8 @@ const EVENTS = [
 	},
 	{
 		start: startOfDay(addDays(new Date(), 3)),
-		title: 'Cita próxima',
+		// title: 'Cita próxima',
+		title: '',
 		color: { ...COLORS.next },
 		meta: {
 			type: SummaryType.NEXT,
@@ -80,7 +85,8 @@ const EVENTS = [
 	},
 	{
 		start: startOfDay(addDays(new Date(), 8)),
-		title: 'Cita cancelada',
+		// title: 'Cita cancelada',
+		title: '',
 		color: { ...COLORS.cancelled },
 		meta: {
 			type: SummaryType.CANCELLED,
@@ -89,7 +95,8 @@ const EVENTS = [
 	},
 	{
 		start: startOfDay(addDays(new Date(), 10)),
-		title: 'Cita finalizada',
+		// title: 'Cita finalizada',
+		title: '',
 		color: { ...COLORS.finished },
 		meta: {
 			type: SummaryType.FINISHED,

@@ -29,7 +29,7 @@ const COMPONENTS = [FooterComponent, HeaderComponent];
 				</nb-sidebar>
 
 				<nb-layout-column>
-					<nb-card class="mb-0" style="min-height: calc(100dvh - 118px)">
+					<nb-card class="mb-0" style="min-height: calc(100dvh - 80px)">
 						<nb-card-body>
 							<xng-breadcrumb separator="&rsaquo;"></xng-breadcrumb>
 							<router-outlet />
@@ -37,9 +37,9 @@ const COMPONENTS = [FooterComponent, HeaderComponent];
 					</nb-card>
 				</nb-layout-column>
 
-				<nb-layout-footer fixed>
+				<!-- <nb-layout-footer fixed>
 					<app-footer></app-footer>
-				</nb-layout-footer>
+				</nb-layout-footer> -->
 			</nb-layout>
 		</div>
 	`,

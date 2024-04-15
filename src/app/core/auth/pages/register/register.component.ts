@@ -1,12 +1,14 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 
 import { NbEvaIconsModule } from '@nebular/eva-icons';
-import { NbButtonModule, NbIconModule, NbInputModule, NbSelectModule, NbToastrService } from '@nebular/theme';
+import { NbButtonModule, NbIconModule, NbInputModule, NbSelectModule } from '@nebular/theme';
 import { AuthService } from '@src/app/core/services';
 
 import { ControlErrorComponent } from '@src/app/shared/helpers/control-error/control-error.component';
+import { IDocumentType } from '@src/app/shared/models/auth.model';
 import { finalize } from 'rxjs';
 
 const NB_MODULES = [NbIconModule, NbInputModule, NbButtonModule, NbEvaIconsModule, NbSelectModule];
@@ -78,14 +80,14 @@ const DOCUMENT_TYPES = [
 	styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
+	private _destroyRef = inject(DestroyRef);
 	private _fb = inject(FormBuilder);
 	private _router = inject(Router);
 	private _authService = inject(AuthService);
-	private _toastrService = inject(NbToastrService);
 
 	public isLoading = signal(false);
-	// public documentTypes = signal<any[]>([]);
-	public documentTypes = signal<any[]>(DOCUMENT_TYPES);
+	public documentTypes = signal<IDocumentType[]>([]);
+	// public documentTypes = signal<IDocumentType[]>(DOCUMENT_TYPES);
 
 	public form: FormGroup = this._fb.group({
 		name: ['', [Validators.required]],
@@ -98,7 +100,7 @@ export class RegisterComponent {
 	});
 
 	constructor() {
-		// this.getDocumentTypes();
+		this.getDocumentTypes();
 	}
 
 	get name() {
@@ -130,11 +132,12 @@ export class RegisterComponent {
 	}
 
 	private getDocumentTypes() {
-		this._authService.getDocumentTypes().subscribe((response) => {
-			if (response && response.status) {
-				this.documentTypes.set(response.data);
-			}
-		});
+		this._authService
+			.getDocumentTypes()
+			.pipe(takeUntilDestroyed(this._destroyRef))
+			.subscribe((documentTypes) => {
+				this.documentTypes.set(documentTypes);
+			});
 	}
 
 	public fakeRegister() {
@@ -151,23 +154,25 @@ export class RegisterComponent {
 		this.isLoading.set(true);
 		this.form.disable();
 
-		const data = { ...this.form.value };
-
 		this._authService
-			.register(data)
+			.register({
+				name: this.name.value,
+				ape_pat: this.ape_pat.value,
+				ape_mat: this.ape_mat.value,
+				tipoid: this.tipoid.value,
+				numero: this.numero.value,
+				email: this.email.value,
+				password: this.password.value
+			})
 			.pipe(
 				finalize(() => {
 					this.isLoading.set(false);
 					this.form.enable();
-				})
+				}),
+				takeUntilDestroyed(this._destroyRef)
 			)
-			.subscribe((response) => {
-				if (response && response.status) {
-					this._toastrService.success('Register successful', 'Success', {
-						status: 'success'
-					});
-					this._router.navigateByUrl('/auth/login');
-				}
+			.subscribe(() => {
+				this._router.navigateByUrl('/auth/login');
 			});
 	}
 }

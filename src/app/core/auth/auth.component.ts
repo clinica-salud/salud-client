@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Component, inject } from '@angular/core';
+import { Router, RouterOutlet } from '@angular/router';
 
 import { NbCardModule, NbLayoutModule } from '@nebular/theme';
 
 import { BackgroundComponent } from '@src/app/core/auth/components/background/background.component';
 import { LogoNameComponent } from '@src/app/core/auth/components/logo-name/logo-name.component';
+import { AuthService } from '@src/app/core/services';
 
 const NB_MODULES = [NbLayoutModule, NbCardModule];
 const COMPONENTS = [BackgroundComponent, LogoNameComponent];
@@ -48,7 +49,7 @@ const COMPONENTS = [BackgroundComponent, LogoNameComponent];
 
 			nb-card {
 				border: none;
-				height: 100vh;
+				height: 100dvh;
 			}
 
 			nb-card-body {
@@ -93,4 +94,11 @@ const COMPONENTS = [BackgroundComponent, LogoNameComponent];
 
 		}`
 })
-export class AuthComponent {}
+export class AuthComponent {
+	private _authService = inject(AuthService);
+	private _router = inject(Router);
+
+	constructor() {
+		if (this._authService.isLoggedIn) this._router.navigateByUrl('/pages');
+	}
+}
