@@ -24,7 +24,7 @@
 	.header-container {
 		display: flex;
 		align-items: center;
-		width: auto;
+		width: 50%;
 
 		.sidebar-toggle {
 			@include nb-ltr(padding-right, 1.25rem);
@@ -62,8 +62,7 @@
 		}
 
 		.user-action {
-			border: none;
-			padding: 0;
+			padding-right: 0 !important;
 		}
 	}
 
