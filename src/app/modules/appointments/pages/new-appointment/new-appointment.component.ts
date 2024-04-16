@@ -38,6 +38,20 @@ const USERS: User[] = [
 	{ name: 'Janitor', title: 'Dentista General' }
 ];
 
+const MORNING_TIMES = [
+	{ value: '08:15', title: '8:15 AM', selected: false },
+	{ value: '08:30', title: '8:30 AM', selected: false },
+	{ value: '08:45', title: '8:45 AM', selected: true },
+	{ value: '09:00', title: '9:00 AM', selected: false }
+];
+
+const AFTERNOON_TIMES = [
+	{ value: '12:00', title: '12:00 PM', selected: false },
+	{ value: '12:15', title: '12:15 PM', selected: true },
+	{ value: '12:30', title: '12:30 PM', selected: false },
+	{ value: '12:45', title: '12:45 PM', selected: false }
+];
+
 @Component({
 	selector: 'app-new-appointment',
 	standalone: true,
@@ -49,6 +63,16 @@ export class NewAppointmentComponent {
 	private _dialogService = inject(NbDialogService);
 
 	public users = signal(USERS);
+	public morning_times = signal(MORNING_TIMES);
+	public afternoon_times = signal(AFTERNOON_TIMES);
+
+	public selectMorningTime(time: string) {
+		this.morning_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
+	}
+
+	public selectAfternoonTime(time: string) {
+		this.afternoon_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
+	}
 
 	public saveAppointment() {
 		this._dialogService.open(SummaryModalComponent);
