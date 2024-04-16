@@ -1,3 +1,3 @@
 export const environment = {
-	api: 'http://emsolutions.net.pe/api'
+	api: 'https://emsolutions.net.pe/api'
 };
