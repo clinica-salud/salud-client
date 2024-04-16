@@ -2,7 +2,7 @@ import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { finalize, timer } from 'rxjs';
+import { delay, finalize } from 'rxjs';
 
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbButtonModule, NbCheckboxModule, NbIconModule, NbInputModule } from '@nebular/theme';
@@ -25,6 +25,7 @@ export class LoginComponent {
 	private _destroyRef = inject(DestroyRef);
 	private _fb = inject(FormBuilder);
 	private _router = inject(Router);
+
 	private _authService = inject(AuthService);
 
 	public isLoading = signal(false);
@@ -39,16 +40,6 @@ export class LoginComponent {
 		return this.form.controls;
 	}
 
-	// public fakeLogin() {
-	// 	this.isLoading.set(true);
-	// 	this.form.disable();
-
-	// 	setTimeout(() => {
-	// 		this.isLoading.set(false);
-	// 		this._router.navigateByUrl('/pages');
-	// 	}, 1000);
-	// }
-
 	public login() {
 		this.isLoading.set(true);
 		this.form.disable();
@@ -61,16 +52,13 @@ export class LoginComponent {
 		this._authService
 			.login(loginRequest)
 			.pipe(
+				delay(500),
 				finalize(() => {
 					this.isLoading.set(false);
 					this.form.enable();
 				}),
 				takeUntilDestroyed(this._destroyRef)
 			)
-			.subscribe(() => {
-				timer(300).subscribe(() => {
-					this._router.navigateByUrl('/pages');
-				});
-			});
+			.subscribe(() => this._router.navigateByUrl('/pages'));
 	}
 }

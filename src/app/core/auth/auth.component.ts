@@ -21,7 +21,7 @@ const COMPONENTS = [BackgroundComponent, LogoNameComponent];
 					<app-background class="images" />
 					<div class="form">
 						<nb-card class="p-0 mb-0">
-							<nb-card-body class="px-5">
+							<nb-card-body class="px-4 px-sm-5 py-5 ">
 								<app-logo-name />
 								<div class="mt-0">
 									<router-outlet />
