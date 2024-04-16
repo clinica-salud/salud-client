@@ -9,6 +9,7 @@ import { NbButtonModule, NbCheckboxModule, NbIconModule, NbInputModule } from '@
 
 import { AuthService } from '@src/app/core/services';
 import { ControlErrorComponent } from '@src/app/shared/helpers/control-error/control-error.component';
+import { ILoginReq } from '@src/app/shared/models/auth.model';
 
 const NB_MODULES = [NbIconModule, NbInputModule, NbButtonModule, NbEvaIconsModule, NbCheckboxModule];
 const COMPONENTS = [ControlErrorComponent];
@@ -34,33 +35,31 @@ export class LoginComponent {
 		remember: [false]
 	});
 
-	get email() {
-		return this.form.controls['email'];
+	get f() {
+		return this.form.controls;
 	}
 
-	get password() {
-		return this.form.controls['password'];
-	}
+	// public fakeLogin() {
+	// 	this.isLoading.set(true);
+	// 	this.form.disable();
 
-	public fakeLogin() {
-		this.isLoading.set(true);
-		this.form.disable();
-
-		setTimeout(() => {
-			this.isLoading.set(false);
-			this._router.navigateByUrl('/pages');
-		}, 1000);
-	}
+	// 	setTimeout(() => {
+	// 		this.isLoading.set(false);
+	// 		this._router.navigateByUrl('/pages');
+	// 	}, 1000);
+	// }
 
 	public login() {
 		this.isLoading.set(true);
 		this.form.disable();
 
+		const loginRequest: ILoginReq = {
+			email: this.f['email'].value,
+			password: this.f['password'].value
+		};
+
 		this._authService
-			.login({
-				email: this.email.value,
-				password: this.password.value
-			})
+			.login(loginRequest)
 			.pipe(
 				finalize(() => {
 					this.isLoading.set(false);

@@ -8,7 +8,7 @@
 			id="name"
 			placeholder="Introduce tu nombre"
 			formControlName="name"
-			[status]="name.dirty ? (name.invalid ? 'danger' : 'success') : 'basic'"
+			[status]="f['name'].dirty ? (f['name'].invalid ? 'danger' : 'success') : 'basic'"
 			fullWidth
 		/>
 		<control-error controlName="name" />
@@ -21,7 +21,7 @@
 			id="ape_pat"
 			placeholder="Introduce tu apellido paterno"
 			formControlName="ape_pat"
-			[status]="ape_pat.dirty ? (ape_pat.invalid ? 'danger' : 'success') : 'basic'"
+			[status]="f['ape_pat'].dirty ? (f['ape_pat'].invalid ? 'danger' : 'success') : 'basic'"
 			fullWidth
 		/>
 		<control-error controlName="ape_pat" />
@@ -34,7 +34,7 @@
 			id="ape_mat"
 			placeholder="Introduce tu apellido materno"
 			formControlName="ape_mat"
-			[status]="ape_mat.dirty ? (ape_mat.invalid ? 'danger' : 'success') : 'basic'"
+			[status]="f['ape_mat'].dirty ? (f['ape_mat'].invalid ? 'danger' : 'success') : 'basic'"
 			fullWidth
 		/>
 		<control-error controlName="ape_mat" />
@@ -45,7 +45,7 @@
 			id="tipoid"
 			placeholder="Selecciona tu tipo de documento"
 			formControlName="tipoid"
-			[status]="tipoid.dirty ? (tipoid.invalid ? 'danger' : 'success') : 'basic'"
+			[status]="f['tipoid'].dirty ? (f['tipoid'].invalid ? 'danger' : 'success') : 'basic'"
 			fullWidth
 		>
 			@for (docType of documentTypes(); track docType.tipoid) {
@@ -62,7 +62,7 @@
 			id="numero"
 			placeholder="Introduce tu número de documento"
 			formControlName="numero"
-			[status]="numero.dirty ? (numero.invalid ? 'danger' : 'success') : 'basic'"
+			[status]="f['numero'].dirty ? (f['numero'].invalid ? 'danger' : 'success') : 'basic'"
 			fullWidth
 		/>
 		<control-error controlName="numero" />
@@ -75,7 +75,7 @@
 			id="email"
 			placeholder="Introduce tu correo electrónico"
 			formControlName="email"
-			[status]="email.dirty ? (email.invalid ? 'danger' : 'success') : 'basic'"
+			[status]="f['email'].dirty ? (f['email'].invalid ? 'danger' : 'success') : 'basic'"
 			fullWidth
 		/>
 		<control-error controlName="email" />
@@ -88,7 +88,7 @@
 			id="password"
 			placeholder="Introduce tu contraseña"
 			formControlName="password"
-			[status]="password.dirty ? (password.invalid ? 'danger' : 'success') : 'basic'"
+			[status]="f['password'].dirty ? (f['password'].invalid ? 'danger' : 'success') : 'basic'"
 			fullWidth
 		/>
 		<control-error controlName="password" />

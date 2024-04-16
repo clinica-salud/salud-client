@@ -1,15 +1,20 @@
 import { HttpEvent, HttpInterceptorFn, HttpResponse } from '@angular/common/http';
 import { inject } from '@angular/core';
-import { NbToastrService } from '@nebular/theme';
 import { tap } from 'rxjs';
+
+import { NbToastrService } from '@nebular/theme';
 
 export const catchErrorInterceptor: HttpInterceptorFn = (req, next) => {
 	const _toastrService = inject(NbToastrService);
 
 	const interceptResponse = (event: HttpEvent<any>, method: string) => {
-		if (event instanceof HttpResponse) {
-			if (method !== 'GET' && event.ok) _toastrService.success(event.body.message, 'Éxito');
-			if (method !== 'GET' && !event.ok) _toastrService.danger(event.body.message, 'Error');
+		if (event instanceof HttpResponse && method !== 'GET') {
+			const { body } = event;
+			if (body.status) {
+				_toastrService.success(body.message, 'Éxito');
+			} else {
+				_toastrService.danger(body.message, 'Error');
+			}
 		}
 	};
 
