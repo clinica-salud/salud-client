@@ -74,8 +74,11 @@ table {
 
 @media screen and (max-width: 992px) {
 	nb-card-body {
-		// padding: 0.5rem 1rem !important;
 		padding: 1rem !important;
+	}
+
+	hr {
+		margin: 0.5rem 0 !important;
 	}
 }
 

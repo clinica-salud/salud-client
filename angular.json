@@ -58,10 +58,19 @@
 							"budgets": [
 								{
 									"type": "anyComponentStyle",
-									"maximumWarning": "6kb"
+									"maximumWarning": "1mb"
 								}
 							],
-							"optimization": true,
+							"optimization": {
+								"fonts": {
+									"inline": true
+								},
+								"scripts": true,
+								"styles": {
+									"inlineCritical": false,
+									"minify": true
+								}
+							},
 							"outputHashing": "all",
 							"sourceMap": false,
 							"namedChunks": false,
@@ -79,7 +88,7 @@
 							"sourceMap": true
 						}
 					},
-					"defaultConfiguration": ""
+					"defaultConfiguration": "production"
 				},
 				"serve": {
 					"builder": "@angular-devkit/build-angular:dev-server",
