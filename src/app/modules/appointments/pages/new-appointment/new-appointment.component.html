@@ -1,10 +1,10 @@
 <nb-card class="border-0">
-	<nb-card-header class="border-0">
+	<nb-card-header class="border-0 px-2 px-md-4">
 		<span class="fs-4">Crear nueva cita</span>
 	</nb-card-header>
-	<nb-card-body>
-		<div class="row g-4">
-			<div class="col-md-6 col-lg-6">
+	<nb-card-body class="px-2 px-md-4">
+		<div class="row m-0 g-4">
+			<div class="col-md-6 px-0 pe-md-2 pe-lg-4">
 				<div class="d-flex flex-column gap-4">
 					<p class="fs-6 fw-semibold">¿Cómo podemos apoyarte?</p>
 					<div>
@@ -84,7 +84,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-md-6 col-lg-6">
+			<div class="col-md-6 px-0 ps-md-2 ps-lg-4">
 				<div class="d-flex flex-column gap-4">
 					<p class="fs-6 fw-semibold">Selecciona la fecha de tu cita</p>
 					<nb-calendar class="d-flex justify-content-center"></nb-calendar>
@@ -94,7 +94,7 @@
 							<p class="fs-6 fw-medium text-center mb-3">Por la mañana</p>
 							<div class="row g-3">
 								<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
-									<button nbButton fullWidth>8:15 AM</button>
+									<button nbButton status="info" fullWidth>8:15 AM</button>
 								</div>
 								<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
 									<button nbButton fullWidth>8:30 AM</button>
@@ -114,7 +114,7 @@
 									<button nbButton fullWidth>12:00 PM</button>
 								</div>
 								<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
-									<button nbButton fullWidth>12:15 PM</button>
+									<button nbButton status="info" fullWidth>12:15 PM</button>
 								</div>
 								<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
 									<button nbButton fullWidth>12:30 PM</button>
@@ -125,9 +125,13 @@
 							</div>
 						</div>
 					</div>
-					<div class="d-flex gap-2">
-						<button nbButton fullWidth>Cancelar</button>
-						<button nbButton status="primary" (click)="saveAppointment()" fullWidth>Guardar</button>
+					<div class="row g-2">
+						<div class="col-md-6">
+							<button nbButton fullWidth>Cancelar</button>
+						</div>
+						<div class="col-md-6">
+							<button nbButton status="primary" (click)="saveAppointment()" fullWidth>Guardar</button>
+						</div>
 					</div>
 				</div>
 			</div>

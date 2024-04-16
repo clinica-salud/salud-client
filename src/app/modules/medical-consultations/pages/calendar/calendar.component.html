@@ -1,5 +1,5 @@
 <nb-card class="border-0">
-	<nb-card-header class="border-0 d-flex justify-content-between align-items-end flex-wrap">
+	<nb-card-header class="border-0 d-flex justify-content-between align-items-end flex-wrap px-2 px-md-4">
 		<div class="d-flex flex-column gap-2">
 			<span class="fs-4">Calendario</span>
 			<small class="fs-6 text-secondary fw-light">Consultas odontológicas</small>
@@ -21,7 +21,7 @@
 			<small-toggle label="Próximas" status="warning" [control]="nextControl" (toggle)="toggleNext($event)" />
 		</div>
 	</nb-card-header>
-	<nb-card-body class="pb-0">
+	<nb-card-body class="pb-0 px-2 px-md-4">
 		<div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
 			<div>
 				<h6>{{ today() | date : 'y' }}</h6>

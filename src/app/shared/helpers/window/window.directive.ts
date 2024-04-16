@@ -25,9 +25,11 @@ export class WindowDirective implements OnInit {
 	};
 
 	constructor() {
-		this._el.nativeElement.style.maxHeight = 'calc(100dvh - 5rem)';
 		this._el.nativeElement.style.borderRadius = '10px';
-		this._el.nativeElement.style.paddingBlock = '10px';
+		this._el.nativeElement.style.marginBottom = 0;
+		this._el.nativeElement.style.maxHeight = 'calc(100dvh - 5rem)';
+		this._el.nativeElement.style.maxWidth = '95dvw';
+		this._el.nativeElement.style.paddingBlock = '0.5rem';
 	}
 
 	ngOnInit(): void {
@@ -37,8 +39,7 @@ export class WindowDirective implements OnInit {
 				map(([, currentBreakpoint]) => currentBreakpoint.width),
 				map((width: number) => {
 					if (this.widthSize) {
-						if (width === 0) return 'calc(100vw - 0.5rem)';
-
+						if (width === 0) return '100%';
 						const newWidth = this.SIZES_MODAL[this.widthSize.toUpperCase()];
 						return newWidth && width >= newWidth ? newWidth : width;
 					} else {
@@ -48,7 +49,7 @@ export class WindowDirective implements OnInit {
 				takeUntilDestroyed(this._destroyRef)
 			)
 			.subscribe((value) => {
-				this._el.nativeElement.style.width = `calc(${value}px - 1.5rem)`;
+				this._el.nativeElement.style.width = `${value}px`;
 			});
 	}
 }

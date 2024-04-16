@@ -3,7 +3,7 @@ import { HttpClientModule, provideHttpClient, withInterceptors } from '@angular/
 import localeEsPe from '@angular/common/locales/es';
 import { ApplicationConfig, LOCALE_ID, importProvidersFrom } from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
+import { provideRouter, withHashLocation } from '@angular/router';
 
 import { NbDateFnsDateModule } from '@nebular/date-fns';
 import {
@@ -44,7 +44,7 @@ export const appConfig: ApplicationConfig = {
 			})
 		]),
 		provideAnimations(),
-		provideRouter(routes),
+		provideRouter(routes, withHashLocation()),
 		provideHttpClient(withInterceptors([spinnerInterceptor, authInterceptor, catchErrorInterceptor]))
 	]
 };

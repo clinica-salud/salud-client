@@ -22,7 +22,7 @@
 		<nb-user size="medium" [name]="user().name" [title]="user().title" />
 		<div class="row">
 			@for (item of summaryList(); track $index) {
-			<div class="col-md-6 border-bottom py-3">
+			<div class="col-sm-6 border-bottom py-3">
 				<div class="d-flex align-items-center gap-4">
 					<nb-icon class="fs-3" [icon]="item.icon"></nb-icon>
 					<div class="d-flex flex-column gap-1">
@@ -34,42 +34,54 @@
 			}
 		</div>
 	</nb-card-body>
-	<nb-card-footer class="d-flex gap-4 border-none">
+	<nb-card-footer class="row g-2 border-none">
 		@switch (summaryType) { @case ('next') {
-		<button nbButton (click)="close()" status="danger" fullWidth>
-			<nb-icon icon="close-outline"></nb-icon>
-			Cancelar cita
-		</button>
-		<button nbButton (click)="close()" status="primary" fullWidth>
-			<nb-icon icon="credit-card-outline"></nb-icon>
-			Pagar
-		</button>
-		} @case ('finished') {
-		<button nbButton (click)="close()" status="success" (click)="viewDetail()" fullWidth>
-			<nb-icon icon="eye-outline"></nb-icon>
-			Ver detalle
-		</button>
-		} @case ('cancelled') {
-		<div class="d-flex flex-column gap-3">
-			<p class="fw-bold">Motivo</p>
-			<span class="border rounded text-black-50 fs-7 py-2 px-3">
-				Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci, eligendi. Voluptatibus aut deleniti hic rem
-				laborum molestiae alias odit earum.
-			</span>
-			<button nbButton (click)="close()" status="danger">
+		<div class="col-sm-6">
+			<button nbButton (click)="close()" status="danger" fullWidth>
 				<nb-icon icon="close-outline"></nb-icon>
-				Cerrar
+				Cancelar cita
 			</button>
 		</div>
+		<div class="col-sm-6">
+			<button nbButton (click)="close()" status="primary" fullWidth>
+				<nb-icon icon="credit-card-outline"></nb-icon>
+				Pagar
+			</button>
+		</div>
+		} @case ('finished') {
+		<div class="col">
+			<button nbButton (click)="close()" status="success" (click)="viewDetail()" fullWidth>
+				<nb-icon icon="eye-outline"></nb-icon>
+				Ver detalle
+			</button>
+		</div>
+		} @case ('cancelled') {
+		<div class="col">
+			<div class="d-flex flex-column gap-3">
+				<p class="fw-bold">Motivo</p>
+				<span class="border rounded text-black-50 fs-7 py-2 px-3">
+					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci, eligendi. Voluptatibus aut deleniti hic
+					rem laborum molestiae alias odit earum.
+				</span>
+				<button nbButton (click)="close()" status="danger">
+					<nb-icon icon="close-outline"></nb-icon>
+					Cerrar
+				</button>
+			</div>
+		</div>
 		} @default {
-		<button nbButton (click)="close()" fullWidth>
-			<nb-icon icon="sync-outline"></nb-icon>
-			Pagar después
-		</button>
-		<button nbButton (click)="close()" status="primary" fullWidth>
-			<nb-icon icon="credit-card-outline"></nb-icon>
-			Pagar
-		</button>
+		<div class="col-sm-6">
+			<button nbButton (click)="close()" fullWidth>
+				<nb-icon icon="sync-outline"></nb-icon>
+				Pagar después
+			</button>
+		</div>
+		<div class="col-sm-6">
+			<button nbButton (click)="close()" status="primary" fullWidth>
+				<nb-icon icon="credit-card-outline"></nb-icon>
+				Pagar
+			</button>
+		</div>
 		} }
 	</nb-card-footer>
 </nb-card>

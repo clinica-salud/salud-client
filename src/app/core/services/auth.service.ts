@@ -1,10 +1,11 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
+import { map, tap } from 'rxjs';
+
 import { environment } from '@src/app/environments/environment';
 import { IDocumentType, ILogin, ILoginReq, IRegisterReq } from '@src/app/shared/models/auth.model';
 import { IResponse } from '@src/app/shared/models/response.model';
-import { map, tap } from 'rxjs';
 
 const { api } = environment;
 

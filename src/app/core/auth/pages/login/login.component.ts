@@ -2,13 +2,14 @@ import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
-import { finalize, timer } from 'rxjs';
+import { delay, finalize } from 'rxjs';
 
 import { NbEvaIconsModule } from '@nebular/eva-icons';
 import { NbButtonModule, NbCheckboxModule, NbIconModule, NbInputModule } from '@nebular/theme';
 
 import { AuthService } from '@src/app/core/services';
 import { ControlErrorComponent } from '@src/app/shared/helpers/control-error/control-error.component';
+import { ILoginReq } from '@src/app/shared/models/auth.model';
 
 const NB_MODULES = [NbIconModule, NbInputModule, NbButtonModule, NbEvaIconsModule, NbCheckboxModule];
 const COMPONENTS = [ControlErrorComponent];
@@ -24,6 +25,7 @@ export class LoginComponent {
 	private _destroyRef = inject(DestroyRef);
 	private _fb = inject(FormBuilder);
 	private _router = inject(Router);
+
 	private _authService = inject(AuthService);
 
 	public isLoading = signal(false);
@@ -34,44 +36,29 @@ export class LoginComponent {
 		remember: [false]
 	});
 
-	get email() {
-		return this.form.controls['email'];
-	}
-
-	get password() {
-		return this.form.controls['password'];
-	}
-
-	public fakeLogin() {
-		this.isLoading.set(true);
-		this.form.disable();
-
-		setTimeout(() => {
-			this.isLoading.set(false);
-			this._router.navigateByUrl('/pages');
-		}, 1000);
+	get f() {
+		return this.form.controls;
 	}
 
 	public login() {
 		this.isLoading.set(true);
 		this.form.disable();
 
+		const loginRequest: ILoginReq = {
+			email: this.f['email'].value,
+			password: this.f['password'].value
+		};
+
 		this._authService
-			.login({
-				email: this.email.value,
-				password: this.password.value
-			})
+			.login(loginRequest)
 			.pipe(
+				delay(500),
 				finalize(() => {
 					this.isLoading.set(false);
 					this.form.enable();
 				}),
 				takeUntilDestroyed(this._destroyRef)
 			)
-			.subscribe(() => {
-				timer(300).subscribe(() => {
-					this._router.navigateByUrl('/pages');
-				});
-			});
+			.subscribe(() => this._router.navigateByUrl('/pages'));
 	}
 }
