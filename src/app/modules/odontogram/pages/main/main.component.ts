@@ -4,7 +4,7 @@ import { NbButtonModule, NbCardModule, NbDialogService, NbIconModule } from '@ne
 
 import { AddTreatmentModalComponent } from '@src/app/modules/odontogram/components/add-treatment-modal/add-treatment-modal.component';
 import { OdontogramGraphComponent } from '@src/app/modules/odontogram/components/odontogram-graph/odontogram-graph.component';
-import { TeethType } from '@src/app/shared/enums/odontogram.enum';
+import { ITooth } from '@src/app/shared/models/odontogram.model';
 
 const NB_MODULES = [NbButtonModule, NbIconModule, NbCardModule];
 const COMPONENTS = [OdontogramGraphComponent];
@@ -19,17 +19,12 @@ const COMPONENTS = [OdontogramGraphComponent];
 export class MainComponent {
 	private _dialogService = inject(NbDialogService);
 
-	public teethType = TeethType.CHILD;
-
-	public changeTeethType() {
-		this.teethType = this.teethType === TeethType.ADULT ? TeethType.CHILD : TeethType.ADULT;
-	}
-
-	public addTreatment(id?: string) {
-		this._dialogService.open(AddTreatmentModalComponent, {
+	public addTreatment(tooth?: ITooth) {
+		const dialog = this._dialogService.open(AddTreatmentModalComponent, {
 			context: {
-				selectedId: id
+				selectedTooth: tooth
 			}
 		});
+		dialog.onClose.subscribe(() => console.log('closed'));
 	}
 }

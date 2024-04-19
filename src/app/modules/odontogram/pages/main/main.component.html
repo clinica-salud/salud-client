@@ -4,8 +4,7 @@
 	</nb-card-header>
 	<nb-card-body class="px-2 px-md-4">
 		<div class="wrapper">
-			<button nbButton (click)="changeTeethType()">Change</button>
-			<app-odontogram-graph (selectedTooth)="addTreatment($event)" [teethType]="teethType" />
+			<app-odontogram-graph (selectedTooth)="addTreatment($event)" />
 			<div class="table-responsive my-4">
 				<table class="table table-sm table-bordered table-striped table-hover">
 					<thead>
