@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 import { NbButtonModule, NbCardModule, NbIconModule, NbOptionModule, NbSelectModule } from '@nebular/theme';
 
@@ -14,10 +14,6 @@ const DIRECTIVES = [WindowDirective];
 	templateUrl: './add-treatment-modal.component.html',
 	styleUrl: './add-treatment-modal.component.scss'
 })
-export class AddTreatmentModalComponent implements OnInit {
+export class AddTreatmentModalComponent {
 	@Input() selectedId?: string;
-
-	ngOnInit(): void {
-		console.log(this.selectedId);
-	}
 }
