@@ -1,0 +1,165 @@
+<div class="table-responsive">
+	<table class="table">
+		<tbody>
+			<tr class="topC">
+				@for (tooth of topC(); track tooth.piezaid) { @if (tooth.imagen) {
+				<td>
+					<input
+						type="image"
+						src="assets/images/{{
+							tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : ''
+						}}/{{ tooth.imagen }}"
+						(click)="selected(tooth)"
+						alt="odontograma"
+					/>
+				</td>
+				} @else {
+				<td></td>
+				} }
+			</tr>
+			<tr class="topB">
+				@for (tooth of topB(); track tooth.piezaid) { @if (tooth.imagen) {
+				<td>
+					<input
+						type="image"
+						src="assets/images/{{
+							tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : ''
+						}}/{{ tooth.imagen }}"
+						(click)="selected(tooth)"
+						alt="odontograma"
+					/>
+				</td>
+				} @else {
+				<td></td>
+				} }
+			</tr>
+			<tr class="topA">
+				@for (tooth of topA(); track tooth.piezaid) { @if (tooth.imagen) {
+				<td>
+					<input
+						type="image"
+						src="assets/images/{{
+							tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : ''
+						}}/{{ tooth.imagen }}"
+						(click)="selected(tooth)"
+						alt="odontograma"
+					/>
+				</td>
+				} @else {
+				<td></td>
+				} }
+			</tr>
+			@if (teethType === 1) {
+			<tr>
+				<td>18</td>
+				<td>17</td>
+				<td>16</td>
+				<td>15</td>
+				<td>14</td>
+				<td>13</td>
+				<td>12</td>
+				<td>11</td>
+				<td>21</td>
+				<td>22</td>
+				<td>23</td>
+				<td>24</td>
+				<td>25</td>
+				<td>26</td>
+				<td>27</td>
+				<td>28</td>
+			</tr>
+			<tr>
+				<td>48</td>
+				<td>47</td>
+				<td>46</td>
+				<td>45</td>
+				<td>44</td>
+				<td>43</td>
+				<td>42</td>
+				<td>41</td>
+				<td>31</td>
+				<td>32</td>
+				<td>33</td>
+				<td>34</td>
+				<td>35</td>
+				<td>36</td>
+				<td>37</td>
+				<td>38</td>
+			</tr>
+			} @else if (teethType === 2) {
+			<tr>
+				<td>55</td>
+				<td>54</td>
+				<td>53</td>
+				<td>52</td>
+				<td>51</td>
+				<td>61</td>
+				<td>62</td>
+				<td>63</td>
+				<td>64</td>
+				<td>65</td>
+			</tr>
+			<tr>
+				<td>85</td>
+				<td>84</td>
+				<td>83</td>
+				<td>82</td>
+				<td>81</td>
+				<td>71</td>
+				<td>72</td>
+				<td>73</td>
+				<td>74</td>
+				<td>75</td>
+			</tr>
+			}
+			<tr class="bottomA">
+				@for (tooth of bottomA(); track tooth.piezaid) { @if (tooth.imagen) {
+				<td>
+					<input
+						type="image"
+						src="assets/images/{{
+							tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : ''
+						}}/{{ tooth.imagen }}"
+						(click)="selected(tooth)"
+						alt="odontograma"
+					/>
+				</td>
+				} @else {
+				<td></td>
+				} }
+			</tr>
+			<tr class="bottomB">
+				@for (tooth of bottomB(); track tooth.piezaid) { @if (tooth.imagen) {
+				<td>
+					<input
+						type="image"
+						src="assets/images/{{
+							tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : ''
+						}}/{{ tooth.imagen }}"
+						(click)="selected(tooth)"
+						alt="odontograma"
+					/>
+				</td>
+				} @else {
+				<td></td>
+				} }
+			</tr>
+			<tr class="bottomC">
+				@for (tooth of bottomC(); track tooth.piezaid) { @if (tooth.imagen) {
+				<td>
+					<input
+						type="image"
+						src="assets/images/{{
+							tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : ''
+						}}/{{ tooth.imagen }}"
+						(click)="selected(tooth)"
+						alt="odontograma"
+					/>
+				</td>
+				} @else {
+				<td></td>
+				} }
+			</tr>
+		</tbody>
+	</table>
+</div>

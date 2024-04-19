@@ -49,6 +49,11 @@ export class MenuService {
 			title: 'Resultados',
 			icon: 'trending-up-outline',
 			link: '/pages/results'
+		},
+		{
+			title: 'Odontograma',
+			icon: 'cube-outline',
+			link: '/pages/odontogram'
 		}
 	];
 
