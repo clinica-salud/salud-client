@@ -38,6 +38,11 @@ export const routes: Routes = [
 				loadChildren: () => import('./modules/results/results.routes').then((m) => m.RESULTS_ROUTES),
 				data: { breadcrumb: 'Resultados' }
 			},
+			{
+				path: 'odontogram',
+				loadChildren: () => import('./modules/odontogram/odontogram.routes').then((m) => m.ODONTOGRAM_ROUTES),
+				data: { breadcrumb: 'Odontograma' }
+			},
 			{ path: '', pathMatch: 'full', redirectTo: 'dashboard' },
 			{ path: '**', component: NotFoundComponent, data: { breadcrumb: '404 Página no encontrada' } }
 		]
