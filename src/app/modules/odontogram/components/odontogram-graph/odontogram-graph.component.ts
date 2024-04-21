@@ -31,10 +31,7 @@ export class OdontogramGraphComponent {
 
 	constructor() {
 		this._odontogramService.getTeethPieces();
-		effect(() => {
-			const teeth = this.teeth;
-			this.orderTeeth(teeth);
-		});
+		effect(() => this.orderTeeth(this.teeth));
 	}
 
 	private orderTeeth(teeth: ITooth[]) {
