@@ -1,6 +1,9 @@
 <nb-card class="border-0">
-	<nb-card-header class="border-0 px-2 px-md-4">
-		<span class="fs-4"> Odontograma Dental </span>
+	<nb-card-header class="border-0 px-2 px-md-4 d-flex align-items-center justify-content-between">
+		<span class="fs-4"> Odontograma Dental de {{ teethType === 1 ? 'Adulto' : teethType === 2 ? 'Niño' : '' }} </span>
+		<button nbButton size="small" class="button-black" (click)="toggleTeethType()">
+			Ver de {{ teethType === 1 ? 'Niño' : teethType === 2 ? 'Adulto' : '' }}
+		</button>
 	</nb-card-header>
 	<nb-card-body class="px-2 px-md-4">
 		<div class="wrapper">

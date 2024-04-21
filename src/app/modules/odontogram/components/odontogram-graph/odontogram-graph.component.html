@@ -1,8 +1,9 @@
 <div class="table-responsive">
 	<table class="table">
 		<tbody>
+			@if (teeth.length !== 0) {
 			<tr class="topC">
-				@for (tooth of topC(); track tooth.piezaid) { @if (tooth.imagen) {
+				@for (tooth of topC; track tooth.piezaid) { @if (tooth.imagen) {
 				<td>
 					<input
 						type="image"
@@ -18,7 +19,7 @@
 				} }
 			</tr>
 			<tr class="topB">
-				@for (tooth of topB(); track tooth.piezaid) { @if (tooth.imagen) {
+				@for (tooth of topB; track tooth.piezaid) { @if (tooth.imagen) {
 				<td>
 					<input
 						type="image"
@@ -34,7 +35,7 @@
 				} }
 			</tr>
 			<tr class="topA">
-				@for (tooth of topA(); track tooth.piezaid) { @if (tooth.imagen) {
+				@for (tooth of topA; track tooth.piezaid) { @if (tooth.imagen) {
 				<td>
 					<input
 						type="image"
@@ -113,7 +114,7 @@
 			</tr>
 			}
 			<tr class="bottomA">
-				@for (tooth of bottomA(); track tooth.piezaid) { @if (tooth.imagen) {
+				@for (tooth of bottomA; track tooth.piezaid) { @if (tooth.imagen) {
 				<td>
 					<input
 						type="image"
@@ -129,7 +130,7 @@
 				} }
 			</tr>
 			<tr class="bottomB">
-				@for (tooth of bottomB(); track tooth.piezaid) { @if (tooth.imagen) {
+				@for (tooth of bottomB; track tooth.piezaid) { @if (tooth.imagen) {
 				<td>
 					<input
 						type="image"
@@ -145,7 +146,7 @@
 				} }
 			</tr>
 			<tr class="bottomC">
-				@for (tooth of bottomC(); track tooth.piezaid) { @if (tooth.imagen) {
+				@for (tooth of bottomC; track tooth.piezaid) { @if (tooth.imagen) {
 				<td>
 					<input
 						type="image"
@@ -160,6 +161,7 @@
 				<td></td>
 				} }
 			</tr>
+			}
 		</tbody>
 	</table>
 </div>
