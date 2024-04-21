@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, inject, signal } from '@angular/core';
+import { Component, EventEmitter, Output, effect, inject } from '@angular/core';
 import { ITooth } from '@src/app/shared/models/odontogram.model';
 import { OdontogramService } from '@src/app/shared/services';
 
@@ -14,36 +14,40 @@ export class OdontogramGraphComponent {
 
 	@Output() public selectedTooth: EventEmitter<ITooth> = new EventEmitter<ITooth>();
 
-	public topA = signal<ITooth[]>([]);
-	public topB = signal<ITooth[]>([]);
-	public topC = signal<ITooth[]>([]);
-	public bottomA = signal<ITooth[]>([]);
-	public bottomB = signal<ITooth[]>([]);
-	public bottomC = signal<ITooth[]>([]);
+	public topA: ITooth[] = [];
+	public topB: ITooth[] = [];
+	public topC: ITooth[] = [];
+	public bottomA: ITooth[] = [];
+	public bottomB: ITooth[] = [];
+	public bottomC: ITooth[] = [];
 
 	get teethType() {
 		return this._odontogramService.teethType;
 	}
 
+	get teeth() {
+		return this._odontogramService.teeth;
+	}
+
 	constructor() {
-		this.getTeethPieces();
+		this._odontogramService.getTeethPieces();
+		effect(() => {
+			const teeth = this.teeth;
+			this.orderTeeth(teeth);
+		});
 	}
 
-	private getTeethPieces() {
-		this._odontogramService.getTeethPieces(this.teethType).subscribe((response) => this.orderTeethData(response));
-	}
+	private orderTeeth(teeth: ITooth[]) {
+		const dataA = teeth.filter((d) => d.fila === 'A');
+		const dataB = teeth.filter((d) => d.fila === 'B');
+		const dataC = teeth.filter((d) => d.fila === 'C');
 
-	private orderTeethData(teethData: ITooth[]) {
-		const dataA = teethData.filter((d) => d.fila === 'A');
-		const dataB = teethData.filter((d) => d.fila === 'B');
-		const dataC = teethData.filter((d) => d.fila === 'C');
-
-		this.topA.set(dataA.slice(0, dataA.length / 2));
-		this.topB.set(dataB.slice(0, dataB.length / 2));
-		this.topC.set(dataC.slice(0, dataC.length / 2));
-		this.bottomA.set(dataA.slice(dataA.length / 2));
-		this.bottomB.set(dataB.slice(dataB.length / 2));
-		this.bottomC.set(dataC.slice(dataC.length / 2));
+		this.topA = dataA.slice(0, dataA.length / 2);
+		this.topB = dataB.slice(0, dataB.length / 2);
+		this.topC = dataC.slice(0, dataC.length / 2);
+		this.bottomA = dataA.slice(dataA.length / 2);
+		this.bottomB = dataB.slice(dataB.length / 2);
+		this.bottomC = dataC.slice(dataC.length / 2);
 	}
 
 	public selected(tooth: ITooth) {

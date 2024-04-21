@@ -14,20 +14,28 @@ const { api } = environment;
 export class OdontogramService {
 	private _http = inject(HttpClient);
 
-	private teethType$ = signal(TeethType.CHILD);
+	private teethType$ = signal(TeethType.ADULT);
+	private teeth$ = signal<ITooth[]>([]);
 
 	get teethType() {
 		return this.teethType$();
 	}
 
+	get teeth() {
+		return this.teeth$();
+	}
+
 	set teethType(value: TeethType) {
 		this.teethType$.set(value);
+		this.teeth$.set([]);
+		this.getTeethPieces(value);
 	}
 
 	public getTeethPieces(teethType: TeethType = this.teethType) {
 		return this._http
 			.get<IResponse<ITooth[]>>(`${api}/salud/teeth/${teethType}`)
-			.pipe(map((response) => response.data));
+			.pipe(map((response) => response.data))
+			.subscribe((data) => this.teeth$.set(data));
 	}
 
 	public getMinimalTeethPieces(teethType: TeethType = this.teethType) {
