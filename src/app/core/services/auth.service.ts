@@ -18,12 +18,12 @@ export class AuthService {
 
 	private isLoggedIn$ = signal(false);
 
-	constructor() {
-		this.isLoggedIn$.set(localStorage.getItem('access_token') ? true : false);
-	}
-
 	get isLoggedIn() {
 		return this.isLoggedIn$();
+	}
+
+	constructor() {
+		this.isLoggedIn$.set(localStorage.getItem('access_token') ? true : false);
 	}
 
 	public login(data: ILoginReq) {

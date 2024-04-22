@@ -25,6 +25,14 @@ export class MainComponent {
 		return this._odontogramService.teethType;
 	}
 
+	get teeth() {
+		return this._odontogramService.teeth;
+	}
+
+	constructor() {
+		this._odontogramService.getTeethPieces();
+	}
+
 	public toggleTeethType() {
 		this._odontogramService.teethType = this.teethType === 1 ? 2 : 1;
 	}

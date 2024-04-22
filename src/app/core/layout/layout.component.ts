@@ -18,7 +18,7 @@ const COMPONENTS = [FooterComponent, HeaderComponent];
 	standalone: true,
 	imports: [RouterOutlet, ...NB_MODULES, ...OTHER_MODULES, ...COMPONENTS],
 	template: `
-		<div [nbSpinner]="spinner" nbSpinnerMessage="Cargando..." nbSpinnerSize="giant" nbSpinnerStatus="primary">
+		<div [nbSpinner]="spinner" nbSpinnerSize="giant" nbSpinnerStatus="primary">
 			<nb-layout windowMode>
 				<nb-layout-header fixed>
 					<app-header></app-header>
@@ -51,11 +51,11 @@ export class LayoutComponent {
 
 	public menu = signal<Menu[]>([]);
 
-	constructor() {
-		this.menu.set(this._menuService.menu);
-	}
-
 	get spinner() {
 		return this._spinnerService.getStatusSpinner;
+	}
+
+	constructor() {
+		this.menu.set(this._menuService.menu);
 	}
 }

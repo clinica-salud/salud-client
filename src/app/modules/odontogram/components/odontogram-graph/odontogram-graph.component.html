@@ -1,7 +1,6 @@
 <div class="table-responsive">
 	<table class="table">
 		<tbody>
-			@if (teeth.length !== 0) {
 			<tr class="topC">
 				@for (tooth of topC; track tooth.piezaid) { @if (tooth.imagen) {
 				<td>
@@ -161,7 +160,6 @@
 				<td></td>
 				} }
 			</tr>
-			}
 		</tbody>
 	</table>
 </div>

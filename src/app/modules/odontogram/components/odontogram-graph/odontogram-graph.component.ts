@@ -30,7 +30,6 @@ export class OdontogramGraphComponent {
 	}
 
 	constructor() {
-		this._odontogramService.getTeethPieces();
 		effect(() => this.orderTeeth(this.teeth));
 	}
 

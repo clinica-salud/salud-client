@@ -6,6 +6,7 @@
 		</button>
 	</nb-card-header>
 	<nb-card-body class="px-2 px-md-4">
+		@if (teeth.length !== 0) {
 		<div class="wrapper">
 			<app-odontogram-graph (selectedTooth)="addTreatment($event)" />
 			<div class="table-responsive my-4">
@@ -56,5 +57,6 @@
 			</div>
 			<button nbButton status="primary" (click)="addTreatment()">Agregar Tratamiento</button>
 		</div>
+		}
 	</nb-card-body>
 </nb-card>
