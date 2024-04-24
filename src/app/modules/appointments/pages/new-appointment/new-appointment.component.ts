@@ -1,4 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import {
 	NbButtonModule,
@@ -61,10 +63,29 @@ const AFTERNOON_TIMES = [
 })
 export class NewAppointmentComponent {
 	private _dialogService = inject(NbDialogService);
+	private _activatedRoute = inject(ActivatedRoute);
 
+	private selectedDate$: FormControl = new FormControl(new Date());
+
+	public today = signal(new Date());
 	public users = signal(USERS);
 	public morning_times = signal(MORNING_TIMES);
 	public afternoon_times = signal(AFTERNOON_TIMES);
+
+	constructor() {
+		this.today().setHours(0, 0, 0, 0);
+
+		const date = this._activatedRoute.snapshot.queryParams['date'];
+		if (date) this.selectedDate$.setValue(new Date(date));
+	}
+
+	get selectedDate() {
+		return this.selectedDate$.value;
+	}
+
+	set selectedDate(date: Date) {
+		this.selectedDate$.setValue(date);
+	}
 
 	public selectMorningTime(time: string) {
 		this.morning_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
