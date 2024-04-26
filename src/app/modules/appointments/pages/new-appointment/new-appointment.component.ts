@@ -43,7 +43,7 @@ const USERS: User[] = [
 const MORNING_TIMES = [
 	{ value: '08:15', title: '8:15 AM', selected: false },
 	{ value: '08:30', title: '8:30 AM', selected: false },
-	{ value: '08:45', title: '8:45 AM', selected: true },
+	{ value: '08:45', title: '8:45 AM', selected: false },
 	{ value: '09:00', title: '9:00 AM', selected: false }
 ];
 
@@ -87,13 +87,18 @@ export class NewAppointmentComponent {
 		this.selectedDate$.setValue(date);
 	}
 
-	public selectMorningTime(time: string) {
+	public selectTime(time: string) {
 		this.morning_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
-	}
-
-	public selectAfternoonTime(time: string) {
 		this.afternoon_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
 	}
+
+	// public selectMorningTime(time: string) {
+	// 	this.morning_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
+	// }
+
+	// public selectAfternoonTime(time: string) {
+	// 	this.afternoon_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
+	// }
 
 	public saveAppointment() {
 		this._dialogService.open(SummaryModalComponent);

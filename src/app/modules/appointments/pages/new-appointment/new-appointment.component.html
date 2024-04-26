@@ -103,7 +103,7 @@
 									<button
 										nbButton
 										[status]="mTime.selected ? 'info' : 'basic'"
-										(click)="selectMorningTime(mTime.value)"
+										(click)="selectTime(mTime.value)"
 										fullWidth
 									>
 										{{ mTime.title }}
@@ -120,7 +120,7 @@
 									<button
 										nbButton
 										[status]="aTime.selected ? 'info' : 'basic'"
-										(click)="selectAfternoonTime(aTime.value)"
+										(click)="selectTime(aTime.value)"
 										fullWidth
 									>
 										{{ aTime.title }}

@@ -1,3 +1,54 @@
 <app-detail-tab>
-	<span>Historial</span>
+	<nb-card class="m-0">
+		<nb-card-body>
+			<div class="d-flex align-items-end gap-2">
+				<nb-icon class="fs-4" icon="file-text-outline"></nb-icon>
+				<span class="fs-5 fw-semibold">Historial</span>
+			</div>
+			<hr />
+			<div class="d-flex flex-column gap-3 mb-4">
+				<p class="fw-medium">ANTECEDENTES PATOLOGICOS</p>
+				<div class="table-responsive">
+					<table class="table table-sm table-borderless">
+						<tbody>
+							<tr>
+								<td style="width: 170px">
+									<span class="fw-semibold">
+										<nb-icon class="fs-7" status="success" icon="checkmark-outline"></nb-icon>
+										Cirugías previas
+									</span>
+								</td>
+								<td><span class="text-secondary">1 Cesarea</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<p class="fw-medium">ANTECEDENTES HEREDOFAMILIARES</p>
+				<div class="table-responsive">
+					<table class="table table-sm table-borderless">
+						<tbody>
+							<tr>
+								<td style="width: 120px">
+									<span class="fw-semibold">
+										<nb-icon class="fs-7" status="success" icon="checkmark-outline"></nb-icon>
+										Diabetes
+									</span>
+								</td>
+								<td><span class="text-secondary">Rama materna</span></td>
+							</tr>
+							<tr>
+								<td>
+									<span class="fw-semibold">
+										<nb-icon class="fs-7" status="success" icon="checkmark-outline"></nb-icon>
+										Otros
+									</span>
+								</td>
+								<td><span class="text-secondary">Cáncer Cérvico Uterino Rama materna</span></td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+			</div>
+		</nb-card-body>
+	</nb-card>
 </app-detail-tab>

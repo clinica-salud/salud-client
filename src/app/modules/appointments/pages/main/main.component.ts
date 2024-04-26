@@ -60,7 +60,8 @@ export class MainComponent {
 	public tableHeadings = signal(['Fecha', 'Tipo', 'Paciente', 'Doctor', 'Ubicación', 'Acciones']);
 	public data = signal(DATA);
 
-	public goToCalendar() {
-		this._router.navigate(['calendar'], { relativeTo: this._activatedRoute });
+	public goToAppointment(id: number) {
+		console.log(id);
+		this._router.navigate(['/pages/medical-consultations/detail', id]);
 	}
 }

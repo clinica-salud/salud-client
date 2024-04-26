@@ -1,7 +1,7 @@
 <nb-card class="m-0 border-0">
 	<nb-card-body class="p-2 p-md-0">
 		<div class="row m-0">
-			<div class="col-md-8 p-0">
+			<div class="col-md-12 p-0">
 				<nb-tabset>
 					<nb-tab class="p-0" tabTitle="Odontograma">
 						<app-odontogram />
@@ -9,97 +9,17 @@
 					<nb-tab class="p-0" tabTitle="Historial">
 						<app-history />
 					</nb-tab>
+					<nb-tab class="p-0" tabTitle="Notas">
+						<app-notes />
+					</nb-tab>
 					<nb-tab class="p-0" tabTitle="Diagnóstico y Tratamiento">
 						<app-diagnosis-treatment />
 					</nb-tab>
 				</nb-tabset>
 			</div>
-			<div class="col-md-4 p-0">
-				<nb-card class="m-0">
-					<nb-card-header class="d-flex align-items-center gap-2" style="padding-block: 0.688rem">
-						<nb-icon class="fs-5 text-body-tertiary" icon="arrowhead-right-outline"></nb-icon>
-						<span class="fs-6 text-body-tertiary">Resumen de consulta</span>
-					</nb-card-header>
-					<nb-card-body style="min-height: calc(100dvh - 199px)">
-						<div class="d-flex align-items-end gap-2">
-							<nb-icon class="fs-4" icon="file-text-outline"></nb-icon>
-							<span class="fs-5 fw-semibold">Historial</span>
-						</div>
-						<hr />
-						<div class="d-flex flex-column gap-3 mb-4">
-							<p class="fw-medium">ANTECEDENTES PATOLOGICOS</p>
-							<div class="table-responsive">
-								<table class="table table-sm table-borderless">
-									<tbody>
-										<tr>
-											<td style="width: 170px">
-												<span class="fw-semibold">
-													<nb-icon class="fs-7" status="success" icon="checkmark-outline"></nb-icon>
-													Cirugías previas
-												</span>
-											</td>
-											<td><span class="text-secondary">1 Cesarea</span></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-							<p class="fw-medium">ANTECEDENTES HEREDOFAMILIARES</p>
-							<div class="table-responsive">
-								<table class="table table-sm table-borderless">
-									<tbody>
-										<tr>
-											<td style="width: 120px">
-												<span class="fw-semibold">
-													<nb-icon class="fs-7" status="success" icon="checkmark-outline"></nb-icon>
-													Diabetes
-												</span>
-											</td>
-											<td><span class="text-secondary">Rama materna</span></td>
-										</tr>
-										<tr>
-											<td>
-												<span class="fw-semibold">
-													<nb-icon class="fs-7" status="success" icon="checkmark-outline"></nb-icon>
-													Otros
-												</span>
-											</td>
-											<td><span class="text-secondary">Cáncer Cérvico Uterino Rama materna</span></td>
-										</tr>
-									</tbody>
-								</table>
-							</div>
-						</div>
-						<div class="d-flex align-items-end gap-2">
-							<nb-icon class="fs-4" icon="file-text-outline"></nb-icon>
-							<span class="fs-5 fw-semibold">Notas de padecimiento</span>
-						</div>
-						<hr />
-						<div class="d-flex flex-column gap-3">
-							<div class="d-flex flex-column gap-2">
-								<p class="fw-semibold">RAZÓN DE LA VISITA</p>
-								<span>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur fugit commodi sit animi adipisci
-									quod ea maiores quo doloremque minima?
-								</span>
-							</div>
-							<div class="d-flex flex-column gap-2">
-								<p class="fw-semibold">SINTOMAS SUBJETIVOS</p>
-								<span>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur fugit commodi sit animi adipisci
-									quod ea maiores quo doloremque minima?
-								</span>
-							</div>
-							<div class="d-flex flex-column gap-2">
-								<p class="fw-semibold">EXPLORACIÓN FISICA</p>
-								<span>
-									Lorem ipsum dolor sit amet consectetur adipisicing elit. Consequatur fugit commodi sit animi adipisci
-									quod ea maiores quo doloremque minima?
-								</span>
-							</div>
-						</div>
-					</nb-card-body>
-				</nb-card>
-			</div>
+			<!-- <div class="col-md-4 p-0">
+
+			</div> -->
 		</div>
 	</nb-card-body>
 </nb-card>
