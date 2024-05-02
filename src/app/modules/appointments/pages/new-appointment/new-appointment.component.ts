@@ -1,4 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
+import { FormControl } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 
 import {
 	NbButtonModule,
@@ -41,7 +43,7 @@ const USERS: User[] = [
 const MORNING_TIMES = [
 	{ value: '08:15', title: '8:15 AM', selected: false },
 	{ value: '08:30', title: '8:30 AM', selected: false },
-	{ value: '08:45', title: '8:45 AM', selected: true },
+	{ value: '08:45', title: '8:45 AM', selected: false },
 	{ value: '09:00', title: '9:00 AM', selected: false }
 ];
 
@@ -61,18 +63,42 @@ const AFTERNOON_TIMES = [
 })
 export class NewAppointmentComponent {
 	private _dialogService = inject(NbDialogService);
+	private _activatedRoute = inject(ActivatedRoute);
 
+	private selectedDate$: FormControl = new FormControl(new Date());
+
+	public today = signal(new Date());
 	public users = signal(USERS);
 	public morning_times = signal(MORNING_TIMES);
 	public afternoon_times = signal(AFTERNOON_TIMES);
 
-	public selectMorningTime(time: string) {
-		this.morning_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
+	constructor() {
+		this.today().setHours(0, 0, 0, 0);
+
+		const date = this._activatedRoute.snapshot.queryParams['date'];
+		if (date) this.selectedDate$.setValue(new Date(date));
 	}
 
-	public selectAfternoonTime(time: string) {
+	get selectedDate() {
+		return this.selectedDate$.value;
+	}
+
+	set selectedDate(date: Date) {
+		this.selectedDate$.setValue(date);
+	}
+
+	public selectTime(time: string) {
+		this.morning_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
 		this.afternoon_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
 	}
+
+	// public selectMorningTime(time: string) {
+	// 	this.morning_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
+	// }
+
+	// public selectAfternoonTime(time: string) {
+	// 	this.afternoon_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
+	// }
 
 	public saveAppointment() {
 		this._dialogService.open(SummaryModalComponent);

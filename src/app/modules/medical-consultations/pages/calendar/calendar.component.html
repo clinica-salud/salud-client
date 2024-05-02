@@ -47,6 +47,7 @@
 				[viewDate]="today()"
 				[events]="filteredEvents()"
 				(eventClicked)="showEvent($event.event.meta)"
+				(dayClicked)="dayClicked($event.day.date)"
 			>
 			</mwl-calendar-month-view>
 		</div>

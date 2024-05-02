@@ -31,17 +31,12 @@ export const routes: Routes = [
 					import('./modules/medical-consultations/medical-consultations.routes').then(
 						(m) => m.MEDICAL_CONSULTATIONS_ROUTES
 					),
-				data: { breadcrumb: 'Consultas médicas' }
+				data: { breadcrumb: 'Historia clínica' }
 			},
 			{
 				path: 'results',
 				loadChildren: () => import('./modules/results/results.routes').then((m) => m.RESULTS_ROUTES),
 				data: { breadcrumb: 'Resultados' }
-			},
-			{
-				path: 'odontogram',
-				loadChildren: () => import('./modules/odontogram/odontogram.routes').then((m) => m.ODONTOGRAM_ROUTES),
-				data: { breadcrumb: 'Odontograma' }
 			},
 			{ path: '', pathMatch: 'full', redirectTo: 'dashboard' },
 			{ path: '**', component: NotFoundComponent, data: { breadcrumb: '404 Página no encontrada' } }

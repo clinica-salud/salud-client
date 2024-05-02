@@ -38,10 +38,10 @@ export class MenuService {
 		{
 			title: 'Mis citas',
 			icon: 'calendar-outline',
-			link: '/pages/appointments/new-appointment'
+			link: '/pages/appointments'
 		},
 		{
-			title: 'Consultas médicas',
+			title: 'Historia clínica',
 			icon: 'book-outline',
 			link: '/pages/medical-consultations'
 		},
@@ -49,11 +49,6 @@ export class MenuService {
 			title: 'Resultados',
 			icon: 'trending-up-outline',
 			link: '/pages/results'
-		},
-		{
-			title: 'Odontograma',
-			icon: 'cube-outline',
-			link: '/pages/odontogram'
 		}
 	];
 

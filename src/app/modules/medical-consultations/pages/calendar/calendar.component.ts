@@ -1,4 +1,4 @@
-import { CommonModule } from '@angular/common';
+import { CommonModule, DatePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
 import { FormBuilder, ReactiveFormsModule } from '@angular/forms';
 
@@ -7,6 +7,7 @@ import { NbButtonModule, NbCardModule, NbDialogService, NbIconModule } from '@ne
 import { CalendarEvent, CalendarModule } from 'angular-calendar';
 import { addDays, startOfDay } from 'date-fns';
 
+import { Router } from '@angular/router';
 import {
 	SummaryModalComponent,
 	SummaryType
@@ -120,6 +121,8 @@ type EventMeta = {
 export class CalendarComponent {
 	private _dialogService = inject(NbDialogService);
 	private _fb = inject(FormBuilder);
+	private _router = inject(Router);
+	private _datePipe = inject(DatePipe);
 
 	public today = signal(new Date());
 	public originalEvents = signal<CalendarEvent[]>(EVENTS);
@@ -213,6 +216,16 @@ export class CalendarComponent {
 				detail: meta.detail
 			}
 		});
-		// console.log(meta);
+		console.log(meta);
+	}
+
+	public dayClicked(selectedDate: Date) {
+		const today = new Date();
+		today.setHours(0, 0, 0, 0);
+
+		if (selectedDate < today) return;
+
+		const formattedDate = this._datePipe.transform(selectedDate, 'MM-dd-yyyy');
+		this._router.navigate(['/pages/appointments', 'new-appointment'], { queryParams: { date: formattedDate } });
 	}
 }

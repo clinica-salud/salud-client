@@ -14,7 +14,7 @@ export enum Fila {
 	C = 'C'
 }
 
-export enum Nombre {
+export enum TeethName {
 	ADULT = 'Adulto',
 	CHILD = 'Niño'
 }
