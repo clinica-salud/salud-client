@@ -92,14 +92,6 @@ export class NewAppointmentComponent {
 		this.afternoon_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
 	}
 
-	// public selectMorningTime(time: string) {
-	// 	this.morning_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
-	// }
-
-	// public selectAfternoonTime(time: string) {
-	// 	this.afternoon_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
-	// }
-
 	public saveAppointment() {
 		this._dialogService.open(SummaryModalComponent);
 	}
