@@ -19,7 +19,14 @@ import {
 
 import { AuthService, MenuService, User } from '@src/app/core/services';
 
-const NB_MODULES = [NbIconModule, NbActionsModule, NbUserModule, NbContextMenuModule, NbEvaIconsModule, NbButtonModule];
+const NB_MODULES = [
+	NbActionsModule,
+	NbButtonModule,
+	NbContextMenuModule,
+	NbEvaIconsModule,
+	NbIconModule,
+	NbUserModule
+];
 
 @Component({
 	selector: 'app-header',
@@ -64,7 +71,6 @@ export class HeaderComponent {
 			if (this.hideMenuOnClick()) this._sidebarService.collapse('menu-sidebar');
 			if (item.data?.action === 'logout') {
 				this._authService.logout().subscribe(() => this._router.navigateByUrl('/auth'));
-				// this._router.navigateByUrl('/auth');
 			}
 		});
 	}

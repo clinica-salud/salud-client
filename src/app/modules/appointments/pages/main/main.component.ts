@@ -6,12 +6,25 @@ import {
 	NbButtonModule,
 	NbCardModule,
 	NbDatepickerModule,
+	NbFormFieldModule,
 	NbIconModule,
 	NbInputModule,
+	NbOptionModule,
+	NbSelectModule,
 	NbUserModule
 } from '@nebular/theme';
 
-const NB_MODULES = [NbCardModule, NbButtonModule, NbIconModule, NbUserModule, NbInputModule, NbDatepickerModule];
+const NB_MODULES = [
+	NbButtonModule,
+	NbCardModule,
+	NbDatepickerModule,
+	NbFormFieldModule,
+	NbIconModule,
+	NbInputModule,
+	NbOptionModule,
+	NbSelectModule,
+	NbUserModule
+];
 
 const USER = {
 	name: 'Pantigoso Puraca José Miguel',
@@ -22,26 +35,32 @@ const DATA = [
 	{
 		id: 1,
 		date: '22/03/2024',
-		type: 'Especialidad',
-		patient: 'Titular',
+		hour: '08:15:00',
+		patient: 'Esperanza Ortiz Flores',
 		doctor: 'Andres Chumbiray R.',
-		location: 'Lima'
+		speciality: 'Ortodoncia',
+		consultory: 'Consultorio - 1',
+		status: 'Cancelado'
 	},
 	{
 		id: 2,
 		date: '22/03/2024',
-		type: 'Especialidad',
-		patient: 'Titular',
+		hour: '08:15:00',
+		patient: 'Esperanza Ortiz Flores',
 		doctor: 'Andres Chumbiray R.',
-		location: 'Lima'
+		speciality: 'Ortodoncia',
+		consultory: 'Consultorio - 1',
+		status: 'Cancelado'
 	},
 	{
 		id: 3,
 		date: '22/03/2024',
-		type: 'Especialidad',
-		patient: 'Titular',
+		hour: '08:15:00',
+		patient: 'Esperanza Ortiz Flores',
 		doctor: 'Andres Chumbiray R.',
-		location: 'Lima'
+		speciality: 'Ortodoncia',
+		consultory: 'Consultorio - 1',
+		status: 'Cancelado'
 	}
 ];
 
@@ -57,7 +76,16 @@ export class MainComponent {
 	private _activatedRoute = inject(ActivatedRoute);
 
 	public user = signal(USER);
-	public tableHeadings = signal(['Fecha', 'Tipo', 'Paciente', 'Doctor', 'Ubicación', 'Acciones']);
+	public tableHeadings = signal([
+		'Fecha',
+		'Hora',
+		'Paciente',
+		'Médico',
+		'Especialidad',
+		'Consultorio',
+		'Estado',
+		'Acciones'
+	]);
 	public data = signal(DATA);
 
 	public goToAppointment(id: number) {
