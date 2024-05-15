@@ -65,7 +65,6 @@ const DATA = [
 ];
 
 @Component({
-	selector: 'app-main',
 	standalone: true,
 	imports: [UpperCasePipe, ...NB_MODULES],
 	templateUrl: './main.component.html',

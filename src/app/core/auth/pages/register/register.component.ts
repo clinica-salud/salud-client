@@ -16,7 +16,6 @@ const NB_MODULES = [NbIconModule, NbInputModule, NbButtonModule, NbEvaIconsModul
 const COMPONENTS = [ControlErrorComponent];
 
 @Component({
-	selector: 'app-register',
 	standalone: true,
 	imports: [ReactiveFormsModule, RouterLink, AsyncPipe, ...NB_MODULES, ...COMPONENTS],
 	templateUrl: './register.component.html',

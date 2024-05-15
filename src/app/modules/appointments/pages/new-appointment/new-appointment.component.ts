@@ -57,7 +57,6 @@ const AFTERNOON_TIMES = [
 ];
 
 @Component({
-	selector: 'app-new-appointment',
 	standalone: true,
 	imports: [...NB_MODULES],
 	templateUrl: './new-appointment.component.html',
@@ -91,7 +90,9 @@ export class NewAppointmentComponent {
 
 	public selectTime(time: string) {
 		this.morning_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
-		this.afternoon_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
+		this.afternoon_times.update((times) =>
+			times.map((t) => ({ ...t, selected: t.value === time }))
+		);
 	}
 
 	public saveAppointment() {

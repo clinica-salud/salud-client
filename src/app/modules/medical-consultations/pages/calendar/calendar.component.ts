@@ -112,7 +112,6 @@ type EventMeta = {
 };
 
 @Component({
-	selector: 'app-calendar',
 	standalone: true,
 	imports: [CommonModule, ReactiveFormsModule, ...NB_MODULES, ...OTHER_MODULES, ...COMPONENTS],
 	templateUrl: './calendar.component.html',
@@ -182,8 +181,12 @@ export class CalendarComponent {
 	public toggleFinished(value: boolean) {
 		this.finishedControl.setValue(value);
 
-		const finishedEvents = this.originalEvents().filter((event) => event.meta.type === SummaryType.FINISHED);
-		const filteredEvents = this.filteredEvents().filter((event) => event.meta.type !== SummaryType.FINISHED);
+		const finishedEvents = this.originalEvents().filter(
+			(event) => event.meta.type === SummaryType.FINISHED
+		);
+		const filteredEvents = this.filteredEvents().filter(
+			(event) => event.meta.type !== SummaryType.FINISHED
+		);
 		value
 			? this.filteredEvents.set([...this.filteredEvents(), ...finishedEvents])
 			: this.filteredEvents.set(filteredEvents);
@@ -192,8 +195,12 @@ export class CalendarComponent {
 	public toggleCancelled(value: boolean) {
 		this.cancelledControl.setValue(value);
 
-		const cancelledEvents = this.originalEvents().filter((event) => event.meta.type === SummaryType.CANCELLED);
-		const filteredEvents = this.filteredEvents().filter((event) => event.meta.type !== SummaryType.CANCELLED);
+		const cancelledEvents = this.originalEvents().filter(
+			(event) => event.meta.type === SummaryType.CANCELLED
+		);
+		const filteredEvents = this.filteredEvents().filter(
+			(event) => event.meta.type !== SummaryType.CANCELLED
+		);
 		value
 			? this.filteredEvents.set([...this.filteredEvents(), ...cancelledEvents])
 			: this.filteredEvents.set(filteredEvents);
@@ -202,8 +209,12 @@ export class CalendarComponent {
 	public toggleNext(value: boolean) {
 		this.nextControl.setValue(value);
 
-		const nextEvents = this.originalEvents().filter((event) => event.meta.type === SummaryType.NEXT);
-		const filteredEvents = this.filteredEvents().filter((event) => event.meta.type !== SummaryType.NEXT);
+		const nextEvents = this.originalEvents().filter(
+			(event) => event.meta.type === SummaryType.NEXT
+		);
+		const filteredEvents = this.filteredEvents().filter(
+			(event) => event.meta.type !== SummaryType.NEXT
+		);
 		value
 			? this.filteredEvents.set([...this.filteredEvents(), ...nextEvents])
 			: this.filteredEvents.set(filteredEvents);
@@ -226,6 +237,8 @@ export class CalendarComponent {
 		if (selectedDate < today) return;
 
 		const formattedDate = this._datePipe.transform(selectedDate, 'MM-dd-yyyy');
-		this._router.navigate(['/pages/appointments', 'new-appointment'], { queryParams: { date: formattedDate } });
+		this._router.navigate(['/pages/appointments', 'new-appointment'], {
+			queryParams: { date: formattedDate }
+		});
 	}
 }

@@ -11,7 +11,14 @@ import {
 	NbUserModule
 } from '@nebular/theme';
 
-const NB_MODULES = [NbCardModule, NbButtonModule, NbIconModule, NbUserModule, NbInputModule, NbDatepickerModule];
+const NB_MODULES = [
+	NbCardModule,
+	NbButtonModule,
+	NbIconModule,
+	NbUserModule,
+	NbInputModule,
+	NbDatepickerModule
+];
 
 const USER = {
 	name: 'Pantigoso Puraca José Miguel',
@@ -46,7 +53,6 @@ const DATA = [
 ];
 
 @Component({
-	selector: 'app-main',
 	standalone: true,
 	imports: [UpperCasePipe, ...NB_MODULES],
 	templateUrl: './main.component.html',
