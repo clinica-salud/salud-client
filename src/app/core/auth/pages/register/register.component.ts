@@ -22,11 +22,10 @@ const COMPONENTS = [ControlErrorComponent];
 	styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
+	private _authService = inject(AuthService);
 	private _destroyRef = inject(DestroyRef);
 	private _fb = inject(FormBuilder);
 	private _router = inject(Router);
-
-	private _authService = inject(AuthService);
 
 	public isLoading = signal(false);
 	public documentTypes$ = this._authService.getDocumentTypes();

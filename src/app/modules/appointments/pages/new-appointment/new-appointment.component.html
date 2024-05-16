@@ -23,16 +23,16 @@
 						<p class="fs-6 fw-medium">¿Cómo podemos apoyarte?</p>
 						<p class="fs-7 text-black-50">Consultas con el mejor staff altamente calificado</p>
 					</div>
-					<nb-radio-group class="d-flex flex-wrap gap-4" status="success">
-						<nb-radio value="">Consulta</nb-radio>
-						<nb-radio value="">Servicio</nb-radio>
-						<nb-radio value="">Tratamiento</nb-radio>
+					<nb-radio-group class="d-flex flex-wrap gap-3" status="success">
+						<nb-radio value="1">Consulta</nb-radio>
+						<nb-radio value="2">Servicio</nb-radio>
+						<nb-radio value="3">Tratamiento</nb-radio>
 					</nb-radio-group>
 					<div class="d-flex flex-column gap-1">
 						<p class="fs-6 fw-medium">Tipo servicio</p>
 						<p class="fs-7 text-black-50">Contamos con equipos de última tecnología</p>
 					</div>
-					<div class="d-flex flex-wrap gap-5">
+					<div class="d-flex flex-wrap gap-3">
 						<nb-checkbox status="success">Rayox X</nb-checkbox>
 						<nb-checkbox status="success">Tomografia</nb-checkbox>
 						<nb-checkbox status="success">Otro</nb-checkbox>
@@ -40,14 +40,14 @@
 					<div>
 						<p class="fs-6 fw-medium">Especialidades</p>
 					</div>
-					<nb-radio-group class="d-flex flex-wrap gap-4" status="success">
-						<nb-radio value="">Ortodoncia</nb-radio>
-						<nb-radio value="">Endodoncia</nb-radio>
-						<nb-radio value="">Periodoncia</nb-radio>
-						<nb-radio value="">Implantología Dental</nb-radio>
-						<nb-radio value="">Prótesis Dental</nb-radio>
-						<nb-radio value="">Odontopediatria</nb-radio>
-						<nb-radio value="">Cirugía Oral y Maxilofacial</nb-radio>
+					<nb-radio-group class="d-flex flex-wrap gap-3" status="success">
+						<nb-radio value="1">Ortodoncia</nb-radio>
+						<nb-radio value="2">Endodoncia</nb-radio>
+						<nb-radio value="3">Periodoncia</nb-radio>
+						<nb-radio value="4">Implantología Dental</nb-radio>
+						<nb-radio value="5">Prótesis Dental</nb-radio>
+						<nb-radio value="6">Odontopediatria</nb-radio>
+						<nb-radio value="7">Cirugía Oral y Maxilofacial</nb-radio>
 					</nb-radio-group>
 					<div class="d-flex flex-column gap-3">
 						<p class="fs-6 fw-semibold">Escoge a tu especialista</p>
@@ -121,7 +121,9 @@
 							<button nbButton fullWidth>Cancelar</button>
 						</div>
 						<div class="col-md-6">
-							<button nbButton status="primary" (click)="saveAppointment()" fullWidth>Guardar</button>
+							<button nbButton status="primary" (click)="saveAppointment()" fullWidth>
+								Guardar
+							</button>
 						</div>
 					</div>
 				</div>

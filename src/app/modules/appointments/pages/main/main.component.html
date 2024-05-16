@@ -7,7 +7,13 @@
 			<div class="col-md-2">
 				<label class="label fs-7 mb-1">Fecha: </label>
 				<div class="d-flex position-relative">
-					<input nbInput #dateFromInput placeholder="00/00/0000" [nbDatepicker]="dateFromPicker" fullWidth />
+					<input
+						nbInput
+						#dateFromInput
+						placeholder="00/00/0000"
+						[nbDatepicker]="dateFromPicker"
+						fullWidth
+					/>
 					<button class="position-absolute end-0" nbButton ghost (click)="dateFromInput.click()">
 						<nb-icon icon="calendar-outline"></nb-icon>
 					</button>
@@ -40,9 +46,14 @@
 				</nb-select>
 			</div>
 			<div class="col-md-1 mt-md-auto">
-				<button nbButton status="success">
-					<nb-icon icon="calendar-outline"></nb-icon>
-				</button>
+				<div class="d-flex flex-wrap gap-2">
+					<button nbButton status="primary">
+						<nb-icon icon="funnel-outline"></nb-icon>
+					</button>
+					<button nbButton status="success">
+						<nb-icon icon="calendar-outline"></nb-icon>
+					</button>
+				</div>
 			</div>
 			<!-- <div class="col-md-2 mt-md-auto">
 				<button nbButton status="primary">
