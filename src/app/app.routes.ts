@@ -17,12 +17,14 @@ export const routes: Routes = [
 		children: [
 			{
 				path: 'dashboard',
-				loadChildren: () => import('./modules/dashboard/dashboard.routes').then((m) => m.DASHBOARD_ROUTES),
+				loadChildren: () =>
+					import('./modules/dashboard/dashboard.routes').then((m) => m.DASHBOARD_ROUTES),
 				data: { breadcrumb: 'Dashboard' }
 			},
 			{
 				path: 'appointments',
-				loadChildren: () => import('./modules/appointments/appointments.routes').then((m) => m.APPOINTMENTS_ROUTES),
+				loadChildren: () =>
+					import('./modules/appointments/appointments.routes').then((m) => m.APPOINTMENTS_ROUTES),
 				data: { breadcrumb: 'Mis citas' }
 			},
 			{
@@ -31,11 +33,12 @@ export const routes: Routes = [
 					import('./modules/medical-consultations/medical-consultations.routes').then(
 						(m) => m.MEDICAL_CONSULTATIONS_ROUTES
 					),
-				data: { breadcrumb: 'Historia clínica' }
+				data: { breadcrumb: 'Consultas médicas' }
 			},
 			{
 				path: 'results',
-				loadChildren: () => import('./modules/results/results.routes').then((m) => m.RESULTS_ROUTES),
+				loadChildren: () =>
+					import('./modules/results/results.routes').then((m) => m.RESULTS_ROUTES),
 				data: { breadcrumb: 'Resultados' }
 			},
 			{ path: '', pathMatch: 'full', redirectTo: 'dashboard' },

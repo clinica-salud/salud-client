@@ -1,118 +1,141 @@
 <nb-card class="border-0">
 	<nb-card-header class="border-0 px-2 px-md-4">
-		<span class="fs-4"> Historia clínica </span>
+		<span class="fs-4">Consultas médicas</span>
 	</nb-card-header>
 	<nb-card-body class="px-2 px-md-4">
-		<div class="row m-0">
-			<div class="col-lg-6 col-xl-4 col-xxl-3 px-0 pe-md-2">
-				<nb-card>
-					<nb-card-header>
-						<nb-user size="medium" [name]="user().name" [title]="user().title" />
-					</nb-card-header>
-					<nb-card-body class="d-flex flex-column gap-3 py-4">
-						<p class="fw-semibold">Buscar por fecha</p>
-						<div class="d-flex flex-column gap-2">
-							<label class="label">Desde: </label>
-							<div class="d-flex position-relative">
-								<input
-									nbInput
-									#dateFromInput
-									placeholder="Seleccione fecha"
-									[nbDatepicker]="dateFromPicker"
-									fullWidth
-								/>
-								<button class="position-absolute end-0" nbButton ghost (click)="dateFromInput.click()">
-									<nb-icon icon="calendar-outline"></nb-icon>
-								</button>
-								<nb-datepicker #dateFromPicker> </nb-datepicker>
-							</div>
-						</div>
-						<div class="d-flex flex-column gap-2">
-							<label class="label">Hasta: </label>
-							<div class="d-flex position-relative">
-								<input nbInput #dateToInput placeholder="Seleccione fecha" [nbDatepicker]="dateToPicker" fullWidth />
-								<button class="position-absolute end-0" nbButton ghost (click)="dateToInput.click()">
-									<nb-icon icon="calendar-outline"></nb-icon>
-								</button>
-								<nb-datepicker #dateToPicker> </nb-datepicker>
-							</div>
-						</div>
-						<div class="d-flex flex-column gap-2">
-							<button nbButton status="primary" fullWidth>
-								Filtrar
-								<nb-icon icon="options-2-outline"></nb-icon>
-							</button>
-							<hr />
-							<button nbButton status="success" (click)="goToCalendar()" fullWidth>
-								Calendario
-								<nb-icon icon="calendar-outline"></nb-icon>
-							</button>
-						</div>
-					</nb-card-body>
-				</nb-card>
-			</div>
-			<div class="col-lg-6 col-xl-8 col-xxl-9 px-0 ps-md-2">
-				<div class="table-responsive d-none d-md-block d-lg-none d-xxl-block">
-					<table class="table table-borderless">
-						<thead class="border-bottom border-top">
-							<tr class="text-center">
-								@for (heading of tableHeadings(); track $index) {
-								<th>{{ heading | uppercase }}</th>
-								}
-							</tr>
-						</thead>
-						<tbody>
-							@for (item of data(); track item.id) {
-							<tr class="align-middle text-center">
-								<td>{{ item.date }}</td>
-								<td>{{ item.type }}</td>
-								<td>{{ item.patient }}</td>
-								<td>{{ item.doctor }}</td>
-								<td>{{ item.location }}</td>
-								<td>
-									<button nbButton size="small">
-										<nb-icon icon="eye-outline"></nb-icon>
-									</button>
-								</td>
-							</tr>
-							}
-						</tbody>
-					</table>
-				</div>
-				<div class="table-responsive d-block d-md-none d-lg-block d-xxl-none">
-					<table class="table table-sm table-bordered">
-						<tbody>
-							@for (item of data(); track item.id) {
-							<tr>
-								<th>Fecha:</th>
-								<td>{{ item.date }}</td>
-							</tr>
-							<tr>
-								<th>Paciente:</th>
-								<td>{{ item.patient }}</td>
-							</tr>
-							<tr>
-								<th>Doctor:</th>
-								<td>{{ item.doctor }}</td>
-							</tr>
-							<tr>
-								<th>Ubicación:</th>
-								<td>{{ item.location }}</td>
-							</tr>
-							<tr class="align-middle last-row">
-								<th>Acciones:</th>
-								<td>
-									<button nbButton size="tiny">
-										<nb-icon icon="download-outline"></nb-icon>
-										Descargar
-									</button>
-								</td>
-							</tr>
-							}
-						</tbody>
-					</table>
+		<div class="row g-3 mb-4">
+			<div class="col-md-6 col-lg-4 col-xxl-2">
+				<label class="label fs-7 mb-1">Fecha: </label>
+				<div class="d-flex position-relative">
+					<input
+						nbInput
+						#dateFromInput
+						placeholder="00/00/0000"
+						[nbDatepicker]="dateFromPicker"
+						fullWidth
+					/>
+					<button class="position-absolute end-0" nbButton ghost (click)="dateFromInput.click()">
+						<nb-icon icon="calendar-outline"></nb-icon>
+					</button>
+					<nb-datepicker #dateFromPicker> </nb-datepicker>
 				</div>
 			</div>
+			<div class="col-md-6 col-lg-4 col-xxl-3">
+				<label class="label fs-7 mb-1">Especialidad: </label>
+				<nb-select placeholder="Seleccione una opción" fullWidth>
+					<nb-option>sssss</nb-option>
+				</nb-select>
+			</div>
+			<div class="col-md-6 col-lg-4 col-xxl-3">
+				<label class="label fs-7 mb-1">Médico: </label>
+				<nb-select placeholder="Seleccione una opción" fullWidth>
+					<nb-option>sssss</nb-option>
+				</nb-select>
+			</div>
+			<div class="col-md-6 col-lg-8 col-xxl-3">
+				<label class="label fs-7 mb-1">Paciente: </label>
+				<nb-form-field>
+					<nb-icon nbPrefix icon="search-outline"></nb-icon>
+					<input nbInput type="search" placeholder="Buscar paciente..." fullWidth />
+				</nb-form-field>
+			</div>
+			<div class="col-md-12 col-lg-4 col-xxl-1 mt-lg-auto">
+				<button nbButton class="d-block d-xxl-none" status="primary" fullWidth>
+					Filtrar
+					<nb-icon icon="options-2-outline"></nb-icon>
+				</button>
+				<button nbButton class="d-none d-xxl-block" status="primary" fullWidth>
+					<nb-icon icon="options-2-outline"></nb-icon>
+				</button>
+			</div>
+		</div>
+		<div class="table-responsive d-none d-lg-block d-xl-none d-xxl-block">
+			<table class="table table-borderless">
+				<thead class="border-bottom border-top">
+					<tr class="text-center">
+						@for (heading of tableHeadings(); track $index) {
+						<th>{{ heading | uppercase }}</th>
+						}
+					</tr>
+				</thead>
+				<tbody>
+					@for (item of data(); track item.id) {
+					<tr class="align-middle text-center">
+						<td>{{ item.date }}</td>
+						<td>{{ item.hour }}</td>
+						<td>{{ item.patient }}</td>
+						<td>{{ item.doctor }}</td>
+						<td>{{ item.speciality }}</td>
+						<td>{{ item.consultory }}</td>
+						<td class="position-relative">
+							<nb-badge
+								class="center-badge"
+								[text]="item.status"
+								[status]="item.status === 'Finalizado' ? 'success' : 'basic'"
+								position="top left"
+							></nb-badge>
+						</td>
+						<td>
+							<button nbButton (click)="showEvent(item)" size="small">
+								<nb-icon icon="eye-outline"></nb-icon>
+							</button>
+						</td>
+					</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+		<div class="table-responsive d-block d-lg-none d-xl-block d-xxl-none">
+			<table class="table table-sm table-bordered">
+				<tbody>
+					@for (item of data(); track item.id) {
+					<tr>
+						<th>Fecha:</th>
+						<td>{{ item.date }}</td>
+					</tr>
+					<tr>
+						<th>Hora:</th>
+						<td>{{ item.hour }}</td>
+					</tr>
+					<tr>
+						<th>Paciente:</th>
+						<td>{{ item.patient }}</td>
+					</tr>
+					<tr>
+						<th>Doctor:</th>
+						<td>{{ item.doctor }}</td>
+					</tr>
+					<tr>
+						<th>Especialidad:</th>
+						<td>{{ item.speciality }}</td>
+					</tr>
+					<tr>
+						<th>Consultorio:</th>
+						<td>{{ item.consultory }}</td>
+					</tr>
+					<tr>
+						<th>Estado:</th>
+						<td class="position-relative">
+							<nb-badge
+								class="ms-1"
+								[text]="item.status"
+								[status]="item.status === 'Finalizado' ? 'success' : 'basic'"
+								position="center left"
+							></nb-badge>
+						</td>
+					</tr>
+					<tr class="align-middle last-row">
+						<th>Acciones:</th>
+						<td>
+							<button nbButton size="tiny">
+								<nb-icon icon="download-outline"></nb-icon>
+								Descargar
+							</button>
+						</td>
+					</tr>
+					}
+				</tbody>
+			</table>
 		</div>
 	</nb-card-body>
 </nb-card>

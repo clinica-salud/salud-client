@@ -41,7 +41,7 @@ export class MenuService {
 			link: '/pages/appointments'
 		},
 		{
-			title: 'Historia clínica',
+			title: 'Consultas médicas',
 			icon: 'book-outline',
 			link: '/pages/medical-consultations'
 		},

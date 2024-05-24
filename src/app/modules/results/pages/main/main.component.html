@@ -18,7 +18,12 @@
 									[nbDatepicker]="dateFromPicker"
 									fullWidth
 								/>
-								<button class="position-absolute end-0" nbButton ghost (click)="dateFromInput.click()">
+								<button
+									nbButton
+									ghost
+									class="position-absolute end-0"
+									(click)="dateFromInput.click()"
+								>
 									<nb-icon icon="calendar-outline"></nb-icon>
 								</button>
 								<nb-datepicker #dateFromPicker> </nb-datepicker>
@@ -27,8 +32,19 @@
 						<div class="d-flex flex-column gap-2">
 							<label class="label">Hasta: </label>
 							<div class="d-flex position-relative">
-								<input nbInput #dateToInput placeholder="Seleccione fecha" [nbDatepicker]="dateToPicker" fullWidth />
-								<button class="position-absolute end-0" nbButton ghost (click)="dateToInput.click()">
+								<input
+									nbInput
+									#dateToInput
+									placeholder="Seleccione fecha"
+									[nbDatepicker]="dateToPicker"
+									fullWidth
+								/>
+								<button
+									nbButton
+									ghost
+									class="position-absolute end-0"
+									(click)="dateToInput.click()"
+								>
 									<nb-icon icon="calendar-outline"></nb-icon>
 								</button>
 								<nb-datepicker #dateToPicker> </nb-datepicker>

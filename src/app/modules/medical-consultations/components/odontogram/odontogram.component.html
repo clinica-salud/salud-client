@@ -1,7 +1,9 @@
 <app-detail-tab>
 	<nb-card class="border-0">
 		<nb-card-header class="border-0 px-2 px-md-4 d-flex align-items-center justify-content-between">
-			<span class="fs-4"> Odontograma Dental de {{ teethType === 1 ? 'Adulto' : teethType === 2 ? 'Niño' : '' }} </span>
+			<span class="fs-4">
+				Odontograma Dental de {{ teethType === 1 ? 'Adulto' : teethType === 2 ? 'Niño' : '' }}
+			</span>
 			<button nbButton size="small" class="button-black" (click)="toggleTeethType()">
 				Ver de {{ teethType === 1 ? 'Niño' : teethType === 2 ? 'Adulto' : '' }}
 			</button>
@@ -10,53 +12,41 @@
 			@if (teeth.length !== 0) {
 			<div class="wrapper">
 				<app-odontogram-graph (selectedTooth)="addTreatment($event)" />
-				<div class="table-responsive my-4">
-					<table class="table table-sm table-bordered table-striped table-hover">
+			</div>
+			<div class="container-fluid">
+				<div class="table-responsive my-4 mt-5">
+					<table class="table table-bordered table-striped table-hover">
 						<thead>
 							<tr class="text-center">
-								<th>Tratamiento</th>
-								<th>Pieza</th>
+								<th>Diagnóstico</th>
+								<th>Práctica</th>
+								<th>Pieza Dental</th>
 								<th>Cara</th>
-								<th>Acciones</th>
+								<th>Acción</th>
 							</tr>
 						</thead>
 						<tbody>
 							<tr class="text-center align-middle">
-								<th>
-									<img
-										decoding="async"
-										src="https://odontograma.net/images/tratamientos/icono-apiceptomias.png"
-										width="25px"
-										height="25px"
-									/>
-									Apiceptomía
-								</th>
-								<td>45b</td>
-								<td>Vestibular</td>
 								<td>
-									<button nbButton><nb-icon icon="trash-outline"></nb-icon></button>
+									<span> K020 - Caries limitada al esmalte </span> <br />
+									<small class="text-secondary">Descripción: Caries limitada al esmalte</small>
 								</td>
-							</tr>
-							<tr class="text-center align-middle">
-								<th>
-									<img
-										decoding="async"
-										src="https://odontograma.net/images/tratamientos/icono-apiceptomias.png"
-										width="25px"
-										height="25px"
-									/>
-									Apiceptomía
-								</th>
-								<td>45b</td>
+								<td>Restauración de Caries</td>
+								<td>Pieza 14B</td>
 								<td>Vestibular</td>
 								<td>
-									<button nbButton><nb-icon icon="trash-outline"></nb-icon></button>
+									<button nbButton status="danger" size="small">
+										<nb-icon icon="trash-outline"></nb-icon>
+									</button>
 								</td>
 							</tr>
 						</tbody>
 					</table>
 				</div>
-				<button nbButton status="primary" (click)="addTreatment()">Agregar Tratamiento</button>
+				<button nbButton class="d-block ms-auto" status="primary" (click)="addTreatment()">
+					<nb-icon icon="plus-outline"></nb-icon>
+					Agregar
+				</button>
 			</div>
 			}
 		</nb-card-body>

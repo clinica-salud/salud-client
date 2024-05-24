@@ -1,11 +1,18 @@
 <nb-card class="border-0">
-	<nb-card-header class="border-0 d-flex justify-content-between align-items-end flex-wrap px-2 px-md-4">
+	<nb-card-header
+		class="border-0 d-flex justify-content-between align-items-end flex-wrap px-2 px-md-4"
+	>
 		<div class="d-flex flex-column gap-2">
 			<span class="fs-4">Calendario</span>
 			<small class="fs-6 text-secondary fw-light">Consultas odontológicas</small>
 		</div>
 		<div class="d-flex align-items-center flex-wrap gap-3 gap-md-5" [formGroup]="form">
-			<small-toggle label="Todos" status="black" [control]="allControl" (toggle)="toggleAll($event)" />
+			<small-toggle
+				label="Todos"
+				status="black"
+				[control]="allControl"
+				(toggle)="toggleAll($event)"
+			/>
 			<small-toggle
 				label="Finalizadas"
 				status="success"
@@ -18,7 +25,12 @@
 				[control]="cancelledControl"
 				(toggle)="toggleCancelled($event)"
 			/>
-			<small-toggle label="Próximas" status="warning" [control]="nextControl" (toggle)="toggleNext($event)" />
+			<small-toggle
+				label="Próximas"
+				status="warning"
+				[control]="nextControl"
+				(toggle)="toggleNext($event)"
+			/>
 		</div>
 	</nb-card-header>
 	<nb-card-body class="pb-0 px-2 px-md-4">
@@ -31,7 +43,13 @@
 			</div>
 			<div class="">
 				<div class="d-flex gap-2">
-					<button nbButton mwlCalendarPreviousView status="primary" view="month" [(viewDate)]="today">
+					<button
+						nbButton
+						mwlCalendarPreviousView
+						status="primary"
+						view="month"
+						[(viewDate)]="today"
+					>
 						<nb-icon icon="chevron-left-outline"></nb-icon>
 					</button>
 					<button nbButton mwlCalendarToday [(viewDate)]="today">Hoy</button>

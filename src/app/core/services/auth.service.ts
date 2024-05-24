@@ -9,6 +9,8 @@ import { environment } from '@src/environments/environment';
 
 const { api } = environment;
 
+export type IRole = 'user' | 'admin';
+
 @Injectable({
 	providedIn: 'root'
 })
@@ -20,6 +22,11 @@ export class AuthService {
 
 	get isLoggedIn() {
 		return this.isLoggedIn$();
+	}
+
+	get role(): IRole {
+		return 'user';
+		// return 'admin';
 	}
 
 	constructor() {
@@ -38,7 +45,9 @@ export class AuthService {
 	}
 
 	public getDocumentTypes() {
-		return this._http.get<IResponse<IDocumentType[]>>(`${api}/auth/tipoid`).pipe(map((response) => response.data));
+		return this._http
+			.get<IResponse<IDocumentType[]>>(`${api}/auth/tipoid`)
+			.pipe(map((response) => response.data));
 	}
 
 	public register(data: IRegisterReq) {

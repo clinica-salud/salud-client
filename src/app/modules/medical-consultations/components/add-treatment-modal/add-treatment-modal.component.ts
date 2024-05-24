@@ -7,6 +7,7 @@ import {
 	NbCardModule,
 	NbDialogRef,
 	NbIconModule,
+	NbInputModule,
 	NbOptionModule,
 	NbSelectModule
 } from '@nebular/theme';
@@ -15,7 +16,14 @@ import { WindowDirective } from '@src/app/shared/helpers/window/window.directive
 import { ITooth } from '@src/app/shared/models/odontogram.model';
 import { OdontogramService } from '@src/app/shared/services';
 
-const NB_MODULES = [NbCardModule, NbIconModule, NbButtonModule, NbSelectModule, NbOptionModule];
+const NB_MODULES = [
+	NbButtonModule,
+	NbCardModule,
+	NbIconModule,
+	NbInputModule,
+	NbOptionModule,
+	NbSelectModule
+];
 const DIRECTIVES = [WindowDirective];
 
 @Component({
@@ -39,7 +47,8 @@ export class AddTreatmentModalComponent implements OnInit {
 	public form: FormGroup = this._fb.group({
 		piezaid: ['', [Validators.required]],
 		tipotratamientoid: ['', [Validators.required]],
-		tipocaraid: ['', [Validators.required]]
+		tipocaraid: ['', [Validators.required]],
+		diagnosis: ['', [Validators.required]]
 	});
 
 	ngOnInit(): void {

@@ -1,0 +1,39 @@
+<nb-card appWindow widthSize="lg">
+	<nb-card-header class="d-flex align-items-center justify-content-between">
+		<span class="fs-5">Diagnóstico</span>
+		<button nbButton size="small" (click)="close()">
+			<nb-icon icon="close-outline"></nb-icon>
+		</button>
+	</nb-card-header>
+	<nb-card-body>
+		<div class="table-responsive">
+			<table class="table table-sm">
+				<thead>
+					<tr>
+						<th>Descripción</th>
+						<th>Práctica</th>
+						<th>Pieza Dental</th>
+						<th>Cara</th>
+						<th>Img</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr class="align-middle">
+						<td>
+							<span> K020 - Caries limitada al esmalte </span> <br />
+							<small class="text-secondary">Descripción: Caries limitada al esmalte</small>
+						</td>
+						<td>Restauración de Caries</td>
+						<td>Pieza 14B</td>
+						<td>Vestibular</td>
+						<td>
+							<button nbButton size="small">
+								<nb-icon icon="eye-outline"></nb-icon>
+							</button>
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</nb-card-body>
+</nb-card>

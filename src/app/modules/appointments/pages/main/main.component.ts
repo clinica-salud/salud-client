@@ -3,6 +3,7 @@ import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
+	NbBadgeModule,
 	NbButtonModule,
 	NbCardModule,
 	NbDatepickerModule,
@@ -13,8 +14,10 @@ import {
 	NbSelectModule,
 	NbUserModule
 } from '@nebular/theme';
+import { AuthService, IRole } from '@src/app/core/services';
 
 const NB_MODULES = [
+	NbBadgeModule,
 	NbButtonModule,
 	NbCardModule,
 	NbDatepickerModule,
@@ -50,7 +53,7 @@ const DATA = [
 		doctor: 'Andres Chumbiray R.',
 		speciality: 'Ortodoncia',
 		consultory: 'Consultorio - 1',
-		status: 'Cancelado'
+		status: 'Próximo'
 	},
 	{
 		id: 3,
@@ -73,6 +76,9 @@ const DATA = [
 export class MainComponent {
 	private _router = inject(Router);
 	private _activatedRoute = inject(ActivatedRoute);
+	private _authService = inject(AuthService);
+
+	public userRole: IRole = this._authService.role;
 
 	public user = signal(USER);
 	public tableHeadings = signal([
