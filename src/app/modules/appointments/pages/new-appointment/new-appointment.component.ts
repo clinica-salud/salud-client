@@ -11,6 +11,7 @@ import {
 	NbIconModule,
 	NbInputModule,
 	NbListModule,
+	NbRadioModule,
 	NbTimepickerModule,
 	NbUserModule
 } from '@nebular/theme';
@@ -18,15 +19,16 @@ import {
 import { SummaryModalComponent } from '@src/app/modules/appointments/components/summary-modal/summary-modal.component';
 
 const NB_MODULES = [
-	NbCardModule,
-	NbInputModule,
 	NbButtonModule,
-	NbIconModule,
-	NbListModule,
-	NbUserModule,
-	NbCheckboxModule,
 	NbCalendarModule,
-	NbTimepickerModule
+	NbCardModule,
+	NbCheckboxModule,
+	NbIconModule,
+	NbInputModule,
+	NbListModule,
+	NbRadioModule,
+	NbTimepickerModule,
+	NbUserModule
 ];
 
 interface User {
@@ -55,7 +57,6 @@ const AFTERNOON_TIMES = [
 ];
 
 @Component({
-	selector: 'app-new-appointment',
 	standalone: true,
 	imports: [...NB_MODULES],
 	templateUrl: './new-appointment.component.html',
@@ -89,7 +90,9 @@ export class NewAppointmentComponent {
 
 	public selectTime(time: string) {
 		this.morning_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
-		this.afternoon_times.update((times) => times.map((t) => ({ ...t, selected: t.value === time })));
+		this.afternoon_times.update((times) =>
+			times.map((t) => ({ ...t, selected: t.value === time }))
+		);
 	}
 
 	public saveAppointment() {

@@ -8,10 +8,14 @@ import { NotesComponent } from '@src/app/modules/medical-consultations/component
 import { OdontogramComponent } from '@src/app/modules/medical-consultations/components/odontogram/odontogram.component';
 
 const NB_MODULES = [NbCardModule, NbTabsetModule, NbIconModule];
-const COMPONENTS = [OdontogramComponent, HistoryComponent, DiagnosisTreatmentComponent, NotesComponent];
+const COMPONENTS = [
+	OdontogramComponent,
+	HistoryComponent,
+	DiagnosisTreatmentComponent,
+	NotesComponent
+];
 
 @Component({
-	selector: 'app-detail',
 	standalone: true,
 	imports: [...NB_MODULES, ...COMPONENTS],
 	templateUrl: './detail.component.html',

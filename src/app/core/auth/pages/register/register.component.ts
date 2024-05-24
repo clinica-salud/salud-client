@@ -16,18 +16,16 @@ const NB_MODULES = [NbIconModule, NbInputModule, NbButtonModule, NbEvaIconsModul
 const COMPONENTS = [ControlErrorComponent];
 
 @Component({
-	selector: 'app-register',
 	standalone: true,
 	imports: [ReactiveFormsModule, RouterLink, AsyncPipe, ...NB_MODULES, ...COMPONENTS],
 	templateUrl: './register.component.html',
 	styleUrl: './register.component.scss'
 })
 export class RegisterComponent {
+	private _authService = inject(AuthService);
 	private _destroyRef = inject(DestroyRef);
 	private _fb = inject(FormBuilder);
 	private _router = inject(Router);
-
-	private _authService = inject(AuthService);
 
 	public isLoading = signal(false);
 	public documentTypes$ = this._authService.getDocumentTypes();

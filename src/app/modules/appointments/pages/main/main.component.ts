@@ -3,15 +3,31 @@ import { Component, inject, signal } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 
 import {
+	NbBadgeModule,
 	NbButtonModule,
 	NbCardModule,
 	NbDatepickerModule,
+	NbFormFieldModule,
 	NbIconModule,
 	NbInputModule,
+	NbOptionModule,
+	NbSelectModule,
 	NbUserModule
 } from '@nebular/theme';
+import { AuthService, IRole } from '@src/app/core/services';
 
-const NB_MODULES = [NbCardModule, NbButtonModule, NbIconModule, NbUserModule, NbInputModule, NbDatepickerModule];
+const NB_MODULES = [
+	NbBadgeModule,
+	NbButtonModule,
+	NbCardModule,
+	NbDatepickerModule,
+	NbFormFieldModule,
+	NbIconModule,
+	NbInputModule,
+	NbOptionModule,
+	NbSelectModule,
+	NbUserModule
+];
 
 const USER = {
 	name: 'Pantigoso Puraca José Miguel',
@@ -22,31 +38,36 @@ const DATA = [
 	{
 		id: 1,
 		date: '22/03/2024',
-		type: 'Especialidad',
-		patient: 'Titular',
+		hour: '08:15:00',
+		patient: 'Esperanza Ortiz Flores',
 		doctor: 'Andres Chumbiray R.',
-		location: 'Lima'
+		speciality: 'Ortodoncia',
+		consultory: 'Consultorio - 1',
+		status: 'Cancelado'
 	},
 	{
 		id: 2,
 		date: '22/03/2024',
-		type: 'Especialidad',
-		patient: 'Titular',
+		hour: '08:15:00',
+		patient: 'Esperanza Ortiz Flores',
 		doctor: 'Andres Chumbiray R.',
-		location: 'Lima'
+		speciality: 'Ortodoncia',
+		consultory: 'Consultorio - 1',
+		status: 'Próximo'
 	},
 	{
 		id: 3,
 		date: '22/03/2024',
-		type: 'Especialidad',
-		patient: 'Titular',
+		hour: '08:15:00',
+		patient: 'Esperanza Ortiz Flores',
 		doctor: 'Andres Chumbiray R.',
-		location: 'Lima'
+		speciality: 'Ortodoncia',
+		consultory: 'Consultorio - 1',
+		status: 'Cancelado'
 	}
 ];
 
 @Component({
-	selector: 'app-main',
 	standalone: true,
 	imports: [UpperCasePipe, ...NB_MODULES],
 	templateUrl: './main.component.html',
@@ -55,9 +76,21 @@ const DATA = [
 export class MainComponent {
 	private _router = inject(Router);
 	private _activatedRoute = inject(ActivatedRoute);
+	private _authService = inject(AuthService);
+
+	public userRole: IRole = this._authService.role;
 
 	public user = signal(USER);
-	public tableHeadings = signal(['Fecha', 'Tipo', 'Paciente', 'Doctor', 'Ubicación', 'Acciones']);
+	public tableHeadings = signal([
+		'Fecha',
+		'Hora',
+		'Paciente',
+		'Médico',
+		'Especialidad',
+		'Consultorio',
+		'Estado',
+		'Acciones'
+	]);
 	public data = signal(DATA);
 
 	public goToAppointment(id: number) {

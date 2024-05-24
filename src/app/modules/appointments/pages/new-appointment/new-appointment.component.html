@@ -6,13 +6,12 @@
 		<div class="row m-0 g-3">
 			<div class="col-md-6 px-0 pe-md-2 pe-lg-3 pe-xl-4">
 				<div class="d-flex flex-column gap-4">
-					<p class="fs-6 fw-semibold">¿Cómo podemos apoyarte?</p>
 					<div>
-						<p class="fw-medium mb-2 text-black d-block required">Titular de la cuenta</p>
+						<p class="fw-medium mb-2 text-black d-block required">Paciente</p>
 						<div class="d-flex gap-2">
 							<input type="text" nbInput fullWidth placeholder="72487768" />
 							<button nbButton>
-								<nb-icon icon="sync-outline"></nb-icon>
+								<nb-icon icon="refresh-outline"></nb-icon>
 							</button>
 						</div>
 						<small class="fw-medium">
@@ -20,67 +19,45 @@
 							<span class="text-secondary"> Pantigoso Puraca José Miguel </span>
 						</small>
 					</div>
-					<p class="fs-6 fw-semibold">Nuestros servicios</p>
-					<div>
-						<p class="fs-6 fw-medium">Citas dentales</p>
+					<div class="d-flex flex-column gap-1">
+						<p class="fs-6 fw-medium">¿Cómo podemos apoyarte?</p>
 						<p class="fs-7 text-black-50">Consultas con el mejor staff altamente calificado</p>
 					</div>
-					<div class="row g-3">
-						<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
-							<button nbButton fullWidth>____________</button>
-						</div>
-						<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
-							<button nbButton fullWidth>____________</button>
-						</div>
-						<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
-							<button nbButton fullWidth>____________</button>
-						</div>
-					</div>
-					<div>
-						<p class="fs-6 fw-medium">Servicios Odontológicos</p>
+					<nb-radio-group class="d-flex flex-wrap gap-3" status="success">
+						<nb-radio value="1">Consulta</nb-radio>
+						<nb-radio value="2">Servicio</nb-radio>
+						<nb-radio value="3">Tratamiento</nb-radio>
+					</nb-radio-group>
+					<div class="d-flex flex-column gap-1">
+						<p class="fs-6 fw-medium">Tipo servicio</p>
 						<p class="fs-7 text-black-50">Contamos con equipos de última tecnología</p>
 					</div>
-					<div class="row g-3">
-						<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
-							<button nbButton fullWidth>____________</button>
-						</div>
-						<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
-							<button nbButton fullWidth>____________</button>
-						</div>
-						<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
-							<button nbButton fullWidth>____________</button>
-						</div>
+					<div class="d-flex flex-wrap gap-3">
+						<nb-checkbox class="pe-4" status="success">Rayox X</nb-checkbox>
+						<nb-checkbox class="pe-4" status="success">Tomografia</nb-checkbox>
+						<nb-checkbox class="pe-4" status="success">Otro</nb-checkbox>
 					</div>
 					<div>
-						<p class="fs-6 fw-medium">Especialidades destacadas</p>
+						<p class="fs-6 fw-medium">Especialidades</p>
 					</div>
-					<div class="row g-3">
-						<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
-							<button nbButton fullWidth>____________</button>
-						</div>
-						<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
-							<button nbButton fullWidth>____________</button>
-						</div>
-						<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
-							<button nbButton fullWidth>____________</button>
-						</div>
-						<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
-							<button nbButton fullWidth>____________</button>
-						</div>
-						<div class="col-sm-6 col-md-12 col-lg-6 col-xxl-4">
-							<button nbButton fullWidth>____________</button>
-						</div>
-					</div>
+					<nb-radio-group class="d-flex flex-wrap gap-3" status="success">
+						<nb-radio value="1">Ortodoncia</nb-radio>
+						<nb-radio value="2">Endodoncia</nb-radio>
+						<nb-radio value="3">Periodoncia</nb-radio>
+						<nb-radio value="4">Implantología Dental</nb-radio>
+						<nb-radio value="5">Prótesis Dental</nb-radio>
+						<nb-radio value="6">Odontopediatria</nb-radio>
+						<nb-radio value="7">Cirugía Oral y Maxilofacial</nb-radio>
+					</nb-radio-group>
 					<div class="d-flex flex-column gap-3">
 						<p class="fs-6 fw-semibold">Escoge a tu especialista</p>
-						<nb-list>
+						<nb-radio-group status="success">
 							@for (user of users(); track $index) {
-							<nb-list-item class="align-items-center justify-content-between">
+							<nb-radio value="">
 								<nb-user [name]="user.name" [title]="user.title"> </nb-user>
-								<nb-checkbox status="success"></nb-checkbox>
-							</nb-list-item>
+							</nb-radio>
 							}
-						</nb-list>
+						</nb-radio-group>
 					</div>
 				</div>
 			</div>
@@ -130,12 +107,23 @@
 							</div>
 						</div>
 					</div>
+					<div class="d-flex flex-column gap-1">
+						<p class="fs-6 fw-semibold">Resumen</p>
+						<p class="fs-7 text-black-50">Lorem ipsum dolor sit amet.</p>
+					</div>
+					<div class="d-flex align-items-center justify-content-center border py-3">
+						<p class="fs-6 fw-semibold">Costo: S/. 350.00</p>
+					</div>
+					<p class="fs-6 fw-semibold">Observación</p>
+					<textarea nbInput fullWidth placeholder="Observación..." rows="3"></textarea>
 					<div class="row g-2">
 						<div class="col-md-6">
 							<button nbButton fullWidth>Cancelar</button>
 						</div>
 						<div class="col-md-6">
-							<button nbButton status="primary" (click)="saveAppointment()" fullWidth>Guardar</button>
+							<button nbButton status="primary" (click)="saveAppointment()" fullWidth>
+								Guardar
+							</button>
 						</div>
 					</div>
 				</div>

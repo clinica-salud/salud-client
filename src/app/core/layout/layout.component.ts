@@ -1,7 +1,13 @@
 import { Component, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
-import { NbCardModule, NbLayoutModule, NbMenuModule, NbSidebarModule, NbSpinnerModule } from '@nebular/theme';
+import {
+	NbCardModule,
+	NbLayoutModule,
+	NbMenuModule,
+	NbSidebarModule,
+	NbSpinnerModule
+} from '@nebular/theme';
 
 import { BreadcrumbModule } from 'xng-breadcrumb';
 
@@ -49,13 +55,9 @@ export class LayoutComponent {
 	private _spinnerService = inject(SpinnerService);
 	private _menuService = inject(MenuService);
 
-	public menu = signal<Menu[]>([]);
+	public menu = signal<Menu[]>(this._menuService.menu);
 
 	get spinner() {
 		return this._spinnerService.getStatusSpinner;
-	}
-
-	constructor() {
-		this.menu.set(this._menuService.menu);
 	}
 }

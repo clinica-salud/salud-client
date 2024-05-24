@@ -1,3 +1,122 @@
 <app-detail-tab>
-	<span>Diagnóstico y Tratamiento</span>
+	<nb-card class="border-0">
+		<nb-card-header class="d-flex align-items-center justify-content-between">
+			<span class="fs-4"> Tratamiento </span>
+			<button nbButton status="info" (click)="showDiagnosis()">
+				<nb-icon icon="eye-outline"></nb-icon>
+				Diagnóstico
+			</button>
+		</nb-card-header>
+		<nb-card-body>
+			<div class="container-fluid">
+				<div class="d-flex align-items-center justify-content-between my-3">
+					<p class="fs-5">Receta</p>
+					<div class="d-flex gap-2">
+						<button nbButton status="warning" size="small">
+							<nb-icon icon="file-outline"></nb-icon>
+						</button>
+						<button nbButton status="success" size="small" (click)="addRecipe()">
+							<nb-icon icon="plus-outline"></nb-icon>
+						</button>
+					</div>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-sm table-bordered">
+						<thead>
+							<tr class="text-center">
+								<th class="text-start">Medicamento</th>
+								<th class="text-start">Indicaciones</th>
+								<th>Via de administración</th>
+								<th>Dosis</th>
+								<th>Frecuencia</th>
+								<th>Tiempo</th>
+								<th>Cantidad</th>
+								<th>Acción</th>
+							</tr>
+						</thead>
+						<tbody>
+							<tr class="align-middle text-center">
+								<td class="text-start">
+									Clobetasol <br />
+									Propionato 0.05% <br />
+									Crema TUBO x 25G
+								</td>
+								<td class="text-start">
+									Aplicar diario por las noches en zonas afectadas de palmas de manos (ampollitas)
+								</td>
+								<td>Topica</td>
+								<td>0.10 <br />APLIC</td>
+								<td>24 Hora(s)</td>
+								<td>10 días</td>
+								<td>1</td>
+								<td>
+									<button nbButton status="danger" size="small">
+										<nb-icon icon="trash-outline"></nb-icon>
+									</button>
+								</td>
+							</tr>
+						</tbody>
+					</table>
+				</div>
+				<hr class="my-5" />
+				<div class="d-flex align-items-center justify-content-between my-3">
+					<p class="fs-5">Tratamiento</p>
+					<div class="d-flex gap-2">
+						<button nbButton status="warning" size="small">
+							<nb-icon icon="file-outline"></nb-icon>
+						</button>
+						<button nbButton status="success" size="small">
+							<nb-icon icon="plus-outline"></nb-icon>
+						</button>
+					</div>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-sm table-bordered">
+						<thead>
+							<tr class="text-center">
+								<th>Medicamento</th>
+								<th>Indicaciones</th>
+								<th>Via de administración</th>
+								<th>Dosis</th>
+								<th>Frecuencia</th>
+								<th>Tiempo</th>
+								<th>Cantidad</th>
+								<th>Acción</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<hr class="my-5" />
+				<div class="d-flex align-items-center justify-content-between my-3">
+					<p class="fs-5">Contrato</p>
+					<div class="d-flex gap-2">
+						<button nbButton status="warning" size="small">
+							<nb-icon icon="file-outline"></nb-icon>
+						</button>
+						<button nbButton status="success" size="small">
+							<nb-icon icon="plus-outline"></nb-icon>
+						</button>
+					</div>
+				</div>
+				<div class="table-responsive">
+					<table class="table table-sm table-bordered">
+						<thead>
+							<tr class="text-center">
+								<th>Medicamento</th>
+								<th>Indicaciones</th>
+								<th>Via de administración</th>
+								<th>Dosis</th>
+								<th>Frecuencia</th>
+								<th>Tiempo</th>
+								<th>Cantidad</th>
+								<th>Acción</th>
+							</tr>
+						</thead>
+					</table>
+				</div>
+				<hr class="my-5" />
+				<button nbButton class="d-block ms-auto" status="primary">Finalizar</button>
+			</div>
+		</nb-card-body>
+	</nb-card>
 </app-detail-tab>

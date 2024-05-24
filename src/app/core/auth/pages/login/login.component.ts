@@ -11,11 +11,16 @@ import { AuthService } from '@src/app/core/services';
 import { ControlErrorComponent } from '@src/app/shared/helpers/control-error/control-error.component';
 import { ILoginReq } from '@src/app/shared/models/auth.model';
 
-const NB_MODULES = [NbIconModule, NbInputModule, NbButtonModule, NbEvaIconsModule, NbCheckboxModule];
+const NB_MODULES = [
+	NbIconModule,
+	NbInputModule,
+	NbButtonModule,
+	NbEvaIconsModule,
+	NbCheckboxModule
+];
 const COMPONENTS = [ControlErrorComponent];
 
 @Component({
-	selector: 'app-login',
 	standalone: true,
 	imports: [ReactiveFormsModule, RouterLink, ...NB_MODULES, ...COMPONENTS],
 	templateUrl: './login.component.html',

@@ -1,17 +1,35 @@
 import { UpperCasePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
 
 import {
+	NbBadgeModule,
 	NbButtonModule,
 	NbCardModule,
 	NbDatepickerModule,
+	NbDialogService,
+	NbFormFieldModule,
 	NbIconModule,
 	NbInputModule,
+	NbSelectModule,
 	NbUserModule
 } from '@nebular/theme';
 
-const NB_MODULES = [NbCardModule, NbButtonModule, NbIconModule, NbUserModule, NbInputModule, NbDatepickerModule];
+import {
+	SummaryModalComponent,
+	SummaryType
+} from '@src/app/modules/appointments/components/summary-modal/summary-modal.component';
+
+const NB_MODULES = [
+	NbButtonModule,
+	NbCardModule,
+	NbDatepickerModule,
+	NbFormFieldModule,
+	NbIconModule,
+	NbInputModule,
+	NbSelectModule,
+	NbUserModule,
+	NbBadgeModule
+];
 
 const USER = {
 	name: 'Pantigoso Puraca José Miguel',
@@ -22,45 +40,64 @@ const DATA = [
 	{
 		id: 1,
 		date: '22/03/2024',
-		type: 'Especialidad',
-		patient: 'Titular',
+		hour: '08:00:00',
+		patient: 'Esperanza Ortiz Flores',
 		doctor: 'Andres Chumbiray R.',
-		location: 'Lima'
+		speciality: 'Ortodoncia',
+		consultory: 'Consultorio - 1',
+		status: 'Finalizado'
 	},
 	{
 		id: 2,
 		date: '22/03/2024',
-		type: 'Especialidad',
-		patient: 'Titular',
+		hour: '08:00:00',
+		patient: 'Esperanza Ortiz Flores',
 		doctor: 'Andres Chumbiray R.',
-		location: 'Lima'
+		speciality: 'Ortodoncia',
+		consultory: 'Consultorio - 1',
+		status: 'Finalizado'
 	},
 	{
 		id: 3,
 		date: '22/03/2024',
-		type: 'Especialidad',
-		patient: 'Titular',
+		hour: '08:00:00',
+		patient: 'Esperanza Ortiz Flores',
 		doctor: 'Andres Chumbiray R.',
-		location: 'Lima'
+		speciality: 'Ortodoncia',
+		consultory: 'Consultorio - 1',
+		status: 'Finalizado'
 	}
 ];
 
 @Component({
-	selector: 'app-main',
 	standalone: true,
 	imports: [UpperCasePipe, ...NB_MODULES],
 	templateUrl: './main.component.html',
 	styleUrl: './main.component.scss'
 })
 export class MainComponent {
-	private _router = inject(Router);
-	private _activatedRoute = inject(ActivatedRoute);
+	private _dialogService = inject(NbDialogService);
 
 	public user = signal(USER);
-	public tableHeadings = signal(['Fecha', 'Tipo', 'Paciente', 'Doctor', 'Ubicación', 'Acciones']);
+	public tableHeadings = signal([
+		'Fecha',
+		'Hora',
+		'Paciente',
+		'Médico',
+		'Especialidad',
+		'Consultorio',
+		'Estado',
+		'Acciones'
+	]);
 	public data = signal(DATA);
 
-	public goToCalendar() {
-		this._router.navigate(['calendar'], { relativeTo: this._activatedRoute });
+	public showEvent(item: any) {
+		this._dialogService.open(SummaryModalComponent, {
+			context: {
+				summaryType: SummaryType.FINISHED,
+				detail: item
+			}
+		});
+		console.log(item);
 	}
 }

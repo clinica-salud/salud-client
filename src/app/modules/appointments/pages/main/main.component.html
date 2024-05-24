@@ -1,9 +1,66 @@
 <nb-card class="border-0">
 	<nb-card-header class="border-0">
-		<span class="fs-4">Mis citas</span>
+		<span class="fs-4">Registro de citas</span>
 	</nb-card-header>
 	<nb-card-body class="px-2 px-md-4">
-		<div class="table-responsive d-none d-md-block d-lg-none d-xxl-block">
+		<div class="row g-3 mb-4">
+			<div class="col-xxl-2">
+				<label class="label fs-7 mb-1">Fecha: </label>
+				<div class="d-flex position-relative">
+					<input
+						nbInput
+						#dateFromInput
+						placeholder="00/00/0000"
+						[nbDatepicker]="dateFromPicker"
+						fullWidth
+					/>
+					<button class="position-absolute end-0" nbButton ghost (click)="dateFromInput.click()">
+						<nb-icon icon="calendar-outline"></nb-icon>
+					</button>
+					<nb-datepicker #dateFromPicker> </nb-datepicker>
+				</div>
+			</div>
+			<div class="col-xxl-3">
+				<label class="label fs-7 mb-1">Especialidad: </label>
+				<nb-select placeholder="Seleccione una opción" fullWidth>
+					<nb-option>sssss</nb-option>
+				</nb-select>
+			</div>
+			<div class="col-xxl-3">
+				<label class="label fs-7 mb-1">Médico: </label>
+				<nb-select placeholder="Seleccione una opción" fullWidth>
+					<nb-option>sssss</nb-option>
+				</nb-select>
+			</div>
+			<div class="col-xxl-3">
+				<label class="label fs-7 mb-1">Estado: </label>
+				<nb-select placeholder="Todo" fullWidth>
+					<nb-option>sssss</nb-option>
+				</nb-select>
+			</div>
+			<div class="col-xxl-1 mt-xxl-auto">
+				<div class="d-flex gap-2">
+					<button nbButton status="primary">
+						<nb-icon icon="funnel-outline"></nb-icon>
+					</button>
+					<button nbButton status="success">
+						<nb-icon icon="calendar-outline"></nb-icon>
+					</button>
+				</div>
+			</div>
+			<!-- <div class="col-md-1 mt-md-auto">
+				<div class="d-flex gap-2">
+					<button nbButton status="primary">
+						Filtrar
+						<nb-icon icon="options-2-outline"></nb-icon>
+					</button>
+					<button nbButton status="success">
+						<nb-icon icon="calendar-outline"></nb-icon>
+					</button>
+				</div>
+			</div> -->
+		</div>
+		<div class="table-responsive d-none d-lg-block">
 			<table class="table table-borderless">
 				<thead class="border-bottom border-top">
 					<tr class="text-center">
@@ -16,10 +73,25 @@
 					@for (item of data(); track item.id) {
 					<tr class="align-middle text-center">
 						<td>{{ item.date }}</td>
-						<td>{{ item.type }}</td>
+						<td>{{ item.hour }}</td>
 						<td>{{ item.patient }}</td>
 						<td>{{ item.doctor }}</td>
-						<td>{{ item.location }}</td>
+						<td>{{ item.speciality }}</td>
+						<td>{{ item.consultory }}</td>
+						<td class="position-relative">
+							<nb-badge
+								class="center-badge"
+								[text]="item.status"
+								[status]="
+									item.status === 'Cancelado'
+										? 'danger'
+										: item.status === 'Próximo'
+										? 'warning'
+										: 'basic'
+								"
+								position="top left"
+							></nb-badge>
+						</td>
 						<td>
 							<button nbButton size="small" (click)="goToAppointment(item.id)">
 								<nb-icon icon="eye-outline"></nb-icon>
@@ -30,13 +102,17 @@
 				</tbody>
 			</table>
 		</div>
-		<div class="table-responsive d-block d-md-none d-lg-block d-xxl-none">
+		<div class="table-responsive d-block d-lg-none">
 			<table class="table table-sm table-bordered">
 				<tbody>
 					@for (item of data(); track item.id) {
 					<tr>
 						<th>Fecha:</th>
 						<td>{{ item.date }}</td>
+					</tr>
+					<tr>
+						<th>Hora:</th>
+						<td>{{ item.hour }}</td>
 					</tr>
 					<tr>
 						<th>Paciente:</th>
@@ -47,8 +123,16 @@
 						<td>{{ item.doctor }}</td>
 					</tr>
 					<tr>
-						<th>Ubicación:</th>
-						<td>{{ item.location }}</td>
+						<th>Especialidad:</th>
+						<td>{{ item.speciality }}</td>
+					</tr>
+					<tr>
+						<th>Consultorio:</th>
+						<td>{{ item.consultory }}</td>
+					</tr>
+					<tr>
+						<th>Estado:</th>
+						<td>{{ item.status }}</td>
 					</tr>
 					<tr class="align-middle last-row">
 						<th>Acciones:</th>

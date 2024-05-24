@@ -1,0 +1,62 @@
+<nb-card appWindow widthSize="sm">
+	<nb-card-header class="d-flex align-items-center justify-content-between">
+		<span class="fs-5">Agregar Receta</span>
+		<button nbButton size="small" (click)="close()">
+			<nb-icon icon="close-outline"></nb-icon>
+		</button>
+	</nb-card-header>
+	<nb-card-body>
+		<form class="row g-3" [formGroup]="form">
+			<div class="col-md-12">
+				<label class="required fw-semibold mb-2">Medicamento</label>
+				<nb-select placeholder="Selecciona una opción" formControlName="medicine" fullWidth>
+					<nb-option value="all">Todos</nb-option>
+				</nb-select>
+			</div>
+			<div class="col-md-12">
+				<label class="required fw-semibold mb-2">Via de administración</label>
+				<nb-select placeholder="Selecciona una opción" formControlName="route" fullWidth>
+					<nb-option value="all">Todos</nb-option>
+				</nb-select>
+			</div>
+			<div class="col-md-6">
+				<label class="required fw-semibold mb-2">Dosis</label>
+				<nb-select placeholder="Selecciona una opción" formControlName="dose" fullWidth>
+					<nb-option value="all">Todos</nb-option>
+				</nb-select>
+			</div>
+			<div class="col-md-6">
+				<label class="required fw-semibold mb-2">Frecuencia</label>
+				<nb-select placeholder="Selecciona una opción" formControlName="frequency" fullWidth>
+					<nb-option value="all">Todos</nb-option>
+				</nb-select>
+			</div>
+			<div class="col-md-6">
+				<label class="required fw-semibold mb-2">Tiempo</label>
+				<nb-select placeholder="Selecciona una opción" formControlName="time" fullWidth>
+					<nb-option value="all">Todos</nb-option>
+				</nb-select>
+			</div>
+			<div class="col-md-6">
+				<label class="required fw-semibold mb-2">Cantidad</label>
+				<nb-select placeholder="Selecciona una opción" formControlName="quantity" fullWidth>
+					<nb-option value="all">Todos</nb-option>
+				</nb-select>
+			</div>
+			<div class="col-md-12">
+				<label class="required fw-semibold mb-2">Indicaciones</label>
+				<textarea
+					nbInput
+					placeholder="Descripción..."
+					formControlName="indications"
+					fullWidth
+				></textarea>
+			</div>
+		</form>
+	</nb-card-body>
+	<nb-card-footer>
+		<button nbButton class="d-block ms-auto" status="primary" (click)="addRecipe()" fullWidth>
+			Agregar
+		</button>
+	</nb-card-footer>
+</nb-card>

@@ -1,12 +1,16 @@
 <nb-card appWindow widthSize="tn">
 	<nb-card-header class="d-flex align-items-center justify-content-between">
-		<span class="fs-5">Agregar Tratamiento | {{ selectedTooth?.numero }}{{ selectedTooth?.fila }}</span>
-		<button nbButton size="small" (click)="close()"><nb-icon icon="close-outline"></nb-icon></button>
+		<span class="fs-5">
+			Agregar Tratamiento | {{ selectedTooth?.numero }}{{ selectedTooth?.fila }}
+		</span>
+		<button nbButton size="small" (click)="close()">
+			<nb-icon icon="close-outline"></nb-icon>
+		</button>
 	</nb-card-header>
 	<nb-card-body>
 		<form class="row g-3" [formGroup]="form">
 			<div class="col-md-12">
-				<label class="fw-semibold mb-2">Selecciona Pieza:</label>
+				<label class="required fw-semibold mb-2">Selecciona Pieza</label>
 				<nb-select placeholder="Selecciona Pieza" formControlName="piezaid" fullWidth>
 					<nb-option value="all">Todos</nb-option>
 					@for (tooth of teeth$ | async; track tooth.piezaid) {
@@ -15,27 +19,40 @@
 				</nb-select>
 			</div>
 			<div class="col-md-12">
-				<label class="fw-semibold mb-2">Selecciona Tratamiento:</label>
-				<nb-select placeholder="Selecciona Tratamiento" formControlName="tipotratamientoid" fullWidth>
+				<label class="required fw-semibold mb-2">Selecciona Tratamiento</label>
+				<nb-select
+					placeholder="Selecciona Tratamiento"
+					formControlName="tipotratamientoid"
+					fullWidth
+				>
 					@for (treatment of treatments$ | async; track treatment.tipotratamientoid) {
 					<nb-option [value]="treatment.tipotratamientoid">{{ treatment.nombre }}</nb-option>
 					}
 				</nb-select>
 			</div>
 			<div class="col-md-12">
-				<label class="fw-semibold mb-2">Selecciona Cara:</label>
+				<label class="required fw-semibold mb-2">Selecciona Cara</label>
 				<nb-select placeholder="Selecciona Cara" formControlName="tipocaraid" fullWidth>
 					@for (face of faces$ | async; track face.tipocaraid) {
 					<nb-option [value]="face.tipocaraid">{{ face.nombre }}</nb-option>
 					}
 				</nb-select>
 			</div>
+			<div class="col-md-12">
+				<label class="required fw-semibold mb-2">Diagnóstico</label>
+				<textarea
+					nbInput
+					placeholder="Descripción..."
+					formControlName="diagnosis"
+					fullWidth
+				></textarea>
+			</div>
 		</form>
 	</nb-card-body>
 	<nb-card-footer>
-		<button nbButton class="d-block ms-auto" status="primary" (click)="addTreatment()">
-			<nb-icon icon="plus-outline"></nb-icon>
-			Añadir
+		<button nbButton class="d-block ms-auto" status="primary" (click)="addTreatment()" fullWidth>
+			<!-- <nb-icon icon="plus-outline"></nb-icon> -->
+			Agregar
 		</button>
 	</nb-card-footer>
 </nb-card>

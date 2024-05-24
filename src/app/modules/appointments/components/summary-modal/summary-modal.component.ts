@@ -1,7 +1,13 @@
 import { Component, Input, inject, signal } from '@angular/core';
 import { Router } from '@angular/router';
 
-import { NbButtonModule, NbCardModule, NbDialogRef, NbIconModule, NbUserModule } from '@nebular/theme';
+import {
+	NbButtonModule,
+	NbCardModule,
+	NbDialogRef,
+	NbIconModule,
+	NbUserModule
+} from '@nebular/theme';
 
 import { WindowDirective } from '@src/app/shared/helpers/window/window.directive';
 
@@ -72,6 +78,7 @@ export class SummaryModalComponent {
 
 	public viewDetail() {
 		const id = '0010';
+
 		this._router.navigateByUrl(`/pages/medical-consultations/detail/${id}`);
 		this._dialogRef.close();
 	}
