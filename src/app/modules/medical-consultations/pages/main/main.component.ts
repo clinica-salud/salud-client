@@ -1,5 +1,6 @@
 import { UpperCasePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import {
 	NbBadgeModule,
@@ -14,10 +15,10 @@ import {
 	NbUserModule
 } from '@nebular/theme';
 
-import {
-	SummaryModalComponent,
-	SummaryType
-} from '@src/app/modules/appointments/components/summary-modal/summary-modal.component';
+import { SummaryModalComponent } from '@src/app/modules/appointments/components/summary-modal/summary-modal.component';
+import { IConsultation } from '@src/app/shared/models/consultation.model';
+import { ConsultationService } from '@src/app/shared/services';
+import { finalize } from 'rxjs';
 
 const NB_MODULES = [
 	NbButtonModule,
@@ -31,44 +32,6 @@ const NB_MODULES = [
 	NbBadgeModule
 ];
 
-const USER = {
-	name: 'Pantigoso Puraca José Miguel',
-	title: 'Titular de la cuenta'
-};
-
-const DATA = [
-	{
-		id: 1,
-		date: '22/03/2024',
-		hour: '08:00:00',
-		patient: 'Esperanza Ortiz Flores',
-		doctor: 'Andres Chumbiray R.',
-		speciality: 'Ortodoncia',
-		consultory: 'Consultorio - 1',
-		status: 'Finalizado'
-	},
-	{
-		id: 2,
-		date: '22/03/2024',
-		hour: '08:00:00',
-		patient: 'Esperanza Ortiz Flores',
-		doctor: 'Andres Chumbiray R.',
-		speciality: 'Ortodoncia',
-		consultory: 'Consultorio - 1',
-		status: 'Finalizado'
-	},
-	{
-		id: 3,
-		date: '22/03/2024',
-		hour: '08:00:00',
-		patient: 'Esperanza Ortiz Flores',
-		doctor: 'Andres Chumbiray R.',
-		speciality: 'Ortodoncia',
-		consultory: 'Consultorio - 1',
-		status: 'Finalizado'
-	}
-];
-
 @Component({
 	standalone: true,
 	imports: [UpperCasePipe, ...NB_MODULES],
@@ -77,27 +40,34 @@ const DATA = [
 })
 export class MainComponent {
 	private _dialogService = inject(NbDialogService);
+	private _consultationService = inject(ConsultationService);
 
-	public user = signal(USER);
 	public tableHeadings = signal([
 		'Fecha',
 		'Hora',
 		'Paciente',
 		'Médico',
 		'Especialidad',
-		'Consultorio',
+		'Edificio',
 		'Estado',
 		'Acciones'
 	]);
-	public data = signal(DATA);
+	public consultations = signal<IConsultation[]>([]);
 
-	public showEvent(item: any) {
+	constructor() {
+		this.getConsultations();
+	}
+
+	private getConsultations() {
+		this._consultationService
+			.getConsultations()
+			.pipe(finalize(takeUntilDestroyed))
+			.subscribe((consultations) => this.consultations.set(consultations));
+	}
+
+	public showEvent(item: IConsultation) {
 		this._dialogService.open(SummaryModalComponent, {
-			context: {
-				summaryType: SummaryType.FINISHED,
-				detail: item
-			}
+			context: { detail: item }
 		});
-		console.log(item);
 	}
 }

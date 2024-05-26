@@ -18,20 +18,22 @@
 					</tr>
 				</thead>
 				<tbody>
+					@for (item of odontogramConsultations(); track $index) {
 					<tr class="align-middle">
 						<td>
-							<span> K020 - Caries limitada al esmalte </span> <br />
-							<small class="text-secondary">Descripción: Caries limitada al esmalte</small>
+							<span>{{ item?.detalle }}</span> <br />
+							<small class="text-secondary">Observación: {{ item?.observacion }}</small>
 						</td>
-						<td>Restauración de Caries</td>
-						<td>Pieza 14B</td>
-						<td>Vestibular</td>
+						<td>{{ item?.tipo_tratamiento }}</td>
+						<td>Pieza {{ item?.pieza_numero }}{{ item?.pieza_fila }}</td>
+						<td>{{ item?.tipo_cara }}</td>
 						<td>
 							<button nbButton size="small">
 								<nb-icon icon="eye-outline"></nb-icon>
 							</button>
 						</td>
 					</tr>
+					}
 				</tbody>
 			</table>
 		</div>

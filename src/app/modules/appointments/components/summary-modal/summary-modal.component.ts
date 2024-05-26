@@ -1,4 +1,4 @@
-import { Component, Input, inject, signal } from '@angular/core';
+import { Component, Input, inject } from '@angular/core';
 import { Router } from '@angular/router';
 
 import {
@@ -10,54 +10,17 @@ import {
 } from '@nebular/theme';
 
 import { WindowDirective } from '@src/app/shared/helpers/window/window.directive';
+import { IConsultation } from '@src/app/shared/models/consultation.model';
 
 const NB_MODULES = [NbCardModule, NbUserModule, NbIconModule, NbButtonModule];
 const DIRECTIVES = [WindowDirective];
 
 export enum SummaryType {
-	DEFAULT = 'default',
-	NEXT = 'next',
-	FINISHED = 'finished',
-	CANCELLED = 'cancelled'
+	PENDING = 'Pendiente',
+	CONFIRMED = 'Confirmada',
+	CANCELLED = 'Cancelada',
+	FINISHED = 'Finalizada'
 }
-
-const USER = {
-	name: 'Pantigoso Puraca José Miguel',
-	title: 'Paciente'
-};
-
-const SUMMARY_LIST = [
-	{
-		icon: 'calendar-outline',
-		title: 'Fecha',
-		value: '2022-11-01'
-	},
-	{
-		icon: 'clock-outline',
-		title: 'Hora',
-		value: '10:00'
-	},
-	{
-		icon: 'pin-outline',
-		title: 'Lugar',
-		value: 'Juliaca'
-	},
-	{
-		icon: 'smiling-face-outline',
-		title: 'Tipo de servicio',
-		value: 'Especialidad'
-	},
-	{
-		icon: 'person-outline',
-		title: 'Odontólogo',
-		value: 'Jean Carlos Payana A.'
-	},
-	{
-		icon: 'file-text-outline',
-		title: 'Especialidad',
-		value: 'Ortodoncista'
-	}
-];
 
 @Component({
 	selector: 'app-summary-modal',
@@ -70,16 +33,12 @@ export class SummaryModalComponent {
 	private _router = inject(Router);
 	private _dialogRef = inject(NbDialogRef<SummaryModalComponent>);
 
-	@Input() summaryType: SummaryType = SummaryType.DEFAULT;
-	@Input() detail: string = '';
-
-	public user = signal(USER);
-	public summaryList = signal(SUMMARY_LIST);
+	@Input() detail!: IConsultation;
 
 	public viewDetail() {
-		const id = '0010';
+		if (!this.detail) return;
 
-		this._router.navigateByUrl(`/pages/medical-consultations/detail/${id}`);
+		this._router.navigateByUrl(`/pages/medical-consultations/detail/${this.detail.consultaid}`);
 		this._dialogRef.close();
 	}
 

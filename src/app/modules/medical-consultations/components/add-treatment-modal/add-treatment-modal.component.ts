@@ -14,7 +14,7 @@ import {
 
 import { WindowDirective } from '@src/app/shared/helpers/window/window.directive';
 import { ITooth } from '@src/app/shared/models/odontogram.model';
-import { OdontogramService } from '@src/app/shared/services';
+import { ConsultationService, OdontogramService } from '@src/app/shared/services';
 
 const NB_MODULES = [
 	NbButtonModule,
@@ -37,7 +37,9 @@ export class AddTreatmentModalComponent implements OnInit {
 	private _fb = inject(FormBuilder);
 	private _dialogRef = inject(NbDialogRef<AddTreatmentModalComponent>);
 	private _odontogramService = inject(OdontogramService);
+	private _consultationService = inject(ConsultationService);
 
+	@Input() consultaid!: number;
 	@Input() selectedTooth?: ITooth;
 
 	public teeth$ = this._odontogramService.getMinimalTeethPieces();
@@ -48,7 +50,7 @@ export class AddTreatmentModalComponent implements OnInit {
 		piezaid: ['', [Validators.required]],
 		tipotratamientoid: ['', [Validators.required]],
 		tipocaraid: ['', [Validators.required]],
-		diagnosis: ['', [Validators.required]]
+		detalle: ['', [Validators.required]]
 	});
 
 	ngOnInit(): void {
@@ -60,10 +62,19 @@ export class AddTreatmentModalComponent implements OnInit {
 	}
 
 	public addTreatment() {
-		console.log(this.form.value);
+		const data = {
+			...this.form.value,
+			es_tratamiento: false,
+			observacion: '~',
+			imagen: '~'
+		};
+
+		this._consultationService
+			.addOdontogramConsultation(this.consultaid, data)
+			.subscribe(() => this._dialogRef.close({ cancel: false }));
 	}
 
 	public close() {
-		this._dialogRef.close();
+		this._dialogRef.close({ cancel: true });
 	}
 }

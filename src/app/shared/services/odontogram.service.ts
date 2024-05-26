@@ -52,6 +52,8 @@ export class OdontogramService {
 	}
 
 	public getFaces() {
-		return this._http.get<IResponse<IFace[]>>(`${api}/salud/face-type`).pipe(map((response) => response.data));
+		return this._http
+			.get<IResponse<IFace[]>>(`${api}/salud/face-type`)
+			.pipe(map((response) => response.data));
 	}
 }

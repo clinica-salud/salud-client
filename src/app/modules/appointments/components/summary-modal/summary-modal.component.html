@@ -1,12 +1,12 @@
 <nb-card appWindow widthSize="sm">
 	<nb-card-header class="d-flex align-items-center justify-content-between">
 		<p class="fs-5 fw-bold">Resumen</p>
-		@switch (summaryType) { @case ("finished") {
+		@switch (detail.estado) { @case ("Finalizada") {
 		<div class="text-success">
 			<nb-icon icon="checkmark-circle-outline"></nb-icon>
 			<span> Cita finalizada </span>
 		</div>
-		} @case ("cancelled") {
+		} @case ("Cancelada") {
 		<div class="text-danger">
 			<nb-icon icon="close-circle-outline"></nb-icon>
 			<span> Cita cancelada </span>
@@ -19,23 +19,66 @@
 		} }
 	</nb-card-header>
 	<nb-card-body class="d-flex flex-column gap-3">
-		<nb-user size="medium" [name]="user().name" [title]="user().title" />
+		<nb-user size="medium" [name]="detail.paciente" title="Paciente" />
 		<div class="row">
-			@for (item of summaryList(); track $index) {
 			<div class="col-sm-6 border-bottom py-3">
 				<div class="d-flex align-items-center gap-4">
-					<nb-icon class="fs-3" [icon]="item.icon"></nb-icon>
+					<nb-icon class="fs-3" icon="calendar-outline"></nb-icon>
 					<div class="d-flex flex-column gap-1">
-						<small class="fw-bold">{{ item.title }}</small>
-						<span class="fw-light text-secondary fs-7">{{ item.value }}</span>
+						<small class="fw-bold">Fecha</small>
+						<span class="fw-light text-secondary fs-7">{{ detail.fecha }}</span>
 					</div>
 				</div>
 			</div>
-			}
+			<div class="col-sm-6 border-bottom py-3">
+				<div class="d-flex align-items-center gap-4">
+					<nb-icon class="fs-3" icon="clock-outline"></nb-icon>
+					<div class="d-flex flex-column gap-1">
+						<small class="fw-bold">Hora</small>
+						<span class="fw-light text-secondary fs-7">{{ detail.hora }}</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 border-bottom py-3">
+				<div class="d-flex align-items-center gap-4">
+					<nb-icon class="fs-3" icon="pin-outline"></nb-icon>
+					<div class="d-flex flex-column gap-1">
+						<small class="fw-bold">Lugar</small>
+						<span class="fw-light text-secondary fs-7">{{ detail.edificio }}</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 border-bottom py-3">
+				<div class="d-flex align-items-center gap-4">
+					<nb-icon class="fs-3" icon="smiling-face-outline"></nb-icon>
+					<div class="d-flex flex-column gap-1">
+						<small class="fw-bold">Tipo de servicio</small>
+						<span class="fw-light text-secondary fs-7">Especialidad</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 border-bottom py-3">
+				<div class="d-flex align-items-center gap-4">
+					<nb-icon class="fs-3" icon="person-outline"></nb-icon>
+					<div class="d-flex flex-column gap-1">
+						<small class="fw-bold">Odontólogo</small>
+						<span class="fw-light text-secondary fs-7">{{ detail.medico }}</span>
+					</div>
+				</div>
+			</div>
+			<div class="col-sm-6 border-bottom py-3">
+				<div class="d-flex align-items-center gap-4">
+					<nb-icon class="fs-3" icon="file-text-outline"></nb-icon>
+					<div class="d-flex flex-column gap-1">
+						<small class="fw-bold">Especialidad</small>
+						<span class="fw-light text-secondary fs-7">{{ detail.especialidad }}</span>
+					</div>
+				</div>
+			</div>
 		</div>
 	</nb-card-body>
 	<nb-card-footer class="row g-2 border-none">
-		@switch (summaryType) { @case ('next') {
+		@switch (detail.estado) { @case ('Pendiente') {
 		<div class="col-sm-6">
 			<button nbButton (click)="close()" status="danger" fullWidth>
 				<nb-icon icon="close-outline"></nb-icon>
@@ -48,20 +91,20 @@
 				Pagar
 			</button>
 		</div>
-		} @case ('finished') {
+		} @case ('Finalizada') {
 		<div class="col">
 			<button nbButton (click)="close()" status="success" (click)="viewDetail()" fullWidth>
 				<nb-icon icon="eye-outline"></nb-icon>
 				Ver detalle
 			</button>
 		</div>
-		} @case ('cancelled') {
+		} @case ('Cancelada') {
 		<div class="col">
 			<div class="d-flex flex-column gap-3">
 				<p class="fw-bold">Motivo</p>
 				<span class="border rounded text-black-50 fs-7 py-2 px-3">
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci, eligendi. Voluptatibus aut deleniti hic
-					rem laborum molestiae alias odit earum.
+					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci, eligendi. Voluptatibus
+					aut deleniti hic rem laborum molestiae alias odit earum.
 				</span>
 				<button nbButton (click)="close()" status="danger">
 					<nb-icon icon="close-outline"></nb-icon>

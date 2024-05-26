@@ -13,6 +13,7 @@ import {
 	SummaryType
 } from '@src/app/modules/appointments/components/summary-modal/summary-modal.component';
 import { SmallToggleComponent } from '@src/app/shared/components/small-toggle/small-toggle.component';
+import { IConsultation } from '@src/app/shared/models/consultation.model';
 
 const NB_MODULES = [NbCardModule, NbButtonModule, NbIconModule];
 const COMPONENTS = [SmallToggleComponent];
@@ -70,7 +71,7 @@ const EVENTS = [
 		title: '',
 		color: { ...COLORS.next },
 		meta: {
-			type: SummaryType.NEXT,
+			type: SummaryType.PENDING,
 			detail: 'some data'
 		}
 	},
@@ -80,7 +81,7 @@ const EVENTS = [
 		title: '',
 		color: { ...COLORS.next },
 		meta: {
-			type: SummaryType.NEXT,
+			type: SummaryType.PENDING,
 			detail: 'some data'
 		}
 	},
@@ -108,7 +109,7 @@ const EVENTS = [
 
 type EventMeta = {
 	type: SummaryType;
-	detail: string;
+	detail: IConsultation;
 };
 
 @Component({
@@ -210,10 +211,10 @@ export class CalendarComponent {
 		this.nextControl.setValue(value);
 
 		const nextEvents = this.originalEvents().filter(
-			(event) => event.meta.type === SummaryType.NEXT
+			(event) => event.meta.type === SummaryType.PENDING
 		);
 		const filteredEvents = this.filteredEvents().filter(
-			(event) => event.meta.type !== SummaryType.NEXT
+			(event) => event.meta.type !== SummaryType.PENDING
 		);
 		value
 			? this.filteredEvents.set([...this.filteredEvents(), ...nextEvents])
@@ -222,10 +223,7 @@ export class CalendarComponent {
 
 	public showEvent(meta: EventMeta) {
 		this._dialogService.open(SummaryModalComponent, {
-			context: {
-				summaryType: meta.type,
-				detail: meta.detail
-			}
+			context: { detail: meta.detail }
 		});
 		console.log(meta);
 	}
