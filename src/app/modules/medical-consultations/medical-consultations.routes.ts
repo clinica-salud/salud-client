@@ -21,7 +21,7 @@ export const MEDICAL_CONSULTATIONS_ROUTES: Routes = [
 				data: { breadcrumb: 'Calendario' }
 			},
 			{
-				path: 'detail/:id',
+				path: 'detail/:consultaid',
 				component: DetailComponent,
 				data: { breadcrumb: (id: string) => `Cita n° ${formatRoute(id)}` }
 			}

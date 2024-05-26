@@ -9,39 +9,45 @@
 		<form class="row g-3" [formGroup]="form">
 			<div class="col-md-12">
 				<label class="required fw-semibold mb-2">Medicamento</label>
-				<nb-select placeholder="Selecciona una opción" formControlName="medicine" fullWidth>
-					<nb-option value="all">Todos</nb-option>
-				</nb-select>
+				<input
+					nbInput
+					type="text"
+					placeholder="Medicamento..."
+					formControlName="medicine"
+					fullWidth
+				/>
 			</div>
 			<div class="col-md-12">
 				<label class="required fw-semibold mb-2">Via de administración</label>
-				<nb-select placeholder="Selecciona una opción" formControlName="route" fullWidth>
-					<nb-option value="all">Todos</nb-option>
-				</nb-select>
+				<input
+					nbInput
+					type="text"
+					placeholder="Via de administración..."
+					formControlName="route"
+					fullWidth
+				/>
 			</div>
 			<div class="col-md-6">
 				<label class="required fw-semibold mb-2">Dosis</label>
-				<nb-select placeholder="Selecciona una opción" formControlName="dose" fullWidth>
-					<nb-option value="all">Todos</nb-option>
-				</nb-select>
+				<input nbInput type="text" placeholder="Dosis..." formControlName="dose" fullWidth />
 			</div>
 			<div class="col-md-6">
 				<label class="required fw-semibold mb-2">Frecuencia</label>
-				<nb-select placeholder="Selecciona una opción" formControlName="frequency" fullWidth>
-					<nb-option value="all">Todos</nb-option>
-				</nb-select>
+				<input
+					nbInput
+					type="text"
+					placeholder="Frecuencia..."
+					formControlName="frequency"
+					fullWidth
+				/>
 			</div>
 			<div class="col-md-6">
 				<label class="required fw-semibold mb-2">Tiempo</label>
-				<nb-select placeholder="Selecciona una opción" formControlName="time" fullWidth>
-					<nb-option value="all">Todos</nb-option>
-				</nb-select>
+				<input nbInput type="text" placeholder="Tiempo..." formControlName="time" fullWidth />
 			</div>
 			<div class="col-md-6">
 				<label class="required fw-semibold mb-2">Cantidad</label>
-				<nb-select placeholder="Selecciona una opción" formControlName="quantity" fullWidth>
-					<nb-option value="all">Todos</nb-option>
-				</nb-select>
+				<input nbInput type="text" placeholder="Cantidad..." formControlName="quantity" fullWidth />
 			</div>
 			<div class="col-md-12">
 				<label class="required fw-semibold mb-2">Indicaciones</label>
@@ -49,6 +55,7 @@
 					nbInput
 					placeholder="Descripción..."
 					formControlName="indications"
+					rows="3"
 					fullWidth
 				></textarea>
 			</div>

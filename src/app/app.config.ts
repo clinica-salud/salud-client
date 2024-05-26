@@ -19,7 +19,11 @@ import {
 import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 
-import { authInterceptor, catchErrorInterceptor, spinnerInterceptor } from '@src/app/core/interceptors';
+import {
+	authInterceptor,
+	catchErrorInterceptor,
+	spinnerInterceptor
+} from '@src/app/core/interceptors';
 
 import { routes } from './app.routes';
 
@@ -45,6 +49,8 @@ export const appConfig: ApplicationConfig = {
 		]),
 		provideAnimations(),
 		provideRouter(routes, withHashLocation()),
-		provideHttpClient(withInterceptors([spinnerInterceptor, authInterceptor, catchErrorInterceptor]))
+		provideHttpClient(
+			withInterceptors([spinnerInterceptor, authInterceptor, catchErrorInterceptor])
+		)
 	]
 };

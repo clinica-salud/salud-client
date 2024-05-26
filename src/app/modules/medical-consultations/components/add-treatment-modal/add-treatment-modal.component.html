@@ -14,7 +14,7 @@
 				<nb-select placeholder="Selecciona Pieza" formControlName="piezaid" fullWidth>
 					<nb-option value="all">Todos</nb-option>
 					@for (tooth of teeth$ | async; track tooth.piezaid) {
-					<nb-option [value]="tooth.piezaid">{{ tooth.numero }}</nb-option>
+					<nb-option [value]="tooth.piezaid">{{ tooth.numero }}{{ tooth.fila }}</nb-option>
 					}
 				</nb-select>
 			</div>
@@ -39,13 +39,8 @@
 				</nb-select>
 			</div>
 			<div class="col-md-12">
-				<label class="required fw-semibold mb-2">Diagnóstico</label>
-				<textarea
-					nbInput
-					placeholder="Descripción..."
-					formControlName="diagnosis"
-					fullWidth
-				></textarea>
+				<label class="required fw-semibold mb-2">Detalle</label>
+				<textarea nbInput placeholder="Detalle..." formControlName="detalle" fullWidth></textarea>
 			</div>
 		</form>
 	</nb-card-body>

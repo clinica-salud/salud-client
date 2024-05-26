@@ -12,6 +12,7 @@ export interface ITooth {
 
 export interface IToothMinimal {
 	piezaid: number;
+	fila: string;
 	numero: number;
 }
 
