@@ -4,16 +4,15 @@
 			<span class="fs-4">
 				Odontograma Dental de {{ teethType === 1 ? 'Adulto' : teethType === 2 ? 'Niño' : '' }}
 			</span>
-			<button nbButton size="small" class="button-black" (click)="toggleTeethType()">
+			<!-- <button nbButton size="small" class="button-black" (click)="toggleTeethType()">
 				Ver de {{ teethType === 1 ? 'Niño' : teethType === 2 ? 'Adulto' : '' }}
-			</button>
+			</button> -->
 		</nb-card-header>
 		<nb-card-body class="px-2 px-md-4">
-			@if (teeth.length !== 0) {
+			@defer (when teeth.length !== 0) {
 			<div class="wrapper">
 				<app-odontogram-graph (selectedTooth)="addTreatment($event)" />
 			</div>
-			} @if (odontogramConsultations().length > 0) {
 			<div class="container-fluid">
 				<div class="table-responsive my-4 mt-5">
 					<table class="table table-bordered table-striped table-hover">
@@ -55,6 +54,10 @@
 									</button>
 								</td>
 							</tr>
+							} @empty {
+							<tr class="text-center align-middle">
+								<td colspan="6">No hay tratamientos</td>
+							</tr>
 							}
 						</tbody>
 					</table>
@@ -64,6 +67,8 @@
 					Agregar
 				</button>
 			</div>
+			} @placeholder {
+			<p class="text-center">Cargando odontograma...</p>
 			}
 		</nb-card-body>
 	</nb-card>

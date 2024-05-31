@@ -48,7 +48,7 @@
 			[status]="f['tipoid'].dirty ? (f['tipoid'].invalid ? 'danger' : 'success') : 'basic'"
 			fullWidth
 		>
-			@for (docType of documentTypes$ | async; track docType.tipoid) {
+			@for (docType of documentTypes(); track docType.tipoid) {
 			<nb-option [value]="docType.tipoid">{{ docType.nombre }}</nb-option>
 			}
 		</nb-select>

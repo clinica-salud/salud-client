@@ -22,11 +22,11 @@ export class OdontogramGraphComponent {
 	public bottomC: ITooth[] = [];
 
 	get teethType() {
-		return this._odontogramService.teethType;
+		return this._odontogramService.teethType();
 	}
 
 	get teeth() {
-		return this._odontogramService.teeth;
+		return this._odontogramService.teeth();
 	}
 
 	constructor() {

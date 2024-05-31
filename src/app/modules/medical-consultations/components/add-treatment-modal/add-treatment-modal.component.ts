@@ -1,5 +1,5 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, Input, OnInit, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import {
@@ -29,7 +29,7 @@ const DIRECTIVES = [WindowDirective];
 @Component({
 	selector: 'app-add-treatment-modal',
 	standalone: true,
-	imports: [AsyncPipe, ReactiveFormsModule, ...NB_MODULES, ...DIRECTIVES],
+	imports: [ReactiveFormsModule, ...NB_MODULES, ...DIRECTIVES],
 	templateUrl: './add-treatment-modal.component.html',
 	styleUrl: './add-treatment-modal.component.scss'
 })
@@ -42,9 +42,9 @@ export class AddTreatmentModalComponent implements OnInit {
 	@Input() consultaid!: number;
 	@Input() selectedTooth?: ITooth;
 
-	public teeth$ = this._odontogramService.getMinimalTeethPieces();
-	public treatments$ = this._odontogramService.getTreatments();
-	public faces$ = this._odontogramService.getFaces();
+	public teeth = toSignal(this._odontogramService.getMinimalTeethPieces());
+	public treatments = toSignal(this._odontogramService.getTreatments());
+	public faces = toSignal(this._odontogramService.getFaces());
 
 	public form: FormGroup = this._fb.group({
 		piezaid: ['', [Validators.required]],

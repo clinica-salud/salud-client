@@ -99,6 +99,6 @@ export class AuthComponent {
 	private _router = inject(Router);
 
 	constructor() {
-		if (this._authService.isLoggedIn) this._router.navigateByUrl('/pages');
+		if (this._authService.isLoggedIn()) this._router.navigateByUrl('/pages');
 	}
 }

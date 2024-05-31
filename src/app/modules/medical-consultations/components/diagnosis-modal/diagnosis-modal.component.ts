@@ -1,11 +1,10 @@
-import { Component, Input, OnInit, inject, signal } from '@angular/core';
+import { Component, DestroyRef, Input, OnInit, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { NbButtonModule, NbCardModule, NbDialogRef, NbIconModule } from '@nebular/theme';
 
 import { WindowDirective } from '@src/app/shared/helpers/window/window.directive';
 import { ConsultationService } from '@src/app/shared/services';
-import { finalize } from 'rxjs';
 
 const NB_MODULES = [NbCardModule, NbIconModule, NbButtonModule];
 const DIRECTIVES = [WindowDirective];
@@ -20,18 +19,19 @@ const DIRECTIVES = [WindowDirective];
 export class DiagnosisModalComponent implements OnInit {
 	private _dialogRef = inject(NbDialogRef<DiagnosisModalComponent>);
 	private _consultationService = inject(ConsultationService);
+	private _destroyRef = inject(DestroyRef);
 
 	@Input() consultaid!: number;
 	public odontogramConsultations = signal<any[]>([]);
 
 	ngOnInit(): void {
-		this.getOdontogramConsultation();
+		this.getOdontogramConsultations();
 	}
 
-	private getOdontogramConsultation() {
+	private getOdontogramConsultations() {
 		this._consultationService
-			.getOdontogramConsultation(this.consultaid)
-			.pipe(finalize(takeUntilDestroyed))
+			.getOdontogramConsultations(this.consultaid)
+			.pipe(takeUntilDestroyed(this._destroyRef))
 			.subscribe((data: any) => this.odontogramConsultations.set(data));
 	}
 

@@ -18,18 +18,18 @@ export interface Menu {
 	providedIn: 'root'
 })
 export class MenuService {
-	private _user: User = {
+	#user: User = {
 		name: 'Miguel',
 		picture:
 			'https://static.vecteezy.com/system/resources/previews/005/129/844/original/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg'
 	};
 
-	private _userMenu: NbMenuItem[] = [
+	#userMenu: NbMenuItem[] = [
 		// { title: 'Profile', icon: 'person-outline', data: { action: 'profile' } },
 		{ title: 'Cerrar sesión', icon: 'power-outline', data: { action: 'logout' } }
 	];
 
-	private _menu: Menu[] = [
+	#menu: Menu[] = [
 		{
 			title: 'Dashboard',
 			icon: 'grid-outline',
@@ -53,14 +53,14 @@ export class MenuService {
 	];
 
 	get menu() {
-		return this._menu;
+		return this.#menu;
 	}
 
 	get user() {
-		return this._user;
+		return this.#user;
 	}
 
 	get userMenu() {
-		return this._userMenu;
+		return this.#userMenu;
 	}
 }

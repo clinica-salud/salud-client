@@ -1,5 +1,5 @@
-import { Component, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params } from '@angular/router';
 
 import {
@@ -15,7 +15,7 @@ import { DetailTabComponent } from '@src/app/modules/medical-consultations/compo
 import { OdontogramGraphComponent } from '@src/app/modules/medical-consultations/components/odontogram-graph/odontogram-graph.component';
 import { ITooth } from '@src/app/shared/models/odontogram.model';
 import { ConsultationService, OdontogramService } from '@src/app/shared/services';
-import { finalize } from 'rxjs';
+import { map } from 'rxjs';
 
 const NB_MODULES = [NbButtonModule, NbIconModule, NbCardModule, NbCheckboxModule];
 const COMPONENTS = [OdontogramGraphComponent, DetailTabComponent];
@@ -32,43 +32,43 @@ export class OdontogramComponent {
 	private _odontogramService = inject(OdontogramService);
 	private _consultationService = inject(ConsultationService);
 	private _activatedRoute = inject(ActivatedRoute);
+	private _destroyRef = inject(DestroyRef);
 
-	private consultaid = signal<number>(0);
+	private consultaid = toSignal(
+		this._activatedRoute.params.pipe(map((params: Params) => params['consultaid']))
+	);
 
 	public odontogramConsultations = signal<any[]>([]);
 
 	get teethType() {
-		return this._odontogramService.teethType;
+		return this._odontogramService.teethType();
 	}
 
 	get teeth() {
-		return this._odontogramService.teeth;
+		return this._odontogramService.teeth();
 	}
 
 	constructor() {
-		this._activatedRoute.params.subscribe((params: Params) =>
-			this.consultaid.set(params['consultaid'])
-		);
-
 		this._odontogramService.getTeethPieces();
 		this.getOdontogramConsultation();
 	}
 
 	private getOdontogramConsultation() {
 		this._consultationService
-			.getOdontogramConsultation(this.consultaid())
-			.pipe(finalize(takeUntilDestroyed))
+			.getOdontogramConsultations(this.consultaid())
+			.pipe(takeUntilDestroyed(this._destroyRef))
 			.subscribe((data: any) => this.odontogramConsultations.set(data));
 	}
 
 	public toggleTeethType() {
-		this._odontogramService.teethType = this.teethType === 1 ? 2 : 1;
+		this._odontogramService.setTeethType(this.teethType === 1 ? 2 : 1);
 	}
 
 	public patchTreatment(e: any, item: any) {
 		const { piezaid } = item;
 		this._consultationService
 			.patchOdontogramConsultation(this.consultaid(), piezaid, { es_tratamiento: e })
+			.pipe(takeUntilDestroyed(this._destroyRef))
 			.subscribe(() => this.getOdontogramConsultation());
 	}
 
@@ -77,6 +77,7 @@ export class OdontogramComponent {
 
 		this._consultationService
 			.deleteOdontogramConsultation(this.consultaid(), item.piezaid)
+			.pipe(takeUntilDestroyed(this._destroyRef))
 			.subscribe(() => this.getOdontogramConsultation());
 	}
 

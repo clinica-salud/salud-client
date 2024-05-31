@@ -9,20 +9,20 @@ import {
 	NbSpinnerModule
 } from '@nebular/theme';
 
-import { BreadcrumbModule } from 'xng-breadcrumb';
+import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
 
 import { FooterComponent } from '@src/app/core/layout/components/footer/footer.component';
 import { HeaderComponent } from '@src/app/core/layout/components/header/header.component';
 import { Menu, MenuService, SpinnerService } from '@src/app/core/services';
 
-const OTHER_MODULES = [BreadcrumbModule];
 const NB_MODULES = [NbLayoutModule, NbSpinnerModule, NbSidebarModule, NbMenuModule, NbCardModule];
+const BREADCRUMB = [BreadcrumbComponent, BreadcrumbItemDirective];
 const COMPONENTS = [FooterComponent, HeaderComponent];
 
 @Component({
 	selector: 'app-layout',
 	standalone: true,
-	imports: [RouterOutlet, ...NB_MODULES, ...OTHER_MODULES, ...COMPONENTS],
+	imports: [RouterOutlet, ...NB_MODULES, ...BREADCRUMB, ...COMPONENTS],
 	template: `
 		<div [nbSpinner]="spinner" nbSpinnerSize="giant" nbSpinnerStatus="primary">
 			<nb-layout windowMode>
@@ -58,6 +58,6 @@ export class LayoutComponent {
 	public menu = signal<Menu[]>(this._menuService.menu);
 
 	get spinner() {
-		return this._spinnerService.getStatusSpinner;
+		return this._spinnerService.spinner();
 	}
 }

@@ -33,7 +33,6 @@ export const appConfig: ApplicationConfig = {
 	providers: [
 		{ provide: LOCALE_ID, useValue: 'es-PE' },
 		importProvidersFrom([
-			HttpClientModule,
 			NbDatepickerModule.forRoot(),
 			NbDialogModule.forRoot(),
 			NbMenuModule.forRoot(),
@@ -50,7 +49,7 @@ export const appConfig: ApplicationConfig = {
 		provideAnimations(),
 		provideRouter(routes, withHashLocation(), withViewTransitions({ skipInitialTransition: true })),
 		provideHttpClient(
-			withInterceptors([spinnerInterceptor, authInterceptor, catchErrorInterceptor])
+			withInterceptors([authInterceptor, catchErrorInterceptor, spinnerInterceptor])
 		)
 	]
 };
