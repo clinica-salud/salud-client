@@ -1,6 +1,10 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params } from '@angular/router';
+import { map } from 'rxjs';
+
+import html2canvas from 'html2canvas';
+import jsPDF from 'jspdf';
 
 import {
 	NbButtonModule,
@@ -15,7 +19,6 @@ import { DetailTabComponent } from '@src/app/modules/medical-consultations/compo
 import { OdontogramGraphComponent } from '@src/app/modules/medical-consultations/components/odontogram-graph/odontogram-graph.component';
 import { ITooth } from '@src/app/shared/models/odontogram.model';
 import { ConsultationService, OdontogramService } from '@src/app/shared/services';
-import { map } from 'rxjs';
 
 const NB_MODULES = [NbButtonModule, NbIconModule, NbCardModule, NbCheckboxModule];
 const COMPONENTS = [OdontogramGraphComponent, DetailTabComponent];
@@ -33,6 +36,7 @@ export class OdontogramComponent {
 	private _consultationService = inject(ConsultationService);
 	private _activatedRoute = inject(ActivatedRoute);
 	private _destroyRef = inject(DestroyRef);
+	private _elementRef = inject(ElementRef);
 
 	private consultaid = toSignal(
 		this._activatedRoute.params.pipe(map((params: Params) => params['consultaid']))
@@ -47,6 +51,8 @@ export class OdontogramComponent {
 	get teeth() {
 		return this._odontogramService.teeth();
 	}
+
+	// @ViewChild('odontogram', { static: true }) odontogram!: ElementRef;
 
 	constructor() {
 		this._odontogramService.getTeethPieces();
@@ -92,5 +98,33 @@ export class OdontogramComponent {
 			if (cancel) return;
 			this.getOdontogramConsultation();
 		});
+	}
+
+	public generatePDF() {
+		const div = this._elementRef.nativeElement.querySelector('#odontogram');
+
+		const options = {
+			useCORS: true,
+			logging: true,
+			allowTaint: true
+		};
+
+		html2canvas(div, options)
+			.then((canvas) => {
+				const img = canvas.toDataURL('image/jpeg');
+				console.log('Generated image data URL:', img);
+
+				const doc = new jsPDF('p', 'mm', 'a4', true);
+				const bufferX = 5;
+				const bufferY = 5;
+				const imgProps = (<any>doc).getImageProperties(img);
+				const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
+				const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
+				doc.addImage(img, 'jpeg', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
+				doc.save('odontograma.pdf');
+			})
+			.catch((error) => {
+				console.error('Error generating PDF:', error);
+			});
 	}
 }

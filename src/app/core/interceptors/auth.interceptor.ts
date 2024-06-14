@@ -19,7 +19,8 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 	return next(req).pipe(
 		catchError((err) => {
 			const access_token = localStorage.getItem('access_token');
-			if (err.status === 401 && access_token) {
+
+			if (err && access_token) {
 				localStorage.removeItem('access_token');
 			}
 

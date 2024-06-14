@@ -1,6 +1,8 @@
 <app-detail-tab>
-	<nb-card class="border-0">
+	<button (click)="generatePDF()">Download</button>
+	<nb-card class="border-0" id="odontogram">
 		<nb-card-header class="border-0 px-2 px-md-4 d-flex align-items-center justify-content-between">
+			<!-- <img src="assets/images/logo.png" alt="" /> -->
 			<span class="fs-4">
 				Odontograma Dental de {{ teethType === 1 ? 'Adulto' : teethType === 2 ? 'Niño' : '' }}
 			</span>
@@ -15,7 +17,7 @@
 			</div>
 			<div class="container-fluid">
 				<div class="table-responsive my-4 mt-5">
-					<table class="table table-bordered table-striped table-hover">
+					<table class="table table-sm table-bordered table-hover">
 						<thead>
 							<tr class="text-center">
 								<th>Diagnóstico</th>
