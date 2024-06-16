@@ -4,11 +4,14 @@
 			<tr class="topC">
 				@for (tooth of topC; track tooth.piezaid) {
 				<td>
-					<input
-						type="image"
-						src="assets/images/{{
-							tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : ''
-						}}/{{ tooth.imagen }}"
+					<img
+						class="pointer"
+						[src]="
+							'images/' +
+							(tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : '') +
+							'/' +
+							tooth.imagen
+						"
 						(click)="selected(tooth)"
 						alt="odontograma"
 					/>
@@ -18,11 +21,14 @@
 			<tr class="topB">
 				@for (tooth of topB; track tooth.piezaid) { @if (tooth.imagen) {
 				<td>
-					<input
-						type="image"
-						src="assets/images/{{
-							tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : ''
-						}}/{{ tooth.imagen }}"
+					<img
+						class="pointer"
+						[src]="
+							'images/' +
+							(tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : '') +
+							'/' +
+							tooth.imagen
+						"
 						(click)="selected(tooth)"
 						alt="odontograma"
 					/>
@@ -34,11 +40,14 @@
 			<tr class="topA">
 				@for (tooth of topA; track tooth.piezaid) {
 				<td>
-					<input
-						type="image"
-						src="assets/images/{{
-							tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : ''
-						}}/{{ tooth.imagen }}"
+					<img
+						class="pointer"
+						[src]="
+							'images/' +
+							(tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : '') +
+							'/' +
+							tooth.imagen
+						"
 						(click)="selected(tooth)"
 						alt="odontograma"
 					/>
@@ -111,11 +120,14 @@
 			<tr class="bottomA">
 				@for (tooth of bottomA; track tooth.piezaid) {
 				<td>
-					<input
-						type="image"
-						src="assets/images/{{
-							tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : ''
-						}}/{{ tooth.imagen }}"
+					<img
+						class="pointer"
+						[src]="
+							'images/' +
+							(tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : '') +
+							'/' +
+							tooth.imagen
+						"
 						(click)="selected(tooth)"
 						alt="odontograma"
 					/>
@@ -125,11 +137,14 @@
 			<tr class="bottomB">
 				@for (tooth of bottomB; track tooth.piezaid) { @if (tooth.imagen) {
 				<td>
-					<input
-						type="image"
-						src="assets/images/{{
-							tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : ''
-						}}/{{ tooth.imagen }}"
+					<img
+						class="pointer"
+						[src]="
+							'images/' +
+							(tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : '') +
+							'/' +
+							tooth.imagen
+						"
 						(click)="selected(tooth)"
 						alt="odontograma"
 					/>
@@ -141,11 +156,14 @@
 			<tr class="bottomC">
 				@for (tooth of bottomC; track tooth.piezaid) {
 				<td>
-					<input
-						type="image"
-						src="assets/images/{{
-							tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : ''
-						}}/{{ tooth.imagen }}"
+					<img
+						class="pointer"
+						[src]="
+							'images/' +
+							(tooth.abreviatura === 'AD' ? 'adult' : tooth.abreviatura === 'INF' ? 'child' : '') +
+							'/' +
+							tooth.imagen
+						"
 						(click)="selected(tooth)"
 						alt="odontograma"
 					/>

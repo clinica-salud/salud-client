@@ -45,7 +45,12 @@
 						"polyfills": ["zone.js"],
 						"tsConfig": "tsconfig.app.json",
 						"inlineStyleLanguage": "scss",
-						"assets": ["src/favicon.ico", "src/assets", "src/_redirects"],
+						"assets": [
+							{
+								"glob": "**/*",
+								"input": "public"
+							}
+						],
 						"styles": ["src/styles.scss"],
 						"allowedCommonJsDependencies": ["eva-icons"],
 						"extractLicenses": false,
@@ -124,8 +129,8 @@
 				}
 			}
 		}
-  },
-  "cli": {
-    "analytics": false
-  }
+	},
+	"cli": {
+		"analytics": false
+	}
 }

@@ -45,7 +45,14 @@
 		</form>
 	</nb-card-body>
 	<nb-card-footer>
-		<button nbButton class="d-block ms-auto" status="primary" (click)="addTreatment()" fullWidth>
+		<button
+			nbButton
+			class="d-block ms-auto"
+			status="primary"
+			(click)="addTreatment()"
+			[disabled]="form.invalid"
+			fullWidth
+		>
 			<!-- <nb-icon icon="plus-outline"></nb-icon> -->
 			Agregar
 		</button>

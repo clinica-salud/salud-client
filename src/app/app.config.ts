@@ -1,7 +1,12 @@
 import { registerLocaleData } from '@angular/common';
 import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import localeEsPe from '@angular/common/locales/es';
-import { ApplicationConfig, LOCALE_ID, importProvidersFrom } from '@angular/core';
+import {
+	ApplicationConfig,
+	LOCALE_ID,
+	importProvidersFrom,
+	provideZoneChangeDetection
+} from '@angular/core';
 import { provideAnimations } from '@angular/platform-browser/animations';
 import { provideRouter, withHashLocation, withViewTransitions } from '@angular/router';
 
@@ -47,6 +52,7 @@ export const appConfig: ApplicationConfig = {
 			})
 		]),
 		provideAnimations(),
+		provideZoneChangeDetection({ eventCoalescing: true }),
 		provideRouter(routes, withHashLocation(), withViewTransitions({ skipInitialTransition: true })),
 		provideHttpClient(
 			withInterceptors([authInterceptor, catchErrorInterceptor, spinnerInterceptor])

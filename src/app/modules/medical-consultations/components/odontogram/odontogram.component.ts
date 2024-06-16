@@ -112,7 +112,7 @@ export class OdontogramComponent {
 		html2canvas(div, options)
 			.then((canvas) => {
 				const img = canvas.toDataURL('image/jpeg');
-				console.log('Generated image data URL:', img);
+				// console.log('Generated image data URL:', img);
 
 				const doc = new jsPDF('p', 'mm', 'a4', true);
 				const bufferX = 5;

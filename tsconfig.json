@@ -23,7 +23,6 @@
 		"lib": ["ES2022", "dom"],
 		"paths": {
 			"@src/*": ["src/*"],
-			"@assets/*": ["src/assets/*"],
 			"@shared/*": ["src/app/shared/*"],
 			"@helpers/*": ["src/app/shared/helpers/*"],
 			"@utils/*": ["src/app/shared/utils/*"],
