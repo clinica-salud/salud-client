@@ -54,43 +54,43 @@
 				<thead class="border-bottom border-top">
 					<tr class="text-center">
 						@for (heading of tableHeadings(); track $index) {
-						<th>{{ heading | uppercase }}</th>
+							<th>{{ heading | uppercase }}</th>
 						}
 					</tr>
 				</thead>
 				<tbody>
 					@for (item of consultations(); track item.consultaid) {
-					<tr class="align-middle text-center">
-						<td>{{ item.fecha }}</td>
-						<td>{{ item.hora }}</td>
-						<td>{{ item.paciente }}</td>
-						<td>{{ item.medico }}</td>
-						<td>{{ item.especialidad }}</td>
-						<td>{{ item.edificio }}</td>
-						<td class="position-relative">
-							<nb-badge
-								class="center-badge"
-								[text]="item.estado"
-								[status]="
-									item.estado_abreviatura === 'PN'
-										? 'basic'
-										: item.estado_abreviatura === 'CC'
-										? 'primary'
-										: item.estado_abreviatura === 'DEL'
-										? 'danger'
-										: item.estado_abreviatura === 'FIN'
-										? 'success'
-										: ''
-								"
-								position="top left"
-							></nb-badge>
-						</td>
-						<td>
-							<button nbButton (click)="showEvent(item)" size="small">
-								<nb-icon icon="eye-outline"></nb-icon>
-							</button>
-						</td>
-					</tr>
+						<tr class="align-middle text-center">
+							<td>{{ item.fecha }}</td>
+							<td>{{ item.hora }}</td>
+							<td>{{ item.paciente }}</td>
+							<td>{{ item.medico }}</td>
+							<td>{{ item.especialidad }}</td>
+							<td>{{ item.edificio }}</td>
+							<td class="position-relative">
+								<nb-badge
+									class="center-badge"
+									[text]="item.estado"
+									[status]="
+										item.estado_abreviatura === 'PN'
+											? 'basic'
+											: item.estado_abreviatura === 'CC'
+												? 'primary'
+												: item.estado_abreviatura === 'DEL'
+													? 'danger'
+													: item.estado_abreviatura === 'FIN'
+														? 'success'
+														: ''
+									"
+									position="top left"
+								></nb-badge>
+							</td>
+							<td>
+								<button nbButton (click)="showEvent(item)" size="small">
+									<nb-icon icon="eye-outline"></nb-icon>
+								</button>
+							</td>
+						</tr>
 					}
 				</tbody>
 			</table>
@@ -99,60 +99,60 @@
 			<table class="table table-sm table-bordered">
 				<tbody>
 					@for (item of consultations(); track item.consultaid) {
-					<tr>
-						<th>Fecha:</th>
-						<td>{{ item.fecha }}</td>
-					</tr>
-					<tr>
-						<th>Hora:</th>
-						<td>{{ item.hora }}</td>
-					</tr>
-					<tr>
-						<th>Paciente:</th>
-						<td>{{ item.paciente }}</td>
-					</tr>
-					<tr>
-						<th>Doctor:</th>
-						<td>{{ item.medico }}</td>
-					</tr>
-					<tr>
-						<th>Especialidad:</th>
-						<td>{{ item.especialidad }}</td>
-					</tr>
-					<tr>
-						<th>Edificio:</th>
-						<td>{{ item.edificio }}</td>
-					</tr>
-					<tr>
-						<th>Estado:</th>
-						<td class="position-relative">
-							<nb-badge
-								class="ms-1"
-								[text]="item.estado"
-								[status]="
-									item.estado_abreviatura === 'PN'
-										? 'basic'
-										: item.estado_abreviatura === 'CC'
-										? 'primary'
-										: item.estado_abreviatura === 'DEL'
-										? 'danger'
-										: item.estado_abreviatura === 'FIN'
-										? 'success'
-										: ''
-								"
-								position="center left"
-							></nb-badge>
-						</td>
-					</tr>
-					<tr class="align-middle last-row">
-						<th>Acciones:</th>
-						<td>
-							<button nbButton size="tiny">
-								<nb-icon icon="download-outline"></nb-icon>
-								Descargar
-							</button>
-						</td>
-					</tr>
+						<tr>
+							<th>Fecha:</th>
+							<td>{{ item.fecha }}</td>
+						</tr>
+						<tr>
+							<th>Hora:</th>
+							<td>{{ item.hora }}</td>
+						</tr>
+						<tr>
+							<th>Paciente:</th>
+							<td>{{ item.paciente }}</td>
+						</tr>
+						<tr>
+							<th>Doctor:</th>
+							<td>{{ item.medico }}</td>
+						</tr>
+						<tr>
+							<th>Especialidad:</th>
+							<td>{{ item.especialidad }}</td>
+						</tr>
+						<tr>
+							<th>Edificio:</th>
+							<td>{{ item.edificio }}</td>
+						</tr>
+						<tr>
+							<th>Estado:</th>
+							<td class="position-relative">
+								<nb-badge
+									class="ms-1"
+									[text]="item.estado"
+									[status]="
+										item.estado_abreviatura === 'PN'
+											? 'basic'
+											: item.estado_abreviatura === 'CC'
+												? 'primary'
+												: item.estado_abreviatura === 'DEL'
+													? 'danger'
+													: item.estado_abreviatura === 'FIN'
+														? 'success'
+														: ''
+									"
+									position="center left"
+								></nb-badge>
+							</td>
+						</tr>
+						<tr class="align-middle last-row">
+							<th>Acciones:</th>
+							<td>
+								<button nbButton size="tiny">
+									<nb-icon icon="download-outline"></nb-icon>
+									Descargar
+								</button>
+							</td>
+						</tr>
 					}
 				</tbody>
 			</table>

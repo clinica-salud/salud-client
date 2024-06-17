@@ -53,9 +53,9 @@
 						<p class="fs-6 fw-semibold">Escoge a tu especialista</p>
 						<nb-radio-group status="success">
 							@for (user of users(); track $index) {
-							<nb-radio value="">
-								<nb-user [name]="user.name" [title]="user.title"> </nb-user>
-							</nb-radio>
+								<nb-radio value="">
+									<nb-user [name]="user.name" [title]="user.title"> </nb-user>
+								</nb-radio>
 							}
 						</nb-radio-group>
 					</div>
@@ -76,16 +76,16 @@
 							<p class="fs-6 fw-medium text-center mb-3">Por la mañana</p>
 							<div class="row g-3">
 								@for (mTime of morning_times(); track $index) {
-								<div class="col-6 col-md-12 col-lg-6 col-xxl-4">
-									<button
-										nbButton
-										[status]="mTime.selected ? 'info' : 'basic'"
-										(click)="selectTime(mTime.value)"
-										fullWidth
-									>
-										{{ mTime.title }}
-									</button>
-								</div>
+									<div class="col-6 col-md-12 col-lg-6 col-xxl-4">
+										<button
+											nbButton
+											[status]="mTime.selected ? 'info' : 'basic'"
+											(click)="selectTime(mTime.value)"
+											fullWidth
+										>
+											{{ mTime.title }}
+										</button>
+									</div>
 								}
 							</div>
 						</div>
@@ -93,16 +93,16 @@
 							<p class="fs-6 fw-medium text-center mb-3">Por la tarde</p>
 							<div class="row g-3">
 								@for (aTime of afternoon_times(); track $index) {
-								<div class="col-6 col-md-12 col-lg-6 col-xxl-4">
-									<button
-										nbButton
-										[status]="aTime.selected ? 'info' : 'basic'"
-										(click)="selectTime(aTime.value)"
-										fullWidth
-									>
-										{{ aTime.title }}
-									</button>
-								</div>
+									<div class="col-6 col-md-12 col-lg-6 col-xxl-4">
+										<button
+											nbButton
+											[status]="aTime.selected ? 'info' : 'basic'"
+											(click)="selectTime(aTime.value)"
+											fullWidth
+										>
+											{{ aTime.title }}
+										</button>
+									</div>
 								}
 							</div>
 						</div>

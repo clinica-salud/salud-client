@@ -52,8 +52,6 @@ export class OdontogramComponent {
 		return this._odontogramService.teeth();
 	}
 
-	// @ViewChild('odontogram', { static: true }) odontogram!: ElementRef;
-
 	constructor() {
 		this._odontogramService.getTeethPieces();
 		this.getOdontogramConsultation();
@@ -73,7 +71,9 @@ export class OdontogramComponent {
 	public patchTreatment(e: any, item: any) {
 		const { piezaid } = item;
 		this._consultationService
-			.patchOdontogramConsultation(this.consultaid(), piezaid, { es_tratamiento: e })
+			.patchOdontogramConsultation(this.consultaid(), piezaid, {
+				es_tratamiento: e
+			})
 			.pipe(takeUntilDestroyed(this._destroyRef))
 			.subscribe(() => this.getOdontogramConsultation());
 	}
@@ -112,8 +112,6 @@ export class OdontogramComponent {
 		html2canvas(div, options)
 			.then((canvas) => {
 				const img = canvas.toDataURL('image/jpeg');
-				// console.log('Generated image data URL:', img);
-
 				const doc = new jsPDF('p', 'mm', 'a4', true);
 				const bufferX = 5;
 				const bufferY = 5;

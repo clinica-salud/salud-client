@@ -26,7 +26,11 @@ export class MenuService {
 
 	#userMenu: NbMenuItem[] = [
 		// { title: 'Profile', icon: 'person-outline', data: { action: 'profile' } },
-		{ title: 'Cerrar sesión', icon: 'power-outline', data: { action: 'logout' } }
+		{
+			title: 'Cerrar sesión',
+			icon: 'power-outline',
+			data: { action: 'logout' }
+		}
 	];
 
 	#menu: Menu[] = [

@@ -49,7 +49,7 @@
 			fullWidth
 		>
 			@for (docType of documentTypes(); track docType.tipoid) {
-			<nb-option [value]="docType.tipoid">{{ docType.nombre }}</nb-option>
+				<nb-option [value]="docType.tipoid">{{ docType.nombre }}</nb-option>
 			}
 		</nb-select>
 		<control-error controlName="tipoid" />
@@ -105,11 +105,11 @@
 			Registrate
 		</button>
 		@if (!isLoading()) {
-		<hr />
-		<div class="d-flex align-items-center justify-content-center gap-2">
-			<small>¿Tienes cuenta?</small>
-			<a routerLink="/auth/login">Iniciar Sesión</a>
-		</div>
+			<hr />
+			<div class="d-flex align-items-center justify-content-center gap-2">
+				<small>¿Tienes cuenta?</small>
+				<a routerLink="/auth/login">Iniciar Sesión</a>
+			</div>
 		}
 	</div>
 </form>

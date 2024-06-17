@@ -5,7 +5,8 @@
 	<nb-card class="border-0" id="odontogram">
 		<nb-card-header class="border-0 px-2 px-md-4 d-flex align-items-center justify-content-between">
 			<span class="fs-4">
-				Odontograma Dental de {{ teethType === 1 ? 'Adulto' : teethType === 2 ? 'Niño' : '' }}
+				Odontograma Dental de
+				{{ teethType === 1 ? 'Adulto' : teethType === 2 ? 'Niño' : '' }}
 			</span>
 			<!-- <button nbButton size="small" class="button-black" (click)="toggleTeethType()">
 				Ver de {{ teethType === 1 ? 'Niño' : teethType === 2 ? 'Adulto' : '' }}
@@ -13,65 +14,65 @@
 		</nb-card-header>
 		<nb-card-body class="px-2 px-md-4">
 			@defer (when teeth.length !== 0) {
-			<div class="wrapper">
-				<app-odontogram-graph (selectedTooth)="addTreatment($event)" />
-			</div>
-			<div class="container-fluid">
-				<div class="table-responsive my-4 mt-5">
-					<table class="table table-sm table-bordered table-hover">
-						<thead>
-							<tr class="text-center">
-								<th>Diagnóstico</th>
-								<th>Práctica</th>
-								<th>Pieza Dental</th>
-								<th>Cara</th>
-								<th>Tratamiento</th>
-								<th>Acción</th>
-							</tr>
-						</thead>
-						<tbody>
-							@for (item of odontogramConsultations(); track $index) {
-							<tr class="text-center align-middle">
-								<td>
-									<span>{{ item?.detalle }}</span> <br />
-									<small class="text-secondary">Observación: {{ item?.observacion }}</small>
-								</td>
-								<td>{{ item?.tipo_tratamiento }}</td>
-								<td>Pieza {{ item?.pieza_numero }}{{ item?.pieza_fila }}</td>
-								<td>{{ item?.tipo_cara }}</td>
-								<td>
-									<nb-checkbox
-										status="success"
-										(checkedChange)="patchTreatment($event, item)"
-										[checked]="item?.es_tratamiento"
-									></nb-checkbox>
-								</td>
-								<td>
-									<button
-										nbButton
-										(click)="deleteOdontogramConsultation(item)"
-										status="danger"
-										size="small"
-									>
-										<nb-icon icon="trash-outline"></nb-icon>
-									</button>
-								</td>
-							</tr>
-							} @empty {
-							<tr class="text-center align-middle">
-								<td colspan="6">No hay tratamientos</td>
-							</tr>
-							}
-						</tbody>
-					</table>
+				<div class="wrapper">
+					<app-odontogram-graph (selectedTooth)="addTreatment($event)" />
 				</div>
-				<button nbButton class="d-block ms-auto" status="primary" (click)="addTreatment()">
-					<nb-icon icon="plus-outline"></nb-icon>
-					Agregar
-				</button>
-			</div>
+				<div class="container-fluid">
+					<div class="table-responsive my-4 mt-5">
+						<table class="table table-sm table-bordered table-hover">
+							<thead>
+								<tr class="text-center">
+									<th>Diagnóstico</th>
+									<th>Práctica</th>
+									<th>Pieza Dental</th>
+									<th>Cara</th>
+									<th>Tratamiento</th>
+									<th>Acción</th>
+								</tr>
+							</thead>
+							<tbody>
+								@for (item of odontogramConsultations(); track $index) {
+									<tr class="text-center align-middle">
+										<td>
+											<span>{{ item?.detalle }}</span> <br />
+											<small class="text-secondary">Observación: {{ item?.observacion }}</small>
+										</td>
+										<td>{{ item?.tipo_tratamiento }}</td>
+										<td>Pieza {{ item?.pieza_numero }}{{ item?.pieza_fila }}</td>
+										<td>{{ item?.tipo_cara }}</td>
+										<td>
+											<nb-checkbox
+												status="success"
+												(checkedChange)="patchTreatment($event, item)"
+												[checked]="item?.es_tratamiento"
+											></nb-checkbox>
+										</td>
+										<td>
+											<button
+												nbButton
+												(click)="deleteOdontogramConsultation(item)"
+												status="danger"
+												size="small"
+											>
+												<nb-icon icon="trash-outline"></nb-icon>
+											</button>
+										</td>
+									</tr>
+								} @empty {
+									<tr class="text-center align-middle">
+										<td colspan="6">No hay tratamientos</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
+					<button nbButton class="d-block ms-auto" status="primary" (click)="addTreatment()">
+						<nb-icon icon="plus-outline"></nb-icon>
+						Agregar
+					</button>
+				</div>
 			} @placeholder {
-			<p class="text-center">Cargando odontograma...</p>
+				<p class="text-center">Cargando odontograma...</p>
 			}
 		</nb-card-body>
 	</nb-card>

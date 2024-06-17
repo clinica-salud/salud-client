@@ -1,22 +1,26 @@
 <nb-card appWindow widthSize="sm">
 	<nb-card-header class="d-flex align-items-center justify-content-between">
 		<p class="fs-5 fw-bold">Resumen</p>
-		@switch (detail.estado) { @case ("Finalizada") {
-		<div class="text-success">
-			<nb-icon icon="checkmark-circle-outline"></nb-icon>
-			<span> Cita finalizada </span>
-		</div>
-		} @case ("Cancelada") {
-		<div class="text-danger">
-			<nb-icon icon="close-circle-outline"></nb-icon>
-			<span> Cita cancelada </span>
-		</div>
-		} @default {
-		<div class="d-flex flex-column align-items-end">
-			<small class="fw-bold">Importe</small>
-			<span class="fw-light fs-5">S/. 180.00</span>
-		</div>
-		} }
+		@switch (detail.estado) {
+			@case ('Finalizada') {
+				<div class="text-success">
+					<nb-icon icon="checkmark-circle-outline"></nb-icon>
+					<span> Cita finalizada </span>
+				</div>
+			}
+			@case ('Cancelada') {
+				<div class="text-danger">
+					<nb-icon icon="close-circle-outline"></nb-icon>
+					<span> Cita cancelada </span>
+				</div>
+			}
+			@default {
+				<div class="d-flex flex-column align-items-end">
+					<small class="fw-bold">Importe</small>
+					<span class="fw-light fs-5">S/. 180.00</span>
+				</div>
+			}
+		}
 	</nb-card-header>
 	<nb-card-body class="d-flex flex-column gap-3">
 		<nb-user size="medium" [name]="detail.paciente" title="Paciente" />
@@ -78,53 +82,58 @@
 		</div>
 	</nb-card-body>
 	<nb-card-footer class="row g-2 border-none">
-		@switch (detail.estado) { @case ('Pendiente') {
-		<div class="col-sm-6">
-			<button nbButton (click)="close()" status="danger" fullWidth>
-				<nb-icon icon="close-outline"></nb-icon>
-				Cancelar cita
-			</button>
-		</div>
-		<div class="col-sm-6">
-			<button nbButton (click)="close()" status="primary" fullWidth>
-				<nb-icon icon="credit-card-outline"></nb-icon>
-				Pagar
-			</button>
-		</div>
-		} @case ('Finalizada') {
-		<div class="col">
-			<button nbButton (click)="close()" status="success" (click)="viewDetail()" fullWidth>
-				<nb-icon icon="eye-outline"></nb-icon>
-				Ver detalle
-			</button>
-		</div>
-		} @case ('Cancelada') {
-		<div class="col">
-			<div class="d-flex flex-column gap-3">
-				<p class="fw-bold">Motivo</p>
-				<span class="border rounded text-black-50 fs-7 py-2 px-3">
-					Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci, eligendi. Voluptatibus
-					aut deleniti hic rem laborum molestiae alias odit earum.
-				</span>
-				<button nbButton (click)="close()" status="danger">
-					<nb-icon icon="close-outline"></nb-icon>
-					Cerrar
-				</button>
-			</div>
-		</div>
-		} @default {
-		<div class="col-sm-6">
-			<button nbButton (click)="close()" fullWidth>
-				<nb-icon icon="sync-outline"></nb-icon>
-				Pagar después
-			</button>
-		</div>
-		<div class="col-sm-6">
-			<button nbButton (click)="close()" status="primary" fullWidth>
-				<nb-icon icon="credit-card-outline"></nb-icon>
-				Pagar
-			</button>
-		</div>
-		} }
+		@switch (detail.estado) {
+			@case ('Pendiente') {
+				<div class="col-sm-6">
+					<button nbButton (click)="close()" status="danger" fullWidth>
+						<nb-icon icon="close-outline"></nb-icon>
+						Cancelar cita
+					</button>
+				</div>
+				<div class="col-sm-6">
+					<button nbButton (click)="close()" status="primary" fullWidth>
+						<nb-icon icon="credit-card-outline"></nb-icon>
+						Pagar
+					</button>
+				</div>
+			}
+			@case ('Finalizada') {
+				<div class="col">
+					<button nbButton (click)="close()" status="success" (click)="viewDetail()" fullWidth>
+						<nb-icon icon="eye-outline"></nb-icon>
+						Ver detalle
+					</button>
+				</div>
+			}
+			@case ('Cancelada') {
+				<div class="col">
+					<div class="d-flex flex-column gap-3">
+						<p class="fw-bold">Motivo</p>
+						<span class="border rounded text-black-50 fs-7 py-2 px-3">
+							Lorem ipsum dolor, sit amet consectetur adipisicing elit. Adipisci, eligendi.
+							Voluptatibus aut deleniti hic rem laborum molestiae alias odit earum.
+						</span>
+						<button nbButton (click)="close()" status="danger">
+							<nb-icon icon="close-outline"></nb-icon>
+							Cerrar
+						</button>
+					</div>
+				</div>
+			}
+			@default {
+				<div class="col-sm-6">
+					<button nbButton (click)="close()" fullWidth>
+						<nb-icon icon="sync-outline"></nb-icon>
+						Pagar después
+					</button>
+				</div>
+				<div class="col-sm-6">
+					<button nbButton (click)="close()" status="primary" fullWidth>
+						<nb-icon icon="credit-card-outline"></nb-icon>
+						Pagar
+					</button>
+				</div>
+			}
+		}
 	</nb-card-footer>
 </nb-card>

@@ -63,23 +63,23 @@
 						<thead class="border-bottom border-top">
 							<tr class="text-center">
 								@for (heading of tableHeadings(); track $index) {
-								<th class="t-heading">{{ heading | uppercase }}</th>
+									<th class="t-heading">{{ heading | uppercase }}</th>
 								}
 							</tr>
 						</thead>
 						<tbody>
 							@for (item of data(); track item.id) {
-							<tr class="align-middle text-center">
-								<td class="t-description">{{ item.date }}</td>
-								<td class="t-description">{{ item.patient }}</td>
-								<td class="t-description">{{ item.doctor }}</td>
-								<td class="t-description">{{ item.location }}</td>
-								<td class="t-description">
-									<button nbButton nbTooltip="Descargar" size="small">
-										<nb-icon icon="download-outline"></nb-icon>
-									</button>
-								</td>
-							</tr>
+								<tr class="align-middle text-center">
+									<td class="t-description">{{ item.date }}</td>
+									<td class="t-description">{{ item.patient }}</td>
+									<td class="t-description">{{ item.doctor }}</td>
+									<td class="t-description">{{ item.location }}</td>
+									<td class="t-description">
+										<button nbButton nbTooltip="Descargar" size="small">
+											<nb-icon icon="download-outline"></nb-icon>
+										</button>
+									</td>
+								</tr>
 							}
 						</tbody>
 					</table>
@@ -88,31 +88,31 @@
 					<table class="table table-sm table-bordered">
 						<tbody>
 							@for (item of data(); track item.id) {
-							<tr>
-								<th>Fecha:</th>
-								<td>{{ item.date }}</td>
-							</tr>
-							<tr>
-								<th>Paciente:</th>
-								<td>{{ item.patient }}</td>
-							</tr>
-							<tr>
-								<th>Doctor:</th>
-								<td>{{ item.doctor }}</td>
-							</tr>
-							<tr>
-								<th>Ubicación:</th>
-								<td>{{ item.location }}</td>
-							</tr>
-							<tr class="align-middle last-row">
-								<th>Acciones:</th>
-								<td>
-									<button nbButton size="tiny">
-										<nb-icon icon="download-outline"></nb-icon>
-										Descargar
-									</button>
-								</td>
-							</tr>
+								<tr>
+									<th>Fecha:</th>
+									<td>{{ item.date }}</td>
+								</tr>
+								<tr>
+									<th>Paciente:</th>
+									<td>{{ item.patient }}</td>
+								</tr>
+								<tr>
+									<th>Doctor:</th>
+									<td>{{ item.doctor }}</td>
+								</tr>
+								<tr>
+									<th>Ubicación:</th>
+									<td>{{ item.location }}</td>
+								</tr>
+								<tr class="align-middle last-row">
+									<th>Acciones:</th>
+									<td>
+										<button nbButton size="tiny">
+											<nb-icon icon="download-outline"></nb-icon>
+											Descargar
+										</button>
+									</td>
+								</tr>
 							}
 						</tbody>
 					</table>

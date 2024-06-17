@@ -91,8 +91,8 @@ const COMPONENTS = [BackgroundComponent, LogoNameComponent];
 					padding-block: 2rem;
 				}
 			}
-
-		}`
+		}
+	`
 })
 export class AuthComponent {
 	private _authService = inject(AuthService);
