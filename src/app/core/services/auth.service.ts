@@ -19,10 +19,8 @@ export class AuthService {
 	private _router = inject(Router);
 
 	#isLoggedIn = signal(false);
-	// #role = signal<IRole>('user');
 
 	public isLoggedIn = computed(() => this.#isLoggedIn());
-	// public role = computed(() => this.#role());
 
 	constructor() {
 		this.#isLoggedIn.set(localStorage.getItem('access_token') ? true : false);

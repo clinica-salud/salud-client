@@ -26,8 +26,7 @@ export enum SummaryType {
 	selector: 'app-summary-modal',
 	standalone: true,
 	imports: [...NB_MODULES, ...DIRECTIVES],
-	templateUrl: './summary-modal.component.html',
-	styleUrl: './summary-modal.component.scss'
+	templateUrl: './summary-modal.component.html'
 })
 export class SummaryModalComponent {
 	private _router = inject(Router);

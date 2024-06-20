@@ -49,8 +49,9 @@ export class AddTreatmentModalComponent implements OnInit {
 	public form: FormGroup = this._fb.group({
 		piezaid: ['', [Validators.required]],
 		tipotratamientoid: ['', [Validators.required]],
-		tipocaraid: ['', [Validators.required]],
-		detalle: ['', [Validators.required]]
+		tipocaraid: [''],
+		detalle: [''],
+		es_tratamiento: [true]
 	});
 
 	ngOnInit(): void {
@@ -62,12 +63,7 @@ export class AddTreatmentModalComponent implements OnInit {
 	}
 
 	public addTreatment() {
-		const data = {
-			...this.form.value,
-			es_tratamiento: false,
-			observacion: '~',
-			imagen: '~'
-		};
+		const data = { ...this.form.value };
 
 		this._consultationService
 			.addOdontogramConsultation(this.consultaid, data)

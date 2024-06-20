@@ -68,7 +68,7 @@
 					</td>
 				}
 			</tr>
-			@if (teethType === 1) {
+			@if (teethType() === 1) {
 				<tr>
 					<td>18</td>
 					<td>17</td>
@@ -105,7 +105,7 @@
 					<td>37</td>
 					<td>38</td>
 				</tr>
-			} @else if (teethType === 2) {
+			} @else if (teethType() === 2) {
 				<tr>
 					<td>55</td>
 					<td>54</td>

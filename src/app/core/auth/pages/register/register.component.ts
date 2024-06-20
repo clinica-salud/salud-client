@@ -17,8 +17,7 @@ const COMPONENTS = [ControlErrorComponent];
 @Component({
 	standalone: true,
 	imports: [ReactiveFormsModule, RouterLink, ...NB_MODULES, ...COMPONENTS],
-	templateUrl: './register.component.html',
-	styleUrl: './register.component.scss'
+	templateUrl: './register.component.html'
 })
 export class RegisterComponent {
 	private _authService = inject(AuthService);

@@ -1,6 +1,6 @@
 import { UpperCasePipe } from '@angular/common';
-import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { Component, inject, signal } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 
 import {
 	NbBadgeModule,
@@ -34,13 +34,11 @@ const NB_MODULES = [
 @Component({
 	standalone: true,
 	imports: [UpperCasePipe, ...NB_MODULES],
-	templateUrl: './main.component.html',
-	styleUrl: './main.component.scss'
+	templateUrl: './main.component.html'
 })
 export class MainComponent {
 	private _dialogService = inject(NbDialogService);
 	private _consultationService = inject(ConsultationService);
-	private _destroyRef = inject(DestroyRef);
 
 	public tableHeadings = signal([
 		'Fecha',
@@ -52,18 +50,7 @@ export class MainComponent {
 		'Estado',
 		'Acciones'
 	]);
-	public consultations = signal<IConsultation[]>([]);
-
-	constructor() {
-		this.getConsultations();
-	}
-
-	private getConsultations() {
-		this._consultationService
-			.getConsultations()
-			.pipe(takeUntilDestroyed(this._destroyRef))
-			.subscribe((consultations) => this.consultations.set(consultations));
-	}
+	public consultations = toSignal(this._consultationService.getConsultations());
 
 	public showEvent(item: IConsultation) {
 		const dialog = this._dialogService.open(SummaryModalComponent, {

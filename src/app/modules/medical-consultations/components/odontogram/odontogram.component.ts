@@ -1,4 +1,4 @@
-import { Component, DestroyRef, ElementRef, inject, signal } from '@angular/core';
+import { Component, DestroyRef, ElementRef, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params } from '@angular/router';
 import { map } from 'rxjs';
@@ -44,13 +44,8 @@ export class OdontogramComponent {
 
 	public odontogramConsultations = signal<any[]>([]);
 
-	get teethType() {
-		return this._odontogramService.teethType();
-	}
-
-	get teeth() {
-		return this._odontogramService.teeth();
-	}
+	public teethType = computed(() => this._odontogramService.teethType());
+	public teeth = computed(() => this._odontogramService.teeth());
 
 	constructor() {
 		this._odontogramService.getTeethPieces();
@@ -65,7 +60,7 @@ export class OdontogramComponent {
 	}
 
 	public toggleTeethType() {
-		this._odontogramService.setTeethType(this.teethType === 1 ? 2 : 1);
+		this._odontogramService.setTeethType(this.teethType() === 1 ? 2 : 1);
 	}
 
 	public patchTreatment(e: any, item: any) {

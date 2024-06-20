@@ -6,14 +6,14 @@
 		<nb-card-header class="border-0 px-2 px-md-4 d-flex align-items-center justify-content-between">
 			<span class="fs-4">
 				Odontograma Dental de
-				{{ teethType === 1 ? 'Adulto' : teethType === 2 ? 'Niño' : '' }}
+				{{ teethType() === 1 ? 'Adulto' : teethType() === 2 ? 'Niño' : '' }}
 			</span>
 			<!-- <button nbButton size="small" class="button-black" (click)="toggleTeethType()">
 				Ver de {{ teethType === 1 ? 'Niño' : teethType === 2 ? 'Adulto' : '' }}
 			</button> -->
 		</nb-card-header>
 		<nb-card-body class="px-2 px-md-4">
-			@defer (when teeth.length !== 0) {
+			@defer (when teeth().length !== 0) {
 				<div class="wrapper">
 					<app-odontogram-graph (selectedTooth)="addTreatment($event)" />
 				</div>

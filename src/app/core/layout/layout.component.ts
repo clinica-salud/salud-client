@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import {
@@ -24,7 +24,7 @@ const COMPONENTS = [FooterComponent, HeaderComponent];
 	standalone: true,
 	imports: [RouterOutlet, ...NB_MODULES, ...BREADCRUMB, ...COMPONENTS],
 	template: `
-		<div [nbSpinner]="spinner" nbSpinnerSize="giant" nbSpinnerStatus="primary">
+		<div [nbSpinner]="spinner()" nbSpinnerSize="giant" nbSpinnerStatus="primary">
 			<nb-layout windowMode>
 				<nb-layout-header fixed>
 					<app-header></app-header>
@@ -55,9 +55,6 @@ export class LayoutComponent {
 	private _spinnerService = inject(SpinnerService);
 	private _menuService = inject(MenuService);
 
-	public menu = signal<Menu[]>(this._menuService.menu);
-
-	get spinner() {
-		return this._spinnerService.spinner();
-	}
+	public menu = signal<Menu[]>(this._menuService.menu());
+	public spinner = computed(() => this._spinnerService.spinner());
 }

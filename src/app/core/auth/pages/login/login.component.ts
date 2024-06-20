@@ -30,7 +30,6 @@ export class LoginComponent {
 	private _destroyRef = inject(DestroyRef);
 	private _fb = inject(FormBuilder);
 	private _router = inject(Router);
-
 	private _authService = inject(AuthService);
 
 	public isLoading = signal(false);

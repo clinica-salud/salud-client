@@ -64,8 +64,8 @@ export class HeaderComponent {
 				this.hideMenuOnClick.set(currentBreakpoint.width <= is);
 			});
 
-		this.user.set(this._menuService.user);
-		this.userMenu.set(this._menuService.userMenu);
+		this.user.set(this._menuService.user());
+		this.userMenu.set(this._menuService.userMenu());
 
 		this._nbMenuService.onItemClick().subscribe(({ item }) => {
 			if (this.hideMenuOnClick()) this._sidebarService.collapse('menu-sidebar');
