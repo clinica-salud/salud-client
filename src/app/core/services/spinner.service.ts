@@ -1,20 +1,21 @@
-import { Injectable, signal } from '@angular/core';
+import { Injectable, computed, signal } from '@angular/core';
 
 @Injectable({
 	providedIn: 'root'
 })
 export class SpinnerService {
-	private spinner = signal(false);
+	#spinner = signal(false);
+	#count = signal(0);
+
+	public spinner = computed(() => this.#spinner());
 
 	public onSpinner() {
-		this.spinner.set(true);
+		this.#spinner.set(true);
+		this.#count.update((count) => count + 1);
 	}
 
 	public ofSpinner() {
-		this.spinner.set(false);
-	}
-
-	get getStatusSpinner() {
-		return this.spinner();
+		this.#count.update((count) => count - 1);
+		if (this.#count() === 0) this.#spinner.set(false);
 	}
 }

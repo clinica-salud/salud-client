@@ -19,7 +19,7 @@ export class ConsultationService {
 			.pipe(map((response) => response.data));
 	}
 
-	public getOdontogramConsultation(consultaid: number) {
+	public getOdontogramConsultations(consultaid: number) {
 		return this._http
 			.get<IResponse<any[]>>(`${api}/salud/consultation/${consultaid}/odontogram`)
 			.pipe(map((response) => response.data));

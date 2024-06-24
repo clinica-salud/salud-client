@@ -91,14 +91,14 @@ const COMPONENTS = [BackgroundComponent, LogoNameComponent];
 					padding-block: 2rem;
 				}
 			}
-
-		}`
+		}
+	`
 })
 export class AuthComponent {
 	private _authService = inject(AuthService);
 	private _router = inject(Router);
 
 	constructor() {
-		if (this._authService.isLoggedIn) this._router.navigateByUrl('/pages');
+		if (this._authService.isLoggedIn()) this._router.navigateByUrl('/pages');
 	}
 }

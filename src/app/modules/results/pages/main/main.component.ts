@@ -48,8 +48,7 @@ const DATA = [
 @Component({
 	standalone: true,
 	imports: [UpperCasePipe, ...NB_MODULES],
-	templateUrl: './main.component.html',
-	styleUrl: './main.component.scss'
+	templateUrl: './main.component.html'
 })
 export class MainComponent {
 	public tableHeadings = signal(['Fecha', 'Paciente', 'Doctor', 'Lugar', 'Acciones']);

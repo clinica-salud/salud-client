@@ -1,4 +1,4 @@
-import { Component, EventEmitter, Output, effect, inject } from '@angular/core';
+import { Component, EventEmitter, Output, computed, effect, inject } from '@angular/core';
 import { ITooth } from '@src/app/shared/models/odontogram.model';
 import { OdontogramService } from '@src/app/shared/services';
 
@@ -21,16 +21,11 @@ export class OdontogramGraphComponent {
 	public bottomB: ITooth[] = [];
 	public bottomC: ITooth[] = [];
 
-	get teethType() {
-		return this._odontogramService.teethType;
-	}
-
-	get teeth() {
-		return this._odontogramService.teeth;
-	}
+	public teethType = computed(() => this._odontogramService.teethType());
+	public teeth = computed(() => this._odontogramService.teeth());
 
 	constructor() {
-		effect(() => this.orderTeeth(this.teeth));
+		effect(() => this.orderTeeth(this.teeth()));
 	}
 
 	private orderTeeth(teeth: ITooth[]) {

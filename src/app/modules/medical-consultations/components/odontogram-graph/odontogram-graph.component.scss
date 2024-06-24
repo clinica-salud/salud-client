@@ -3,15 +3,14 @@
 	border-bottom-width: 1px;
 }
 
-.table input:hover {
-	transform: scale(1.2);
+.table img:hover {
+	transform: scale(1.05);
 	transition: all 0.2s ease-in-out;
 }
 
 td {
 	text-align: center;
-	padding-left: 0px !important;
-	padding-right: 0px !important;
+	padding: 0 !important;
 	border-right: none !important;
 	border-left: none !important;
 }

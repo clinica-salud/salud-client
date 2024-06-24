@@ -1,10 +1,12 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { ActivatedRoute, Params } from '@angular/router';
 import { NbButtonModule, NbCardModule, NbDialogService, NbIconModule } from '@nebular/theme';
 import { AddRecipeModalComponent } from '@src/app/modules/medical-consultations/components/add-recipe-modal/add-recipe-modal.component';
 
 import { DetailTabComponent } from '@src/app/modules/medical-consultations/components/detail-tab/detail-tab.component';
 import { DiagnosisModalComponent } from '@src/app/modules/medical-consultations/components/diagnosis-modal/diagnosis-modal.component';
+import { map } from 'rxjs';
 
 const COMPONENTS = [DetailTabComponent, NbCardModule, NbIconModule, NbButtonModule];
 
@@ -12,20 +14,15 @@ const COMPONENTS = [DetailTabComponent, NbCardModule, NbIconModule, NbButtonModu
 	selector: 'app-diagnosis-treatment',
 	standalone: true,
 	imports: [...COMPONENTS],
-	templateUrl: './diagnosis-treatment.component.html',
-	styleUrl: './diagnosis-treatment.component.scss'
+	templateUrl: './diagnosis-treatment.component.html'
 })
 export class DiagnosisTreatmentComponent {
 	private _dialogService = inject(NbDialogService);
 	private _activatedRoute = inject(ActivatedRoute);
 
-	private consultaid = signal<number>(0);
-
-	constructor() {
-		this._activatedRoute.params.subscribe((params: Params) =>
-			this.consultaid.set(params['consultaid'])
-		);
-	}
+	private consultaid = toSignal(
+		this._activatedRoute.params.pipe(map((params: Params) => params['consultaid']))
+	);
 
 	public showDiagnosis() {
 		const dialog = this._dialogService.open(DiagnosisModalComponent, {

@@ -42,7 +42,11 @@ export const routes: Routes = [
 				data: { breadcrumb: 'Resultados' }
 			},
 			{ path: '', pathMatch: 'full', redirectTo: 'dashboard' },
-			{ path: '**', component: NotFoundComponent, data: { breadcrumb: '404 Página no encontrada' } }
+			{
+				path: '**',
+				component: NotFoundComponent,
+				data: { breadcrumb: '404 Página no encontrada' }
+			}
 		]
 	},
 	{ path: '', pathMatch: 'full', redirectTo: 'pages' },

@@ -13,8 +13,8 @@
 				<label class="required fw-semibold mb-2">Selecciona Pieza</label>
 				<nb-select placeholder="Selecciona Pieza" formControlName="piezaid" fullWidth>
 					<nb-option value="all">Todos</nb-option>
-					@for (tooth of teeth$ | async; track tooth.piezaid) {
-					<nb-option [value]="tooth.piezaid">{{ tooth.numero }}{{ tooth.fila }}</nb-option>
+					@for (tooth of teeth(); track tooth.piezaid) {
+						<nb-option [value]="tooth.piezaid">{{ tooth.numero }}{{ tooth.fila }}</nb-option>
 					}
 				</nb-select>
 			</div>
@@ -25,16 +25,16 @@
 					formControlName="tipotratamientoid"
 					fullWidth
 				>
-					@for (treatment of treatments$ | async; track treatment.tipotratamientoid) {
-					<nb-option [value]="treatment.tipotratamientoid">{{ treatment.nombre }}</nb-option>
+					@for (treatment of treatments(); track treatment.tipotratamientoid) {
+						<nb-option [value]="treatment.tipotratamientoid">{{ treatment.nombre }}</nb-option>
 					}
 				</nb-select>
 			</div>
 			<div class="col-md-12">
 				<label class="required fw-semibold mb-2">Selecciona Cara</label>
 				<nb-select placeholder="Selecciona Cara" formControlName="tipocaraid" fullWidth>
-					@for (face of faces$ | async; track face.tipocaraid) {
-					<nb-option [value]="face.tipocaraid">{{ face.nombre }}</nb-option>
+					@for (face of faces(); track face.tipocaraid) {
+						<nb-option [value]="face.tipocaraid">{{ face.nombre }}</nb-option>
 					}
 				</nb-select>
 			</div>
@@ -45,7 +45,14 @@
 		</form>
 	</nb-card-body>
 	<nb-card-footer>
-		<button nbButton class="d-block ms-auto" status="primary" (click)="addTreatment()" fullWidth>
+		<button
+			nbButton
+			class="d-block ms-auto"
+			status="primary"
+			(click)="addTreatment()"
+			[disabled]="form.invalid"
+			fullWidth
+		>
 			<!-- <nb-icon icon="plus-outline"></nb-icon> -->
 			Agregar
 		</button>

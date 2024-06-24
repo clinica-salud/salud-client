@@ -1,6 +1,6 @@
 import { UpperCasePipe } from '@angular/common';
 import { Component, inject, signal } from '@angular/core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { Router } from '@angular/router';
 
 import {
 	NbBadgeModule,
@@ -14,7 +14,6 @@ import {
 	NbSelectModule,
 	NbUserModule
 } from '@nebular/theme';
-import { AuthService, IRole } from '@src/app/core/services';
 
 const NB_MODULES = [
 	NbBadgeModule,
@@ -70,15 +69,10 @@ const DATA = [
 @Component({
 	standalone: true,
 	imports: [UpperCasePipe, ...NB_MODULES],
-	templateUrl: './main.component.html',
-	styleUrl: './main.component.scss'
+	templateUrl: './main.component.html'
 })
 export class MainComponent {
 	private _router = inject(Router);
-	private _activatedRoute = inject(ActivatedRoute);
-	private _authService = inject(AuthService);
-
-	public userRole: IRole = this._authService.role;
 
 	public user = signal(USER);
 	public tableHeadings = signal([
@@ -94,7 +88,6 @@ export class MainComponent {
 	public data = signal(DATA);
 
 	public goToAppointment(id: number) {
-		console.log(id);
 		this._router.navigate(['/pages/medical-consultations/detail', id]);
 	}
 }

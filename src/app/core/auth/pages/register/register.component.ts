@@ -1,6 +1,5 @@
-import { AsyncPipe } from '@angular/common';
 import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { Router, RouterLink } from '@angular/router';
 import { finalize } from 'rxjs';
@@ -17,9 +16,8 @@ const COMPONENTS = [ControlErrorComponent];
 
 @Component({
 	standalone: true,
-	imports: [ReactiveFormsModule, RouterLink, AsyncPipe, ...NB_MODULES, ...COMPONENTS],
-	templateUrl: './register.component.html',
-	styleUrl: './register.component.scss'
+	imports: [ReactiveFormsModule, RouterLink, ...NB_MODULES, ...COMPONENTS],
+	templateUrl: './register.component.html'
 })
 export class RegisterComponent {
 	private _authService = inject(AuthService);
@@ -28,7 +26,7 @@ export class RegisterComponent {
 	private _router = inject(Router);
 
 	public isLoading = signal(false);
-	public documentTypes$ = this._authService.getDocumentTypes();
+	public documentTypes = toSignal(this._authService.getDocumentTypes());
 
 	public form: FormGroup = this._fb.group({
 		name: ['', [Validators.required]],

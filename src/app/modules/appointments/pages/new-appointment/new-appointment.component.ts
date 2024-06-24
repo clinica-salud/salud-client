@@ -1,5 +1,4 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormControl } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 
 import {
@@ -66,7 +65,7 @@ export class NewAppointmentComponent {
 	private _dialogService = inject(NbDialogService);
 	private _activatedRoute = inject(ActivatedRoute);
 
-	private selectedDate$: FormControl = new FormControl(new Date());
+	private selectedDate$ = signal(new Date());
 
 	public today = signal(new Date());
 	public users = signal(USERS);
@@ -77,15 +76,15 @@ export class NewAppointmentComponent {
 		this.today().setHours(0, 0, 0, 0);
 
 		const date = this._activatedRoute.snapshot.queryParams['date'];
-		if (date) this.selectedDate$.setValue(new Date(date));
+		if (date) this.selectedDate$.set(new Date(date));
 	}
 
 	get selectedDate() {
-		return this.selectedDate$.value;
+		return this.selectedDate$();
 	}
 
 	set selectedDate(date: Date) {
-		this.selectedDate$.setValue(date);
+		this.selectedDate$.set(date);
 	}
 
 	public selectTime(time: string) {

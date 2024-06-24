@@ -115,8 +115,7 @@ type EventMeta = {
 @Component({
 	standalone: true,
 	imports: [CommonModule, ReactiveFormsModule, ...NB_MODULES, ...OTHER_MODULES, ...COMPONENTS],
-	templateUrl: './calendar.component.html',
-	styleUrl: './calendar.component.scss'
+	templateUrl: './calendar.component.html'
 })
 export class CalendarComponent {
 	private _dialogService = inject(NbDialogService);

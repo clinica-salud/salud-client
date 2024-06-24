@@ -1,11 +1,10 @@
-import { Component, Input, OnInit, inject, signal } from '@angular/core';
+import { Component, DestroyRef, Input, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import { NbButtonModule, NbCardModule, NbDialogRef, NbIconModule } from '@nebular/theme';
 
 import { WindowDirective } from '@src/app/shared/helpers/window/window.directive';
 import { ConsultationService } from '@src/app/shared/services';
-import { finalize } from 'rxjs';
 
 const NB_MODULES = [NbCardModule, NbIconModule, NbButtonModule];
 const DIRECTIVES = [WindowDirective];
@@ -14,24 +13,23 @@ const DIRECTIVES = [WindowDirective];
 	selector: 'app-diagnosis-modal',
 	standalone: true,
 	imports: [...NB_MODULES, ...DIRECTIVES],
-	templateUrl: './diagnosis-modal.component.html',
-	styleUrl: './diagnosis-modal.component.scss'
+	templateUrl: './diagnosis-modal.component.html'
 })
-export class DiagnosisModalComponent implements OnInit {
+export class DiagnosisModalComponent {
 	private _dialogRef = inject(NbDialogRef<DiagnosisModalComponent>);
 	private _consultationService = inject(ConsultationService);
+	private _destroyRef = inject(DestroyRef);
 
-	@Input() consultaid!: number;
-	public odontogramConsultations = signal<any[]>([]);
-
-	ngOnInit(): void {
-		this.getOdontogramConsultation();
+	@Input() set consultaid(consultaid: number) {
+		this.getOdontogramConsultations(consultaid);
 	}
 
-	private getOdontogramConsultation() {
+	public odontogramConsultations = signal<any[]>([]);
+
+	private getOdontogramConsultations(consultaid: number) {
 		this._consultationService
-			.getOdontogramConsultation(this.consultaid)
-			.pipe(finalize(takeUntilDestroyed))
+			.getOdontogramConsultations(consultaid)
+			.pipe(takeUntilDestroyed(this._destroyRef))
 			.subscribe((data: any) => this.odontogramConsultations.set(data));
 	}
 

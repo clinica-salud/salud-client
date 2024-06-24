@@ -26,8 +26,7 @@ const DIRECTIVES = [WindowDirective];
 	selector: 'app-add-recipe-modal',
 	standalone: true,
 	imports: [ReactiveFormsModule, ...NB_MODULES, ...DIRECTIVES],
-	templateUrl: './add-recipe-modal.component.html',
-	styleUrl: './add-recipe-modal.component.scss'
+	templateUrl: './add-recipe-modal.component.html'
 })
 export class AddRecipeModalComponent {
 	private _fb = inject(FormBuilder);

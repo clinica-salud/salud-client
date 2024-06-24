@@ -65,39 +65,39 @@
 				<thead class="border-bottom border-top">
 					<tr class="text-center">
 						@for (heading of tableHeadings(); track $index) {
-						<th>{{ heading | uppercase }}</th>
+							<th>{{ heading | uppercase }}</th>
 						}
 					</tr>
 				</thead>
 				<tbody>
 					@for (item of data(); track item.id) {
-					<tr class="align-middle text-center">
-						<td>{{ item.date }}</td>
-						<td>{{ item.hour }}</td>
-						<td>{{ item.patient }}</td>
-						<td>{{ item.doctor }}</td>
-						<td>{{ item.speciality }}</td>
-						<td>{{ item.consultory }}</td>
-						<td class="position-relative">
-							<nb-badge
-								class="center-badge"
-								[text]="item.status"
-								[status]="
-									item.status === 'Cancelado'
-										? 'danger'
-										: item.status === 'Próximo'
-										? 'warning'
-										: 'basic'
-								"
-								position="top left"
-							></nb-badge>
-						</td>
-						<td>
-							<button nbButton size="small" (click)="goToAppointment(item.id)">
-								<nb-icon icon="eye-outline"></nb-icon>
-							</button>
-						</td>
-					</tr>
+						<tr class="align-middle text-center">
+							<td>{{ item.date }}</td>
+							<td>{{ item.hour }}</td>
+							<td>{{ item.patient }}</td>
+							<td>{{ item.doctor }}</td>
+							<td>{{ item.speciality }}</td>
+							<td>{{ item.consultory }}</td>
+							<td class="position-relative">
+								<nb-badge
+									class="center-badge"
+									[text]="item.status"
+									[status]="
+										item.status === 'Cancelado'
+											? 'danger'
+											: item.status === 'Próximo'
+												? 'warning'
+												: 'basic'
+									"
+									position="top left"
+								></nb-badge>
+							</td>
+							<td>
+								<button nbButton size="small" (click)="goToAppointment(item.id)">
+									<nb-icon icon="eye-outline"></nb-icon>
+								</button>
+							</td>
+						</tr>
 					}
 				</tbody>
 			</table>
@@ -106,43 +106,43 @@
 			<table class="table table-sm table-bordered">
 				<tbody>
 					@for (item of data(); track item.id) {
-					<tr>
-						<th>Fecha:</th>
-						<td>{{ item.date }}</td>
-					</tr>
-					<tr>
-						<th>Hora:</th>
-						<td>{{ item.hour }}</td>
-					</tr>
-					<tr>
-						<th>Paciente:</th>
-						<td>{{ item.patient }}</td>
-					</tr>
-					<tr>
-						<th>Doctor:</th>
-						<td>{{ item.doctor }}</td>
-					</tr>
-					<tr>
-						<th>Especialidad:</th>
-						<td>{{ item.speciality }}</td>
-					</tr>
-					<tr>
-						<th>Consultorio:</th>
-						<td>{{ item.consultory }}</td>
-					</tr>
-					<tr>
-						<th>Estado:</th>
-						<td>{{ item.status }}</td>
-					</tr>
-					<tr class="align-middle last-row">
-						<th>Acciones:</th>
-						<td>
-							<button nbButton size="tiny" (click)="goToAppointment(item.id)">
-								<nb-icon icon="eye-outline"></nb-icon>
-								Ver
-							</button>
-						</td>
-					</tr>
+						<tr>
+							<th>Fecha:</th>
+							<td>{{ item.date }}</td>
+						</tr>
+						<tr>
+							<th>Hora:</th>
+							<td>{{ item.hour }}</td>
+						</tr>
+						<tr>
+							<th>Paciente:</th>
+							<td>{{ item.patient }}</td>
+						</tr>
+						<tr>
+							<th>Doctor:</th>
+							<td>{{ item.doctor }}</td>
+						</tr>
+						<tr>
+							<th>Especialidad:</th>
+							<td>{{ item.speciality }}</td>
+						</tr>
+						<tr>
+							<th>Consultorio:</th>
+							<td>{{ item.consultory }}</td>
+						</tr>
+						<tr>
+							<th>Estado:</th>
+							<td>{{ item.status }}</td>
+						</tr>
+						<tr class="align-middle last-row">
+							<th>Acciones:</th>
+							<td>
+								<button nbButton size="tiny" (click)="goToAppointment(item.id)">
+									<nb-icon icon="eye-outline"></nb-icon>
+									Ver
+								</button>
+							</td>
+						</tr>
 					}
 				</tbody>
 			</table>

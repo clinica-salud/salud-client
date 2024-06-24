@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import {
@@ -9,22 +9,22 @@ import {
 	NbSpinnerModule
 } from '@nebular/theme';
 
-import { BreadcrumbModule } from 'xng-breadcrumb';
+import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
 
 import { FooterComponent } from '@src/app/core/layout/components/footer/footer.component';
 import { HeaderComponent } from '@src/app/core/layout/components/header/header.component';
 import { Menu, MenuService, SpinnerService } from '@src/app/core/services';
 
-const OTHER_MODULES = [BreadcrumbModule];
 const NB_MODULES = [NbLayoutModule, NbSpinnerModule, NbSidebarModule, NbMenuModule, NbCardModule];
+const BREADCRUMB = [BreadcrumbComponent, BreadcrumbItemDirective];
 const COMPONENTS = [FooterComponent, HeaderComponent];
 
 @Component({
 	selector: 'app-layout',
 	standalone: true,
-	imports: [RouterOutlet, ...NB_MODULES, ...OTHER_MODULES, ...COMPONENTS],
+	imports: [RouterOutlet, ...NB_MODULES, ...BREADCRUMB, ...COMPONENTS],
 	template: `
-		<div [nbSpinner]="spinner" nbSpinnerSize="giant" nbSpinnerStatus="primary">
+		<div [nbSpinner]="spinner()" nbSpinnerSize="giant" nbSpinnerStatus="primary">
 			<nb-layout windowMode>
 				<nb-layout-header fixed>
 					<app-header></app-header>
@@ -55,9 +55,6 @@ export class LayoutComponent {
 	private _spinnerService = inject(SpinnerService);
 	private _menuService = inject(MenuService);
 
-	public menu = signal<Menu[]>(this._menuService.menu);
-
-	get spinner() {
-		return this._spinnerService.getStatusSpinner;
-	}
+	public menu = signal<Menu[]>(this._menuService.menu());
+	public spinner = computed(() => this._spinnerService.spinner());
 }
