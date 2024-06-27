@@ -2,9 +2,8 @@ import { HttpClient } from '@angular/common/http';
 import { Injectable, computed, inject, signal } from '@angular/core';
 import { map } from 'rxjs';
 
-import { TeethType } from '@src/app/shared/enums/odontogram.enum';
-import { IFace, ITooth, IToothMinimal, ITreatment } from '@src/app/shared/models/odontogram.model';
-import { IResponse } from '@src/app/shared/models/response.model';
+import { TeethType } from '@src/app/shared/enums';
+import { IFace, IResponse, ITooth, IToothMinimal, ITreatment } from '@src/app/shared/models';
 import { environment } from '@src/environments/environment';
 
 const { api } = environment;

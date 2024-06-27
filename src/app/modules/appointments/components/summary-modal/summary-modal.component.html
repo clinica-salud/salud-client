@@ -1,7 +1,7 @@
 <nb-card appWindow widthSize="sm">
 	<nb-card-header class="d-flex align-items-center justify-content-between">
 		<p class="fs-5 fw-bold">Resumen</p>
-		@switch (detail.estado) {
+		@switch (appointment()?.estado) {
 			@case ('Finalizada') {
 				<div class="text-success">
 					<nb-icon icon="checkmark-circle-outline"></nb-icon>
@@ -17,20 +17,30 @@
 			@default {
 				<div class="d-flex flex-column align-items-end">
 					<small class="fw-bold">Importe</small>
-					<span class="fw-light fs-5">S/. 180.00</span>
+					<span class="fw-light fs-5">S/. {{ appointment()?.costo | currency: ' ' }}</span>
 				</div>
 			}
 		}
 	</nb-card-header>
 	<nb-card-body class="d-flex flex-column gap-3">
-		<nb-user size="medium" [name]="detail.paciente" title="Paciente" />
+		<nb-user
+			size="medium"
+			[name]="
+				appointment()?.ape_pat_paciente +
+				' ' +
+				appointment()?.ape_mat_paciente +
+				' ' +
+				appointment()?.nombre_paciente
+			"
+			title="Paciente"
+		/>
 		<div class="row">
 			<div class="col-sm-6 border-bottom py-3">
 				<div class="d-flex align-items-center gap-4">
 					<nb-icon class="fs-3" icon="calendar-outline"></nb-icon>
 					<div class="d-flex flex-column gap-1">
 						<small class="fw-bold">Fecha</small>
-						<span class="fw-light text-secondary fs-7">{{ detail.fecha }}</span>
+						<span class="fw-light text-secondary fs-7">{{ appointment()?.fecha }}</span>
 					</div>
 				</div>
 			</div>
@@ -39,7 +49,7 @@
 					<nb-icon class="fs-3" icon="clock-outline"></nb-icon>
 					<div class="d-flex flex-column gap-1">
 						<small class="fw-bold">Hora</small>
-						<span class="fw-light text-secondary fs-7">{{ detail.hora }}</span>
+						<span class="fw-light text-secondary fs-7">{{ appointment()?.hora }}</span>
 					</div>
 				</div>
 			</div>
@@ -48,7 +58,7 @@
 					<nb-icon class="fs-3" icon="pin-outline"></nb-icon>
 					<div class="d-flex flex-column gap-1">
 						<small class="fw-bold">Lugar</small>
-						<span class="fw-light text-secondary fs-7">{{ detail.edificio }}</span>
+						<span class="fw-light text-secondary fs-7">{{ appointment()?.edificio }}</span>
 					</div>
 				</div>
 			</div>
@@ -66,7 +76,10 @@
 					<nb-icon class="fs-3" icon="person-outline"></nb-icon>
 					<div class="d-flex flex-column gap-1">
 						<small class="fw-bold">Odontólogo</small>
-						<span class="fw-light text-secondary fs-7">{{ detail.medico }}</span>
+						<span class="fw-light text-secondary fs-7"
+							>{{ appointment()?.ape_pat_medico }} {{ appointment()?.ape_mat_medico }}
+							{{ appointment()?.nombre_medico }}</span
+						>
 					</div>
 				</div>
 			</div>
@@ -75,16 +88,22 @@
 					<nb-icon class="fs-3" icon="file-text-outline"></nb-icon>
 					<div class="d-flex flex-column gap-1">
 						<small class="fw-bold">Especialidad</small>
-						<span class="fw-light text-secondary fs-7">{{ detail.especialidad }}</span>
+						<span class="fw-light text-secondary fs-7">{{ appointment()?.especialidad }}</span>
 					</div>
 				</div>
 			</div>
 		</div>
 	</nb-card-body>
 	<nb-card-footer class="row g-2 border-none">
-		@switch (detail.estado) {
+		@switch (appointment()?.estado) {
 			@case ('Pendiente') {
-				<div class="col-sm-6">
+				<div class="col-12">
+					<button nbButton (click)="backToAppointments()" status="info" fullWidth>
+						<nb-icon icon="sync-outline"></nb-icon>
+						OK
+					</button>
+				</div>
+				<!-- 				<div class="col-sm-6">
 					<button nbButton (click)="close()" status="danger" fullWidth>
 						<nb-icon icon="close-outline"></nb-icon>
 						Cancelar cita
@@ -95,7 +114,7 @@
 						<nb-icon icon="credit-card-outline"></nb-icon>
 						Pagar
 					</button>
-				</div>
+				</div -->>
 			}
 			@case ('Finalizada') {
 				<div class="col">
@@ -121,18 +140,24 @@
 				</div>
 			}
 			@default {
-				<div class="col-sm-6">
+				<div class="col-12">
+					<button nbButton (click)="backToAppointments()" status="info" fullWidth>
+						<nb-icon icon="sync-outline"></nb-icon>
+						OK
+					</button>
+				</div>
+				<!-- <div class="col-sm-6">
 					<button nbButton (click)="close()" fullWidth>
 						<nb-icon icon="sync-outline"></nb-icon>
 						Pagar después
 					</button>
-				</div>
-				<div class="col-sm-6">
+				</div> -->
+				<!-- <div class="col-sm-6">
 					<button nbButton (click)="close()" status="primary" fullWidth>
 						<nb-icon icon="credit-card-outline"></nb-icon>
 						Pagar
 					</button>
-				</div>
+				</div> -->
 			}
 		}
 	</nb-card-footer>

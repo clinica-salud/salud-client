@@ -3,6 +3,7 @@ import { provideHttpClient, withInterceptors } from '@angular/common/http';
 import localeEsPe from '@angular/common/locales/es';
 import {
 	ApplicationConfig,
+	DEFAULT_CURRENCY_CODE,
 	LOCALE_ID,
 	importProvidersFrom,
 	provideZoneChangeDetection
@@ -37,6 +38,7 @@ registerLocaleData(localeEsPe, 'es-PE');
 export const appConfig: ApplicationConfig = {
 	providers: [
 		{ provide: LOCALE_ID, useValue: 'es-PE' },
+		{ provide: DEFAULT_CURRENCY_CODE, useValue: 'PEN' },
 		importProvidersFrom([
 			NbDatepickerModule.forRoot(),
 			NbDialogModule.forRoot(),

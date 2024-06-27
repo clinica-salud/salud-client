@@ -3,58 +3,99 @@
 		<span class="fs-4">Crear nueva cita</span>
 	</nb-card-header>
 	<nb-card-body class="py-0 px-2 px-md-4">
-		<div class="row m-0 g-3">
+		<form class="row m-0 g-3" [formGroup]="form">
 			<div class="col-md-6 px-0 pe-md-2 pe-lg-3 pe-xl-4">
 				<div class="d-flex flex-column gap-4">
 					<div>
 						<p class="fw-medium mb-2 text-black d-block required">Paciente</p>
 						<div class="d-flex gap-2">
-							<input type="text" nbInput fullWidth placeholder="72487768" />
-							<button nbButton>
+							<input
+								type="text"
+								nbInput
+								placeholder="00000000"
+								formControlName="dni"
+								minlength="8"
+								maxlength="8"
+								fullWidth
+							/>
+							<button nbButton (click)="searchByDNI()" [disabled]="f['dni'].invalid">
 								<nb-icon icon="refresh-outline"></nb-icon>
 							</button>
 						</div>
-						<small class="fw-medium">
-							<nb-icon icon="done-all-outline" status="success" style="font-size: 0.9rem"></nb-icon>
-							<span class="text-secondary"> Pantigoso Puraca José Miguel </span>
-						</small>
+						<control-error controlName="dni" />
+						@if (pacient()) {
+							<small class="fw-medium">
+								<nb-icon
+									icon="done-all-outline"
+									status="success"
+									style="font-size: 0.9rem"
+								></nb-icon>
+								<span class="text-secondary">{{ pacient() }}</span>
+							</small>
+						}
 					</div>
 					<div class="d-flex flex-column gap-1">
 						<p class="fs-6 fw-medium">¿Cómo podemos apoyarte?</p>
 						<p class="fs-7 text-black-50">Consultas con el mejor staff altamente calificado</p>
 					</div>
-					<nb-radio-group class="d-flex flex-wrap gap-3" status="success">
-						<nb-radio value="1">Consulta</nb-radio>
-						<nb-radio value="2">Servicio</nb-radio>
-						<nb-radio value="3">Tratamiento</nb-radio>
+					<nb-radio-group
+						class="d-flex flex-wrap gap-3"
+						name="tiposervicioid"
+						formControlName="tiposervicioid"
+						status="success"
+					>
+						@for (typeService of typesServices(); track typeService.tiposervicioid) {
+							<nb-radio [value]="typeService.tiposervicioid">{{ typeService.nombre }}</nb-radio>
+						}
 					</nb-radio-group>
-					<div class="d-flex flex-column gap-1">
+					<!-- <div class="d-flex flex-column gap-1">
 						<p class="fs-6 fw-medium">Tipo servicio</p>
 						<p class="fs-7 text-black-50">Contamos con equipos de última tecnología</p>
 					</div>
 					<div class="d-flex flex-wrap gap-3">
 						<nb-checkbox class="pe-4" status="success">Rayox X</nb-checkbox>
 						<nb-checkbox class="pe-4" status="success">Tomografia</nb-checkbox>
-						<nb-checkbox class="pe-4" status="success">Otro</nb-checkbox>
-					</div>
-					<div>
-						<p class="fs-6 fw-medium">Especialidades</p>
-					</div>
-					<nb-radio-group class="d-flex flex-wrap gap-3" status="success">
-						<nb-radio value="1">Ortodoncia</nb-radio>
-						<nb-radio value="2">Endodoncia</nb-radio>
-						<nb-radio value="3">Periodoncia</nb-radio>
-						<nb-radio value="4">Implantología Dental</nb-radio>
-						<nb-radio value="5">Prótesis Dental</nb-radio>
-						<nb-radio value="6">Odontopediatria</nb-radio>
-						<nb-radio value="7">Cirugía Oral y Maxilofacial</nb-radio>
-					</nb-radio-group>
+						<nb-checkbox class="pe-4" status="success">Otro</nb-checkbox> -->
+					<!-- </div> -->
+					@if (f['tiposervicioid'].value === 1) {
+						<div>
+							<p class="fs-6 fw-medium">Especialidades</p>
+						</div>
+						<nb-radio-group
+							class="d-flex flex-wrap gap-3"
+							name="especialidadid"
+							formControlName="especialidadid"
+							status="success"
+						>
+							@for (typeSpeciality of typesSpecialities(); track typeSpeciality.especialidadid) {
+								<nb-radio [value]="typeSpeciality.especialidadid">
+									{{ typeSpeciality.nombre }}
+								</nb-radio>
+							}
+						</nb-radio-group>
+					} @else if (f['tiposervicioid'].value === 2) {
+						<div>
+							<p class="fs-6 fw-medium">Tratamientos</p>
+						</div>
+						<nb-radio-group
+							class="d-flex flex-wrap gap-3"
+							name="tipotratamientoid"
+							formControlName="tipotratamientoid"
+							status="success"
+						>
+							@for (typeTreatment of typesTreatments(); track typeTreatment.tipotratamientoid) {
+								<nb-radio [value]="typeTreatment.tipotratamientoid">
+									{{ typeTreatment.nombre }}
+								</nb-radio>
+							}
+						</nb-radio-group>
+					}
 					<div class="d-flex flex-column gap-3">
 						<p class="fs-6 fw-semibold">Escoge a tu especialista</p>
-						<nb-radio-group status="success">
-							@for (user of users(); track $index) {
-								<nb-radio value="">
-									<nb-user [name]="user.name" [title]="user.title"> </nb-user>
+						<nb-radio-group status="success" formControlName="medicoid">
+							@for (doctor of doctors(); track doctor.medicoid) {
+								<nb-radio [value]="doctor.medicoid">
+									<nb-user [name]="doctor.nombre_completo" [title]="doctor.especialidad"></nb-user>
 								</nb-radio>
 							}
 						</nb-radio-group>
@@ -71,7 +112,19 @@
 						[min]="today()"
 					></nb-calendar>
 					<p class="fs-6 fw-semibold">Selecciona el horario de tu cita</p>
-					<div class="row g-3">
+					<div>
+						<input
+							nbInput
+							type="text"
+							[nbTimepicker]="timepicker"
+							formControlName="hora"
+							placeholder="00:00 AM/PM"
+							fullWidth
+						/>
+						<nb-timepicker #timepicker="nbTimepicker" twelveHoursFormat></nb-timepicker>
+					</div>
+
+					<!-- <div class="row g-3">
 						<div class="col-md-6">
 							<p class="fs-6 fw-medium text-center mb-3">Por la mañana</p>
 							<div class="row g-3">
@@ -106,28 +159,78 @@
 								}
 							</div>
 						</div>
-					</div>
+					</div> -->
 					<div class="d-flex flex-column gap-1">
 						<p class="fs-6 fw-semibold">Resumen</p>
 						<p class="fs-7 text-black-50">Lorem ipsum dolor sit amet.</p>
 					</div>
 					<div class="d-flex align-items-center justify-content-center border py-3">
-						<p class="fs-6 fw-semibold">Costo: S/. 350.00</p>
+						@if (showCostInput()) {
+							<input nbInput fieldSize="small" formControlName="costo" type="text" />
+						} @else {
+							<p class="fs-6 fw-semibold">Costo: S/. {{ cost() | currency: ' ' }}</p>
+						}
+						@if (showCostInput()) {
+							<button
+								nbButton
+								ghost
+								status="primary"
+								size="small"
+								class="ms-2"
+								(click)="saveCost()"
+							>
+								<nb-icon icon="save-outline"></nb-icon>
+							</button>
+							<button
+								nbButton
+								ghost
+								status="danger"
+								type="button"
+								size="small"
+								class="ms-2"
+								(click)="toggleCostInput()"
+							>
+								<nb-icon icon="close-outline"></nb-icon>
+							</button>
+						} @else {
+							<button
+								nbButton
+								ghost
+								status="info"
+								size="small"
+								class="ms-2"
+								(click)="toggleCostInput()"
+							>
+								<nb-icon icon="edit-outline"></nb-icon>
+							</button>
+						}
 					</div>
 					<p class="fs-6 fw-semibold">Observación</p>
-					<textarea nbInput fullWidth placeholder="Observación..." rows="3"></textarea>
+					<textarea
+						nbInput
+						fullWidth
+						placeholder="Observación..."
+						formControlName="observacion"
+						rows="3"
+					></textarea>
 					<div class="row g-2">
 						<div class="col-md-6">
 							<button nbButton fullWidth>Cancelar</button>
 						</div>
 						<div class="col-md-6">
-							<button nbButton status="primary" (click)="saveAppointment()" fullWidth>
+							<button
+								nbButton
+								status="primary"
+								(click)="saveAppointment()"
+								[disabled]="!form.valid"
+								fullWidth
+							>
 								Guardar
 							</button>
 						</div>
 					</div>
 				</div>
 			</div>
-		</div>
+		</form>
 	</nb-card-body>
 </nb-card>

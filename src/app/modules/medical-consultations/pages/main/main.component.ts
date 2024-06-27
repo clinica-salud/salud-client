@@ -54,7 +54,7 @@ export class MainComponent {
 
 	public showEvent(item: IConsultation) {
 		const dialog = this._dialogService.open(SummaryModalComponent, {
-			context: { detail: item }
+			context: { detail: item, id: item.consultaid }
 		});
 
 		dialog.onClose.subscribe(() => console.log('closed'));

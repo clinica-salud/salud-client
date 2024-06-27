@@ -18,13 +18,17 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
 
 	return next(req).pipe(
 		catchError((err) => {
-			const access_token = localStorage.getItem('access_token');
+			// const access_token = localStorage.getItem('access_token');
 
-			if (err && access_token) {
+			// if (err && access_token) {
+			// 	localStorage.removeItem('access_token');
+			// }
+
+			if (err.status === 401) {
 				localStorage.removeItem('access_token');
+				_router.navigateByUrl('/auth');
 			}
 
-			_router.navigateByUrl('/auth');
 			return throwError(() => err);
 		})
 	);
