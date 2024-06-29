@@ -1,8 +1,5 @@
-import { Component, DestroyRef, ElementRef, computed, inject, input, output } from '@angular/core';
+import { Component, DestroyRef, computed, inject, input, output } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
 
 import {
 	NbButtonModule,
@@ -33,7 +30,6 @@ export class OdontogramComponent {
 	private _odontogramService = inject(OdontogramService);
 	private _consultationService = inject(ConsultationService);
 	private _destroyRef = inject(DestroyRef);
-	private _elementRef = inject(ElementRef);
 
 	consultaid = input.required<number>();
 	odontogramConsultations = input.required<any>();
@@ -85,31 +81,5 @@ export class OdontogramComponent {
 			if (cancel) return;
 			this.onRefreshConsultations();
 		});
-	}
-
-	public generatePDF() {
-		const div = this._elementRef.nativeElement.querySelector('#odontogram');
-
-		const options = {
-			useCORS: true,
-			logging: true,
-			allowTaint: true
-		};
-
-		html2canvas(div, options)
-			.then((canvas) => {
-				const img = canvas.toDataURL('image/jpeg');
-				const doc = new jsPDF('p', 'mm', 'a4', true);
-				const bufferX = 5;
-				const bufferY = 5;
-				const imgProps = (<any>doc).getImageProperties(img);
-				const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-				const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-				doc.addImage(img, 'jpeg', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
-				doc.save('odontograma.pdf');
-			})
-			.catch((error) => {
-				console.error('Error generating PDF:', error);
-			});
 	}
 }
