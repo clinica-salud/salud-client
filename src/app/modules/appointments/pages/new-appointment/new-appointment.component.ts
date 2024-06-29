@@ -1,6 +1,6 @@
 import { CurrencyPipe, DatePipe } from '@angular/common';
 import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { NbDateFnsDateModule } from '@nebular/date-fns';
@@ -23,6 +23,7 @@ import { SummaryModalComponent } from '@src/app/modules/appointments/components/
 import { ControlErrorComponent } from '@src/app/shared/helpers/control-error/control-error.component';
 import { IDoctor, ITypesService, ITypesSpeciality, ITypesTreatment } from '@src/app/shared/models';
 import { AppointmentService, SetupService } from '@src/app/shared/services';
+import { map } from 'rxjs';
 
 const NB_MODULES = [
 	NbButtonModule,
@@ -55,8 +56,9 @@ export class NewAppointmentComponent {
 	private _appointmentService = inject(AppointmentService);
 
 	private selectedDate$ = signal(new Date());
-
 	public today = signal(new Date());
+
+	public appointment = toSignal(this._activatedRoute.data.pipe(map((data) => data['appoinment'])));
 
 	public pacient = signal('');
 	public pacientId = signal(0);
@@ -138,14 +140,15 @@ export class NewAppointmentComponent {
 			.getPersonByDNI(dni)
 			.pipe(takeUntilDestroyed(this._destroyRef))
 			.subscribe((person) => {
-				this.f['dni'].setValue(person.dni);
-				this.pacient.set(person.ape_pat + ' ' + person.ape_mat + ' ' + person.nombre);
-				this.pacientId.set(person.personaid);
+				if (person && person.personaid) {
+					this.f['dni'].setValue(person.dni);
+					this.pacient.set(person.ape_pat + ' ' + person.ape_mat + ' ' + person.nombre);
+					this.pacientId.set(person.personaid);
+				}
 			});
 	}
 
 	public searchByDNI() {
-		// this.f['dni'].setValue('');
 		this.pacient.set('');
 
 		this.getPersonByDNI();
@@ -159,6 +162,25 @@ export class NewAppointmentComponent {
 				this.typesServices.set(typesServices);
 				const defaultService = typesServices[0].tiposervicioid || '';
 				this.f['tiposervicioid'].setValue(defaultService);
+
+				if (this.appointment()) {
+					this.selectedDate$.set(new Date(this.appointment().fecha));
+
+					this.pacient.set(
+						`${this.appointment().ape_pat_paciente} ${this.appointment().ape_mat_paciente} ${this.appointment().nombre_paciente}`
+					);
+					this.pacientId.set(this.appointment().pacienteid);
+
+					this.form.patchValue({
+						dni: this.appointment().dni_paciente,
+						tiposervicioid: this.appointment().tiposervicioid,
+						especialidadid: this.appointment().especialidadid,
+						medicoid: this.appointment().medicoid,
+						hora: new Date(`${this.appointment().fecha} ${this.appointment().hora}`),
+						costo: this.appointment().costo,
+						observacion: this.appointment().observacion
+					});
+				}
 			});
 	}
 
@@ -199,7 +221,7 @@ export class NewAppointmentComponent {
 
 	public toggleCostInput() {
 		this.showCostInput.set(!this.showCostInput());
-		this.f['costo'].setValue(this.cost());
+		this.f['costo'].setValue(Number(this.cost()));
 	}
 
 	public saveCost() {
@@ -216,13 +238,24 @@ export class NewAppointmentComponent {
 			costo: Number(this.cost())
 		};
 
-		this._appointmentService
-			.addAppointment(data)
-			.pipe(takeUntilDestroyed(this._destroyRef))
-			.subscribe((appointment) =>
-				this._dialogService.open(SummaryModalComponent, {
-					context: { detail: appointment, id: appointment.citaid }
-				})
-			);
+		if (this.appointment()) {
+			this._appointmentService
+				.updateAppointment(this.appointment().citaid, data)
+				.pipe(takeUntilDestroyed(this._destroyRef))
+				.subscribe((appointment) =>
+					this._dialogService.open(SummaryModalComponent, {
+						context: { detail: appointment, id: appointment.citaid }
+					})
+				);
+		} else {
+			this._appointmentService
+				.addAppointment(data)
+				.pipe(takeUntilDestroyed(this._destroyRef))
+				.subscribe((appointment) =>
+					this._dialogService.open(SummaryModalComponent, {
+						context: { detail: appointment, id: appointment.citaid }
+					})
+				);
+		}
 	}
 }

@@ -2,6 +2,7 @@ import { SummaryType } from '@src/app/modules/appointments/components/summary-mo
 
 export interface IConsultation {
 	consultaid: number;
+	citaid: number;
 	fecha: Date;
 	hora: string;
 	paciente: string;

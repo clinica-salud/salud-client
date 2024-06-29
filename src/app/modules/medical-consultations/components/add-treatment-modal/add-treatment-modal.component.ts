@@ -50,7 +50,7 @@ export class AddTreatmentModalComponent implements OnInit {
 		piezaid: ['', [Validators.required]],
 		tipotratamientoid: ['', [Validators.required]],
 		tipocaraid: [''],
-		detalle: [''],
+		observacion: [''],
 		es_tratamiento: [true]
 	});
 

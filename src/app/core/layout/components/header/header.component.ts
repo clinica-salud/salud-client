@@ -81,7 +81,7 @@ export class HeaderComponent {
 	}
 
 	public newAppointment() {
-		this._router.navigateByUrl('/pages/appointments/new-appointment');
+		this._router.navigateByUrl('/pages/appointments/new');
 	}
 
 	public navigateHome() {

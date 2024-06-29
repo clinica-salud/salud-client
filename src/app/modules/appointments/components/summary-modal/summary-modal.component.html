@@ -23,17 +23,21 @@
 		}
 	</nb-card-header>
 	<nb-card-body class="d-flex flex-column gap-3">
-		<nb-user
-			size="medium"
-			[name]="
-				appointment()?.ape_pat_paciente +
-				' ' +
-				appointment()?.ape_mat_paciente +
-				' ' +
-				appointment()?.nombre_paciente
-			"
-			title="Paciente"
-		/>
+		@defer (when appointment().consultaid) {
+			<nb-user
+				size="medium"
+				[name]="
+					appointment()?.ape_pat_paciente +
+					' ' +
+					appointment()?.ape_mat_paciente +
+					' ' +
+					appointment()?.nombre_paciente
+				"
+				title="Paciente"
+			/>
+		} @placeholder {
+			<nb-user size="medium" name="" title="Paciente" />
+		}
 		<div class="row">
 			<div class="col-sm-6 border-bottom py-3">
 				<div class="d-flex align-items-center gap-4">
@@ -98,7 +102,7 @@
 		@switch (appointment()?.estado) {
 			@case ('Pendiente') {
 				<div class="col-12">
-					<button nbButton (click)="backToAppointments()" status="info" fullWidth>
+					<button nbButton (click)="backToOrigin()" status="info" fullWidth>
 						<nb-icon icon="sync-outline"></nb-icon>
 						OK
 					</button>
@@ -116,14 +120,14 @@
 					</button>
 				</div -->>
 			}
-			@case ('Finalizada') {
+			<!-- @case ('Finalizada') {
 				<div class="col">
 					<button nbButton (click)="close()" status="success" (click)="viewDetail()" fullWidth>
 						<nb-icon icon="eye-outline"></nb-icon>
 						Ver detalle
 					</button>
 				</div>
-			}
+			} -->
 			@case ('Cancelada') {
 				<div class="col">
 					<div class="d-flex flex-column gap-3">
@@ -140,12 +144,18 @@
 				</div>
 			}
 			@default {
-				<div class="col-12">
-					<button nbButton (click)="backToAppointments()" status="info" fullWidth>
+				<div class="col">
+					<button nbButton status="success" (click)="viewDetail()" fullWidth>
+						<nb-icon icon="eye-outline"></nb-icon>
+						Ver detalle
+					</button>
+				</div>
+				<!-- <div class="col-12">
+					<button nbButton (click)="backToOrigin()" status="info" fullWidth>
 						<nb-icon icon="sync-outline"></nb-icon>
 						OK
 					</button>
-				</div>
+				</div> -->
 				<!-- <div class="col-sm-6">
 					<button nbButton (click)="close()" fullWidth>
 						<nb-icon icon="sync-outline"></nb-icon>

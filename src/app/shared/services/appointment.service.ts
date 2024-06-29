@@ -36,4 +36,16 @@ export class AppointmentService {
 			.post<any>(`${api}/salud/appointment`, data)
 			.pipe(map((response) => response.data));
 	}
+
+	public updateAppointment(id: number, data: { [key: string]: string | number }) {
+		return this._http
+			.put<any>(`${api}/salud/appointment/${id}`, data)
+			.pipe(map((response) => response.data));
+	}
+
+	public updateStatusAppointment(id: number, data: { [key: string]: string | number }) {
+		return this._http
+			.patch<any>(`${api}/salud/appointment/${id}/status`, data)
+			.pipe(map((response) => response.data));
+	}
 }

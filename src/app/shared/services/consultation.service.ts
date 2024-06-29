@@ -13,9 +13,9 @@ const { api } = environment;
 export class ConsultationService {
 	private _http = inject(HttpClient);
 
-	public getConsultations() {
+	public getConsultations(params: { [key: string]: string | number }) {
 		return this._http
-			.get<IResponse<IConsultation[]>>(`${api}/salud/consultation`)
+			.get<IResponse<IConsultation[]>>(`${api}/salud/consultation`, { params })
 			.pipe(map((response) => response.data));
 	}
 
@@ -41,5 +41,14 @@ export class ConsultationService {
 		return this._http
 			.delete<any>(`${api}/salud/consultation/${consultaid}/odontogram/${piezaid}`)
 			.pipe(map((response) => response.data));
+	}
+
+	public generatePDF(consultaid: number) {
+		const headers = { Accept: 'application/pdf', 'Content-Type': 'application/json' };
+
+		return this._http.get(`${api}/salud/consultation/${consultaid}/odontogram-pdf`, {
+			headers,
+			responseType: 'blob'
+		});
 	}
 }

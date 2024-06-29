@@ -10,6 +10,8 @@ export const catchErrorInterceptor: HttpInterceptorFn = (req, next) => {
 	const interceptResponse = (event: HttpEvent<any>, method: string) => {
 		if (event instanceof HttpResponse && method !== 'GET') {
 			const { body } = event;
+
+			if (body instanceof Blob) return;
 			if (body.status) {
 				_toastrService.success(body.message, 'Éxito');
 			} else {

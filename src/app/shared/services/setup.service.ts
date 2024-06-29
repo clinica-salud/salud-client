@@ -21,6 +21,12 @@ const { api } = environment;
 export class SetupService {
 	private _http = inject(HttpClient);
 
+	public getBuildings() {
+		return this._http
+			.get<IResponse<any[]>>(`${api}/salud/building`)
+			.pipe(map((response) => response.data));
+	}
+
 	public getDoctors() {
 		return this._http
 			.get<IResponse<IDoctor[]>>(`${api}/salud/doctor`)

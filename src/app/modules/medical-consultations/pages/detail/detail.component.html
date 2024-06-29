@@ -4,16 +4,24 @@
 			<div class="col-md-12 p-0">
 				<nb-tabset>
 					<nb-tab class="p-0" tabTitle="Odontograma">
-						<app-odontogram />
+						<app-odontogram
+							[consultaid]="consultaid()"
+							[odontogramConsultations]="odontogramConsultations()"
+							(refreshConsultations)="onRefreshConsultations()"
+						/>
 					</nb-tab>
-					<nb-tab class="p-0" tabTitle="Historia Clínica">
+					<!-- <nb-tab class="p-0" tabTitle="Historia Clínica">
 						<app-history />
-					</nb-tab>
+					</nb-tab> -->
 					<!-- <nb-tab class="p-0" tabTitle="Notas">
 						<app-notes />
 					</nb-tab> -->
 					<nb-tab class="p-0" tabTitle="Diagnóstico y Tratamiento">
-						<app-diagnosis-treatment />
+						<app-diagnosis-treatment
+							[treatments]="treatments()"
+							[diagnosis]="odontogramConsultations()"
+							[consulta]="consulta()"
+						/>
 					</nb-tab>
 				</nb-tabset>
 			</div>

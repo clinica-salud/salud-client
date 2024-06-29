@@ -54,7 +54,7 @@
 					<input
 						nbInput
 						type="search"
-						placeholder="Buscar paciente..."
+						placeholder="Buscar paciente por nombre o dni"
 						formControlName="paciente"
 						fullWidth
 					/>
@@ -75,7 +75,7 @@
 						Filtrar
 						<nb-icon icon="options-2-outline"></nb-icon>
 					</button>
-					<button nbButton status="success">
+					<button nbButton status="success" [routerLink]="['calendar']">
 						<nb-icon icon="calendar-outline"></nb-icon>
 					</button>
 				</div>
@@ -118,10 +118,30 @@
 								></nb-badge>
 							</td>
 							<td>
-								<button nbButton size="small" (click)="goToAppointment(appointment.citaid)">
-									<nb-icon icon="eye-outline"></nb-icon>
-								</button>
+								<div class="d-flex gap-2 justify-content-center">
+									<button
+										nbButton
+										size="small"
+										nbTooltip="Editar"
+										[routerLink]="['/pages/appointments/edit', appointment.citaid]"
+									>
+										<nb-icon icon="edit-outline"></nb-icon>
+									</button>
+									<button
+										nbButton
+										size="small"
+										status="info"
+										nbTooltip="Cambiar estado"
+										(click)="openStatusModal(appointment.citaid)"
+									>
+										<nb-icon icon="options-outline"></nb-icon>
+									</button>
+								</div>
 							</td>
+						</tr>
+					} @empty {
+						<tr class="text-center align-middle">
+							<td colspan="8">No hay citas.</td>
 						</tr>
 					}
 				</tbody>
@@ -144,7 +164,7 @@
 							<td>{{ appointment.paciente }}</td>
 						</tr>
 						<tr>
-							<th>Doctor:</th>
+							<th>Médico:</th>
 							<td>{{ appointment.medico }}</td>
 						</tr>
 						<tr>
@@ -179,10 +199,25 @@
 						<tr class="align-middle last-row">
 							<th>Acciones:</th>
 							<td>
-								<button nbButton size="tiny" (click)="goToAppointment(appointment.citaid)">
-									<nb-icon icon="eye-outline"></nb-icon>
-									Ver
-								</button>
+								<div class="d-flex gap-2">
+									<button
+										nbButton
+										size="tiny"
+										[routerLink]="['/pages/appointments/edit', appointment.citaid]"
+									>
+										Editar
+										<nb-icon icon="edit-outline"></nb-icon>
+									</button>
+									<button
+										nbButton
+										size="tiny"
+										status="info"
+										(click)="openStatusModal(appointment.citaid)"
+									>
+										Cambiar estado
+										<nb-icon icon="options-outline"></nb-icon>
+									</button>
+								</div>
 							</td>
 						</tr>
 					}

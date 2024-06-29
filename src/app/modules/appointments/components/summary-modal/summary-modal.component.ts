@@ -24,6 +24,12 @@ export enum SummaryType {
 	FINISHED = 'Finalizada'
 }
 
+export enum OriginSummary {
+	APPOINTMENT = 'appointment',
+	CALENDAR = 'calendar',
+	CONSULTATION = 'consultation'
+}
+
 @Component({
 	selector: 'app-summary-modal',
 	standalone: true,
@@ -38,6 +44,7 @@ export class SummaryModalComponent implements OnInit {
 
 	@Input() detail!: any;
 	@Input() id!: number;
+	@Input() origin: string = OriginSummary.APPOINTMENT;
 
 	public appointment = signal<any>({} as any);
 
@@ -52,15 +59,21 @@ export class SummaryModalComponent implements OnInit {
 			.subscribe((res) => this.appointment.set(res));
 	}
 
-	public backToAppointments() {
-		this._router.navigateByUrl('/pages/appointments');
-		this._dialogRef.close();
+	public backToOrigin() {
+		if (this.origin === OriginSummary.APPOINTMENT) {
+			this._router.navigateByUrl('/pages/appointments');
+			this.close();
+		} else if (this.origin === OriginSummary.CALENDAR) {
+			this.close();
+		} else if (this.origin === OriginSummary.CONSULTATION) {
+			this.close();
+		}
 	}
 
 	public viewDetail() {
 		if (!this.detail) return;
 
-		this._router.navigateByUrl(`/pages/medical-consultations/detail/${this.id}`);
+		this._router.navigateByUrl(`/pages/medical-consultations/detail/${this.detail.consultaid}`);
 		this._dialogRef.close();
 	}
 
