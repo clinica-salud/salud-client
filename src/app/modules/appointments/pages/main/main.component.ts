@@ -119,9 +119,9 @@ export class MainComponent {
 			.subscribe((appointments) => this.appointments.set(appointments));
 	}
 
-	public openStatusModal(citaid: number) {
+	public openStatusModal(citaid: number, estadoid: number) {
 		const dialog = this._dialogService.open(ChangeStatusModalComponent, {
-			context: { citaid, statuses: this.statuses() }
+			context: { citaid, estadoid, statuses: this.statuses() }
 		});
 
 		dialog.onClose.subscribe(({ cancel }) => {

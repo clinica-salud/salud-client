@@ -1,4 +1,4 @@
-import { Component, DestroyRef, Input, inject } from '@angular/core';
+import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import {
@@ -21,7 +21,7 @@ const DIRECTIVES = [WindowDirective];
 	imports: [ReactiveFormsModule, ...NB_MODULES, ...DIRECTIVES],
 	templateUrl: './change-status-modal.component.html'
 })
-export class ChangeStatusModalComponent {
+export class ChangeStatusModalComponent implements OnInit {
 	private _appointmentService = inject(AppointmentService);
 	private _dialogRef = inject(NbDialogRef<ChangeStatusModalComponent>);
 	private _fb = inject(FormBuilder);
@@ -29,10 +29,17 @@ export class ChangeStatusModalComponent {
 
 	@Input() statuses: any[] = [];
 	@Input() citaid!: number;
+	@Input() estadoid!: number;
 
 	public form = this._fb.group({
-		estadoid: ['', [Validators.required]]
+		estadoid: [0, [Validators.required]]
 	});
+
+	ngOnInit(): void {
+		if (this.estadoid) {
+			this.form.patchValue({ estadoid: this.estadoid });
+		}
+	}
 
 	public updateStatus() {
 		const { estadoid } = this.form.value;

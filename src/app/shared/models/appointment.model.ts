@@ -8,6 +8,7 @@ export interface IAppointment {
 	medico: string;
 	especialidad: string;
 	edificio: string;
+	estadoid: number;
 	estado: SummaryType;
 	estado_abreviatura: string;
 }

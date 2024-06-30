@@ -132,7 +132,7 @@
 										size="small"
 										status="info"
 										nbTooltip="Cambiar estado"
-										(click)="openStatusModal(appointment.citaid)"
+										(click)="openStatusModal(appointment.citaid, appointment.estadoid)"
 									>
 										<nb-icon icon="options-outline"></nb-icon>
 									</button>
@@ -212,7 +212,7 @@
 										nbButton
 										size="tiny"
 										status="info"
-										(click)="openStatusModal(appointment.citaid)"
+										(click)="openStatusModal(appointment.citaid, appointment.estadoid)"
 									>
 										Cambiar estado
 										<nb-icon icon="options-outline"></nb-icon>
