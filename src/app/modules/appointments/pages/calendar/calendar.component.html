@@ -6,7 +6,8 @@
 			<span class="fs-4">Calendario</span>
 			<small class="fs-6 text-secondary fw-light">Consultas odontológicas</small>
 		</div>
-		<div class="d-flex align-items-center flex-wrap gap-3 gap-md-5" [formGroup]="form">
+		<a routerLink="/pages/appointments">Ver modo registro</a>
+		<!-- <div class="d-flex align-items-center flex-wrap gap-3 gap-md-5" [formGroup]="form">
 			<small-toggle
 				label="Todos"
 				status="black"
@@ -31,7 +32,7 @@
 				[control]="nextControl"
 				(toggle)="toggleNext($event)"
 			/>
-		</div>
+		</div> -->
 	</nb-card-header>
 	<nb-card-body class="pb-0 px-2 px-md-4">
 		<div class="d-flex flex-wrap justify-content-between align-items-center gap-2">
@@ -63,7 +64,7 @@
 		<div>
 			<mwl-calendar-month-view
 				[viewDate]="today()"
-				[events]="filteredEvents()"
+				[events]="appointments() || []"
 				(eventClicked)="showEvent($event.event.meta)"
 				(dayClicked)="dayClicked($event.day.date)"
 			>

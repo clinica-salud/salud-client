@@ -50,7 +50,7 @@ export class MenuService {
 			link: '/pages/medical-consultations'
 		},
 		{
-			title: 'Resultados',
+			title: 'Historias clínicas',
 			icon: 'trending-up-outline',
 			link: '/pages/results'
 		}

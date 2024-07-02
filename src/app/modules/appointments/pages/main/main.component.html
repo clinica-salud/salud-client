@@ -3,14 +3,15 @@
 		<span class="fs-4">Registro de citas</span>
 	</nb-card-header>
 	<nb-card-body class="px-2 px-md-4">
-		<div class="row g-3 mb-4">
-			<div class="col-xxl-2">
-				<label class="label fs-7 mb-1">Fecha: </label>
+		<form class="row g-3 mb-4" [formGroup]="form">
+			<div class="col-md-6 col-xxl-3">
+				<label class="label fs-7 mb-1">Desde: </label>
 				<div class="d-flex position-relative">
 					<input
 						nbInput
 						#dateFromInput
-						placeholder="00/00/0000"
+						placeholder="Fecha inicio"
+						formControlName="fecha_desde"
 						[nbDatepicker]="dateFromPicker"
 						fullWidth
 					/>
@@ -20,46 +21,66 @@
 					<nb-datepicker #dateFromPicker> </nb-datepicker>
 				</div>
 			</div>
-			<div class="col-xxl-3">
-				<label class="label fs-7 mb-1">Especialidad: </label>
-				<nb-select placeholder="Seleccione una opción" fullWidth>
-					<nb-option>sssss</nb-option>
-				</nb-select>
-			</div>
-			<div class="col-xxl-3">
-				<label class="label fs-7 mb-1">Médico: </label>
-				<nb-select placeholder="Seleccione una opción" fullWidth>
-					<nb-option>sssss</nb-option>
-				</nb-select>
-			</div>
-			<div class="col-xxl-3">
-				<label class="label fs-7 mb-1">Estado: </label>
-				<nb-select placeholder="Todo" fullWidth>
-					<nb-option>sssss</nb-option>
-				</nb-select>
-			</div>
-			<div class="col-xxl-1 mt-xxl-auto">
-				<div class="d-flex gap-2">
-					<button nbButton status="primary">
-						<nb-icon icon="funnel-outline"></nb-icon>
-					</button>
-					<button nbButton status="success">
+			<div class="col-md-6 col-xxl-3">
+				<label class="label fs-7 mb-1">Hasta: </label>
+				<div class="d-flex position-relative">
+					<input
+						nbInput
+						#dateToInput
+						placeholder="Fecha fin"
+						formControlName="fecha_hasta"
+						[nbDatepicker]="dateToPicker"
+						fullWidth
+					/>
+					<button class="position-absolute end-0" nbButton ghost (click)="dateToInput.click()">
 						<nb-icon icon="calendar-outline"></nb-icon>
 					</button>
+					<nb-datepicker #dateToPicker> </nb-datepicker>
 				</div>
 			</div>
-			<!-- <div class="col-md-1 mt-md-auto">
+			<div class="col-md-6 col-xxl-3">
+				<label class="label fs-7 mb-1">Médico: </label>
+				<nb-select placeholder="Seleccione un médico" formControlName="medicoid" fullWidth>
+					<nb-option value="">Todos</nb-option>
+					@for (doctor of doctors(); track doctor.medicoid) {
+						<nb-option [value]="doctor.medicoid">{{ doctor.nombre_completo }}</nb-option>
+					}
+				</nb-select>
+			</div>
+			<div class="col-md-6 col-xxl-3">
+				<label class="label fs-7 mb-1">Paciente: </label>
+				<nb-form-field>
+					<nb-icon nbPrefix icon="search-outline"></nb-icon>
+					<input
+						nbInput
+						type="search"
+						placeholder="Buscar paciente por nombre o dni"
+						formControlName="paciente"
+						fullWidth
+					/>
+				</nb-form-field>
+			</div>
+			<div class="col-md-6 col-xxl-3">
+				<label class="label fs-7 mb-1">Estado: </label>
+				<nb-select placeholder="Seleccione un estado" formControlName="estadoid" fullWidth>
+					<nb-option value="">Todos</nb-option>
+					@for (status of statuses(); track status.estadoid) {
+						<nb-option [value]="status.estadoid">{{ status.nombre }}</nb-option>
+					}
+				</nb-select>
+			</div>
+			<div class="col-md-6 col-xxl-3 mt-md-auto">
 				<div class="d-flex gap-2">
-					<button nbButton status="primary">
+					<button nbButton status="primary" (click)="getAppointments()" fullWidth>
 						Filtrar
 						<nb-icon icon="options-2-outline"></nb-icon>
 					</button>
-					<button nbButton status="success">
+					<button nbButton status="success" [routerLink]="['calendar']">
 						<nb-icon icon="calendar-outline"></nb-icon>
 					</button>
 				</div>
-			</div> -->
-		</div>
+			</div>
+		</form>
 		<div class="table-responsive d-none d-lg-block">
 			<table class="table table-borderless">
 				<thead class="border-bottom border-top">
@@ -70,33 +91,57 @@
 					</tr>
 				</thead>
 				<tbody>
-					@for (item of data(); track item.id) {
+					@for (appointment of appointments(); track appointment.citaid) {
 						<tr class="align-middle text-center">
-							<td>{{ item.date }}</td>
-							<td>{{ item.hour }}</td>
-							<td>{{ item.patient }}</td>
-							<td>{{ item.doctor }}</td>
-							<td>{{ item.speciality }}</td>
-							<td>{{ item.consultory }}</td>
+							<td>{{ appointment.fecha }}</td>
+							<td>{{ appointment.hora }}</td>
+							<td>{{ appointment.paciente }}</td>
+							<td>{{ appointment.medico }}</td>
+							<td>{{ appointment.especialidad }}</td>
+							<td>{{ appointment.edificio }}</td>
 							<td class="position-relative">
 								<nb-badge
 									class="center-badge"
-									[text]="item.status"
+									[text]="appointment.estado"
 									[status]="
-										item.status === 'Cancelado'
-											? 'danger'
-											: item.status === 'Próximo'
-												? 'warning'
-												: 'basic'
+										appointment.estado_abreviatura === 'PN'
+											? 'basic'
+											: appointment.estado_abreviatura === 'CC'
+												? 'primary'
+												: appointment.estado_abreviatura === 'DEL'
+													? 'danger'
+													: appointment.estado_abreviatura === 'FIN'
+														? 'success'
+														: ''
 									"
 									position="top left"
 								></nb-badge>
 							</td>
 							<td>
-								<button nbButton size="small" (click)="goToAppointment(item.id)">
-									<nb-icon icon="eye-outline"></nb-icon>
-								</button>
+								<div class="d-flex gap-2 justify-content-center">
+									<button
+										nbButton
+										size="small"
+										nbTooltip="Editar"
+										[routerLink]="['/pages/appointments/edit', appointment.citaid]"
+									>
+										<nb-icon icon="edit-outline"></nb-icon>
+									</button>
+									<button
+										nbButton
+										size="small"
+										status="info"
+										nbTooltip="Cambiar estado"
+										(click)="openStatusModal(appointment.citaid, appointment.estadoid)"
+									>
+										<nb-icon icon="options-outline"></nb-icon>
+									</button>
+								</div>
 							</td>
+						</tr>
+					} @empty {
+						<tr class="text-center align-middle">
+							<td colspan="8">No hay citas.</td>
 						</tr>
 					}
 				</tbody>
@@ -105,42 +150,74 @@
 		<div class="table-responsive d-block d-lg-none">
 			<table class="table table-sm table-bordered">
 				<tbody>
-					@for (item of data(); track item.id) {
+					@for (appointment of appointments(); track appointment.citaid) {
 						<tr>
 							<th>Fecha:</th>
-							<td>{{ item.date }}</td>
+							<td>{{ appointment.fecha }}</td>
 						</tr>
 						<tr>
 							<th>Hora:</th>
-							<td>{{ item.hour }}</td>
+							<td>{{ appointment.hora }}</td>
 						</tr>
 						<tr>
 							<th>Paciente:</th>
-							<td>{{ item.patient }}</td>
+							<td>{{ appointment.paciente }}</td>
 						</tr>
 						<tr>
-							<th>Doctor:</th>
-							<td>{{ item.doctor }}</td>
+							<th>Médico:</th>
+							<td>{{ appointment.medico }}</td>
 						</tr>
 						<tr>
 							<th>Especialidad:</th>
-							<td>{{ item.speciality }}</td>
+							<td>{{ appointment.especialidad }}</td>
 						</tr>
 						<tr>
-							<th>Consultorio:</th>
-							<td>{{ item.consultory }}</td>
+							<th>Edificio:</th>
+							<td>{{ appointment.edificio }}</td>
 						</tr>
 						<tr>
 							<th>Estado:</th>
-							<td>{{ item.status }}</td>
+							<td class="position-relative">
+								<nb-badge
+									class="ms-1"
+									[text]="appointment.estado"
+									[status]="
+										appointment.estado_abreviatura === 'PN'
+											? 'basic'
+											: appointment.estado_abreviatura === 'CC'
+												? 'primary'
+												: appointment.estado_abreviatura === 'DEL'
+													? 'danger'
+													: appointment.estado_abreviatura === 'FIN'
+														? 'success'
+														: ''
+									"
+									position="center left"
+								></nb-badge>
+							</td>
 						</tr>
 						<tr class="align-middle last-row">
 							<th>Acciones:</th>
 							<td>
-								<button nbButton size="tiny" (click)="goToAppointment(item.id)">
-									<nb-icon icon="eye-outline"></nb-icon>
-									Ver
-								</button>
+								<div class="d-flex gap-2">
+									<button
+										nbButton
+										size="tiny"
+										[routerLink]="['/pages/appointments/edit', appointment.citaid]"
+									>
+										Editar
+										<nb-icon icon="edit-outline"></nb-icon>
+									</button>
+									<button
+										nbButton
+										size="tiny"
+										status="info"
+										(click)="openStatusModal(appointment.citaid, appointment.estadoid)"
+									>
+										Cambiar estado
+										<nb-icon icon="options-outline"></nb-icon>
+									</button>
+								</div>
 							</td>
 						</tr>
 					}

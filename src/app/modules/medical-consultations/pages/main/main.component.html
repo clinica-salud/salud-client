@@ -3,14 +3,15 @@
 		<span class="fs-4">Consultas médicas</span>
 	</nb-card-header>
 	<nb-card-body class="px-2 px-md-4">
-		<div class="row g-3 mb-4">
-			<div class="col-md-6 col-lg-4 col-xxl-2">
-				<label class="label fs-7 mb-1">Fecha: </label>
+		<form class="row g-3 mb-4" [formGroup]="form">
+			<div class="col-md-6 col-xxl-2">
+				<label class="label fs-7 mb-1">Desde: </label>
 				<div class="d-flex position-relative">
 					<input
 						nbInput
 						#dateFromInput
-						placeholder="00/00/0000"
+						placeholder="Fecha inicio"
+						formControlName="fecha_desde"
 						[nbDatepicker]="dateFromPicker"
 						fullWidth
 					/>
@@ -20,7 +21,24 @@
 					<nb-datepicker #dateFromPicker> </nb-datepicker>
 				</div>
 			</div>
-			<div class="col-md-6 col-lg-4 col-xxl-3">
+			<div class="col-md-6 col-xxl-2">
+				<label class="label fs-7 mb-1">Hasta: </label>
+				<div class="d-flex position-relative">
+					<input
+						nbInput
+						#dateToInput
+						placeholder="Fecha fin"
+						formControlName="fecha_hasta"
+						[nbDatepicker]="dateToPicker"
+						fullWidth
+					/>
+					<button class="position-absolute end-0" nbButton ghost (click)="dateToInput.click()">
+						<nb-icon icon="calendar-outline"></nb-icon>
+					</button>
+					<nb-datepicker #dateToPicker> </nb-datepicker>
+				</div>
+			</div>
+			<!-- <div class="col-md-6 col-lg-4 col-xxl-3">
 				<label class="label fs-7 mb-1">Especialidad: </label>
 				<nb-select placeholder="Seleccione una opción" fullWidth>
 					<nb-option>sssss</nb-option>
@@ -31,24 +49,39 @@
 				<nb-select placeholder="Seleccione una opción" fullWidth>
 					<nb-option>sssss</nb-option>
 				</nb-select>
-			</div>
-			<div class="col-md-6 col-lg-8 col-xxl-3">
+			</div> -->
+			<div class="col-md-6 col-lg-5 col-xxl-3">
 				<label class="label fs-7 mb-1">Paciente: </label>
 				<nb-form-field>
 					<nb-icon nbPrefix icon="search-outline"></nb-icon>
-					<input nbInput type="search" placeholder="Buscar paciente..." fullWidth />
+					<input
+						nbInput
+						type="search"
+						placeholder="Buscar paciente por nombre o dni"
+						formControlName="paciente"
+						fullWidth
+					/>
 				</nb-form-field>
 			</div>
-			<div class="col-md-12 col-lg-4 col-xxl-1 mt-lg-auto">
-				<button nbButton class="d-block d-xxl-none" status="primary" fullWidth>
+			<div class="col-md-6 col-lg-4 col-xxl-3">
+				<label class="label fs-7 mb-1">Estado: </label>
+				<nb-select placeholder="Seleccione un estado" formControlName="estadoid" fullWidth>
+					<nb-option value="">Todos</nb-option>
+					@for (status of statuses(); track status.estadoid) {
+						<nb-option [value]="status.estadoid">{{ status.nombre }}</nb-option>
+					}
+				</nb-select>
+			</div>
+			<div class="col-md-12 col-lg-3 col-xxl-2 mt-lg-auto">
+				<button nbButton status="primary" (click)="getConsultations()" fullWidth>
 					Filtrar
 					<nb-icon icon="options-2-outline"></nb-icon>
 				</button>
-				<button nbButton class="d-none d-xxl-block" status="primary" fullWidth>
+				<!-- <button nbButton class="d-none d-xxl-block" status="primary" fullWidth>
 					<nb-icon icon="options-2-outline"></nb-icon>
-				</button>
+				</button> -->
 			</div>
-		</div>
+		</form>
 		<div class="table-responsive d-none d-lg-block d-xl-none d-xxl-block">
 			<table class="table table-borderless">
 				<thead class="border-bottom border-top">
@@ -86,10 +119,14 @@
 								></nb-badge>
 							</td>
 							<td>
-								<button nbButton (click)="showEvent(item)" size="small">
+								<button nbButton (click)="showEvent(item)" nbTooltip="Ver consulta" size="small">
 									<nb-icon icon="eye-outline"></nb-icon>
 								</button>
 							</td>
+						</tr>
+					} @empty {
+						<tr class="text-center align-middle">
+							<td colspan="8">No hay consultas médicas.</td>
 						</tr>
 					}
 				</tbody>
@@ -147,9 +184,9 @@
 						<tr class="align-middle last-row">
 							<th>Acciones:</th>
 							<td>
-								<button nbButton size="tiny">
-									<nb-icon icon="download-outline"></nb-icon>
-									Descargar
+								<button nbButton (click)="showEvent(item)" size="tiny">
+									Ver consulta
+									<nb-icon icon="eye-outline"></nb-icon>
 								</button>
 							</td>
 						</tr>

@@ -1,0 +1,26 @@
+<nb-card appWindow widthSize="tn">
+	<nb-card-header class="d-flex align-items-center justify-content-center">
+		<p class="fs-5 fw-bold">Cambiar estado</p>
+	</nb-card-header>
+	<nb-card-body class="d-flex flex-column gap-3">
+		<form [formGroup]="form">
+			<nb-select placeholder="Seleccione un estado" formControlName="estadoid" fullWidth>
+				@for (status of statuses; track status.estadoid) {
+					<nb-option [value]="status.estadoid">{{ status.nombre }}</nb-option>
+				}
+			</nb-select>
+		</form>
+	</nb-card-body>
+	<nb-card-footer>
+		<div class="d-flex gap-3">
+			<button nbButton (click)="close()" status="danger" fullWidth>
+				<nb-icon icon="close-outline"></nb-icon>
+				Cerrar
+			</button>
+			<button nbButton status="info" (click)="updateStatus()" [disabled]="!form.valid" fullWidth>
+				<nb-icon icon="save-outline"></nb-icon>
+				Guardar
+			</button>
+		</div>
+	</nb-card-footer>
+</nb-card>

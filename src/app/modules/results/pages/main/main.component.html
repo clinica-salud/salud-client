@@ -1,123 +1,219 @@
 <nb-card class="border-0">
 	<nb-card-header class="border-0 px-2 px-md-4">
-		<span class="fs-4"> Lista de resultados laboratorio </span>
+		<span class="fs-4"> Lista de historias clínicas </span>
 	</nb-card-header>
 	<nb-card-body class="px-2 px-md-4">
-		<div class="row m-0">
-			<div class="col-md-6 col-xl-4 col-xxl-3 px-0 pe-md-2">
-				<nb-card>
-					<nb-card-body class="d-flex flex-column gap-3 py-4">
-						<p class="fw-semibold">Buscar por fecha</p>
-						<div class="d-flex flex-column gap-2">
-							<label class="label">Desde: </label>
-							<div class="d-flex position-relative">
-								<input
-									nbInput
-									#dateFromInput
-									placeholder="Seleccione fecha"
-									[nbDatepicker]="dateFromPicker"
-									fullWidth
-								/>
-								<button
-									nbButton
-									ghost
-									class="position-absolute end-0"
-									(click)="dateFromInput.click()"
-								>
-									<nb-icon icon="calendar-outline"></nb-icon>
-								</button>
-								<nb-datepicker #dateFromPicker> </nb-datepicker>
-							</div>
-						</div>
-						<div class="d-flex flex-column gap-2">
-							<label class="label">Hasta: </label>
-							<div class="d-flex position-relative">
-								<input
-									nbInput
-									#dateToInput
-									placeholder="Seleccione fecha"
-									[nbDatepicker]="dateToPicker"
-									fullWidth
-								/>
-								<button
-									nbButton
-									ghost
-									class="position-absolute end-0"
-									(click)="dateToInput.click()"
-								>
-									<nb-icon icon="calendar-outline"></nb-icon>
-								</button>
-								<nb-datepicker #dateToPicker> </nb-datepicker>
-							</div>
-						</div>
-						<button nbButton status="primary" fullWidth>
-							Filtrar
-							<nb-icon icon="options-2-outline"></nb-icon>
-						</button>
-					</nb-card-body>
-				</nb-card>
-			</div>
-			<div class="col-md-6 col-xl-8 col-xxl-9 px-0 ps-md-2">
-				<div class="table-responsive d-none d-xl-block">
-					<table class="table table-borderless">
-						<thead class="border-bottom border-top">
-							<tr class="text-center">
-								@for (heading of tableHeadings(); track $index) {
-									<th class="t-heading">{{ heading | uppercase }}</th>
-								}
-							</tr>
-						</thead>
-						<tbody>
-							@for (item of data(); track item.id) {
-								<tr class="align-middle text-center">
-									<td class="t-description">{{ item.date }}</td>
-									<td class="t-description">{{ item.patient }}</td>
-									<td class="t-description">{{ item.doctor }}</td>
-									<td class="t-description">{{ item.location }}</td>
-									<td class="t-description">
-										<button nbButton nbTooltip="Descargar" size="small">
-											<nb-icon icon="download-outline"></nb-icon>
-										</button>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
-				</div>
-				<div class="table-responsive d-block d-xl-none">
-					<table class="table table-sm table-bordered">
-						<tbody>
-							@for (item of data(); track item.id) {
-								<tr>
-									<th>Fecha:</th>
-									<td>{{ item.date }}</td>
-								</tr>
-								<tr>
-									<th>Paciente:</th>
-									<td>{{ item.patient }}</td>
-								</tr>
-								<tr>
-									<th>Doctor:</th>
-									<td>{{ item.doctor }}</td>
-								</tr>
-								<tr>
-									<th>Ubicación:</th>
-									<td>{{ item.location }}</td>
-								</tr>
-								<tr class="align-middle last-row">
-									<th>Acciones:</th>
-									<td>
-										<button nbButton size="tiny">
-											<nb-icon icon="download-outline"></nb-icon>
-											Descargar
-										</button>
-									</td>
-								</tr>
-							}
-						</tbody>
-					</table>
+		<form class="row g-3 mb-4" [formGroup]="form">
+			<div class="col-md-6 col-xxl-3">
+				<label class="label fs-7 mb-1">Desde: </label>
+				<div class="d-flex position-relative">
+					<input
+						nbInput
+						#dateFromInput
+						placeholder="Fecha inicio"
+						formControlName="fecha_desde"
+						[nbDatepicker]="dateFromPicker"
+						fullWidth
+					/>
+					<button class="position-absolute end-0" nbButton ghost (click)="dateFromInput.click()">
+						<nb-icon icon="calendar-outline"></nb-icon>
+					</button>
+					<nb-datepicker #dateFromPicker> </nb-datepicker>
 				</div>
 			</div>
+			<div class="col-md-6 col-xxl-3">
+				<label class="label fs-7 mb-1">Hasta: </label>
+				<div class="d-flex position-relative">
+					<input
+						nbInput
+						#dateToInput
+						placeholder="Fecha fin"
+						formControlName="fecha_hasta"
+						[nbDatepicker]="dateToPicker"
+						fullWidth
+					/>
+					<button class="position-absolute end-0" nbButton ghost (click)="dateToInput.click()">
+						<nb-icon icon="calendar-outline"></nb-icon>
+					</button>
+					<nb-datepicker #dateToPicker> </nb-datepicker>
+				</div>
+			</div>
+			<div class="col-md-6 col-xxl-3">
+				<label class="label fs-7 mb-1">Edificio: </label>
+				<nb-select placeholder="Seleccione un médico" formControlName="edificioid" fullWidth>
+					<nb-option value="">Todos</nb-option>
+					@for (item of buildings(); track item.edificioid) {
+						<nb-option [value]="item.edificioid">{{ item.nombre }}</nb-option>
+					}
+				</nb-select>
+			</div>
+			<div class="col-md-6 col-xxl-3">
+				<label class="label fs-7 mb-1">Especialidad: </label>
+				<nb-select placeholder="Seleccione un médico" formControlName="especialidadid" fullWidth>
+					<nb-option value="">Todos</nb-option>
+					@for (item of specialities(); track item.especialidadid) {
+						<nb-option [value]="item.especialidadid">{{ item.nombre }}</nb-option>
+					}
+				</nb-select>
+			</div>
+			<div class="col-md-6 col-xxl-3">
+				<label class="label fs-7 mb-1">Médico: </label>
+				<nb-select placeholder="Seleccione un médico" formControlName="medicoid" fullWidth>
+					<nb-option value="">Todos</nb-option>
+					@for (doctor of doctors(); track doctor.medicoid) {
+						<nb-option [value]="doctor.medicoid">{{ doctor.nombre_completo }}</nb-option>
+					}
+				</nb-select>
+			</div>
+			<div class="col-md-6 col-xxl-3">
+				<label class="label fs-7 mb-1">Paciente: </label>
+				<nb-form-field>
+					<nb-icon nbPrefix icon="search-outline"></nb-icon>
+					<input
+						nbInput
+						type="search"
+						placeholder="Buscar paciente por nombre o dni"
+						formControlName="paciente"
+						fullWidth
+					/>
+				</nb-form-field>
+			</div>
+			<div class="col-md-6 col-xxl-3">
+				<label class="label fs-7 mb-1">Estado: </label>
+				<nb-select placeholder="Seleccione un estado" formControlName="estadoid" fullWidth>
+					<nb-option value="">Todos</nb-option>
+					@for (status of statuses(); track status.estadoid) {
+						<nb-option [value]="status.estadoid">{{ status.nombre }}</nb-option>
+					}
+				</nb-select>
+			</div>
+			<div class="col-md-6 col-xxl-3 mt-md-auto">
+				<div class="d-flex gap-2">
+					<button nbButton status="primary" (click)="getResults()" fullWidth>
+						Filtrar
+						<nb-icon icon="options-2-outline"></nb-icon>
+					</button>
+				</div>
+			</div>
+		</form>
+		<div class="table-responsive d-none d-lg-block">
+			<table class="table table-borderless">
+				<thead class="border-bottom border-top">
+					<tr class="text-center">
+						@for (heading of tableHeadings(); track $index) {
+							<th>{{ heading | uppercase }}</th>
+						}
+					</tr>
+				</thead>
+				<tbody>
+					@for (result of results(); track result.consultaid) {
+						<tr class="align-middle text-center">
+							<td>{{ result.fecha }}</td>
+							<td>{{ result.edificio }}</td>
+							<td>{{ result.especialidad }}</td>
+							<td>{{ result.medico }}</td>
+							<td>{{ result.paciente }}</td>
+							<td class="position-relative">
+								<nb-badge
+									class="center-badge"
+									[text]="result.estado"
+									[status]="
+										result.estado_abreviatura === 'PN'
+											? 'basic'
+											: result.estado_abreviatura === 'CC'
+												? 'primary'
+												: result.estado_abreviatura === 'DEL'
+													? 'danger'
+													: result.estado_abreviatura === 'FIN'
+														? 'success'
+														: ''
+									"
+									position="top left"
+								></nb-badge>
+							</td>
+							<td>
+								<div class="d-flex gap-2 justify-content-center">
+									<button
+										nbButton
+										size="small"
+										status="basic"
+										(click)="downloadPDF(result.consultaid)"
+									>
+										<nb-icon icon="download-outline"></nb-icon>
+									</button>
+								</div>
+							</td>
+						</tr>
+					} @empty {
+						<tr class="text-center align-middle">
+							<td colspan="8">No hay resultados.</td>
+						</tr>
+					}
+				</tbody>
+			</table>
+		</div>
+		<div class="table-responsive d-block d-lg-none">
+			<table class="table table-sm table-bordered">
+				<tbody>
+					@for (result of results(); track result.citaid) {
+						<tr>
+							<th>Fecha:</th>
+							<td>{{ result.fecha }}</td>
+						</tr>
+						<tr>
+							<th>Edificio:</th>
+							<td>{{ result.edificio }}</td>
+						</tr>
+						<tr>
+							<th>Especialidad:</th>
+							<td>{{ result.especialidad }}</td>
+						</tr>
+						<tr>
+							<th>Médico:</th>
+							<td>{{ result.medico }}</td>
+						</tr>
+						<tr>
+							<th>Paciente:</th>
+							<td>{{ result.paciente }}</td>
+						</tr>
+						<tr>
+							<th>Estado:</th>
+							<td class="position-relative">
+								<nb-badge
+									class="ms-1"
+									[text]="result.estado"
+									[status]="
+										result.estado_abreviatura === 'PN'
+											? 'basic'
+											: result.estado_abreviatura === 'CC'
+												? 'primary'
+												: result.estado_abreviatura === 'DEL'
+													? 'danger'
+													: result.estado_abreviatura === 'FIN'
+														? 'success'
+														: ''
+									"
+									position="center left"
+								></nb-badge>
+							</td>
+						</tr>
+						<tr class="align-middle last-row">
+							<th>Acciones:</th>
+							<td>
+								<button
+									nbButton
+									size="tiny"
+									status="basic"
+									(click)="downloadPDF(result.consultaid)"
+								>
+									Descargar Resultados
+									<nb-icon icon="download-outline"></nb-icon>
+								</button>
+							</td>
+						</tr>
+					}
+				</tbody>
+			</table>
 		</div>
 	</nb-card-body>
 </nb-card>

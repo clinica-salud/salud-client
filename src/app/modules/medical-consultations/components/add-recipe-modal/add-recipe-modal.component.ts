@@ -1,4 +1,5 @@
-import { Component, inject } from '@angular/core';
+import { Component, DestroyRef, inject, input } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormGroup, ReactiveFormsModule, Validators } from '@angular/forms';
 
 import {
@@ -11,6 +12,7 @@ import {
 	NbSelectModule
 } from '@nebular/theme';
 import { WindowDirective } from '@src/app/shared/helpers/window/window.directive';
+import { RecipeService } from '@src/app/shared/services';
 
 const NB_MODULES = [
 	NbButtonModule,
@@ -31,22 +33,31 @@ const DIRECTIVES = [WindowDirective];
 export class AddRecipeModalComponent {
 	private _fb = inject(FormBuilder);
 	private _dialogRef = inject(NbDialogRef<AddRecipeModalComponent>);
+	private _recipeService = inject(RecipeService);
+	private _destroyRef = inject(DestroyRef);
+
+	citaid = input.required<number>();
 
 	public form: FormGroup = this._fb.group({
-		medicine: ['', [Validators.required]],
-		route: ['', [Validators.required]],
-		dose: ['', [Validators.required]],
-		frequency: ['', [Validators.required]],
-		time: ['', [Validators.required]],
-		quantity: ['', [Validators.required]],
-		indications: ['', [Validators.required]]
+		medicamento: ['', [Validators.required]],
+		via_administrativa: ['', [Validators.required]],
+		dosis: ['', [Validators.required]],
+		frecuencia: ['', [Validators.required]],
+		tiempo: ['', [Validators.required]],
+		cantidad: ['', [Validators.required]],
+		indicaciones: ['', [Validators.required]]
 	});
 
 	public addRecipe() {
-		console.log(this.form.value);
+		const data = { ...this.form.value, citaid: this.citaid };
+
+		this._recipeService
+			.addRecipe(data)
+			.pipe(takeUntilDestroyed(this._destroyRef))
+			.subscribe(() => this._dialogRef.close({ cancel: false }));
 	}
 
 	public close() {
-		this._dialogRef.close();
+		this._dialogRef.close({ cancel: true });
 	}
 }

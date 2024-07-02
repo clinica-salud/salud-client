@@ -1,10 +1,5 @@
-import { Component, DestroyRef, ElementRef, computed, inject, signal } from '@angular/core';
-import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
-import { ActivatedRoute, Params } from '@angular/router';
-import { map } from 'rxjs';
-
-import html2canvas from 'html2canvas';
-import jsPDF from 'jspdf';
+import { Component, DestroyRef, computed, inject, input, output } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 
 import {
 	NbButtonModule,
@@ -34,29 +29,22 @@ export class OdontogramComponent {
 	private _dialogService = inject(NbDialogService);
 	private _odontogramService = inject(OdontogramService);
 	private _consultationService = inject(ConsultationService);
-	private _activatedRoute = inject(ActivatedRoute);
 	private _destroyRef = inject(DestroyRef);
-	private _elementRef = inject(ElementRef);
 
-	private consultaid = toSignal(
-		this._activatedRoute.params.pipe(map((params: Params) => params['consultaid']))
-	);
+	consultaid = input.required<number>();
+	odontogramConsultations = input.required<any>();
 
-	public odontogramConsultations = signal<any[]>([]);
+	refreshConsultations = output();
 
 	public teethType = computed(() => this._odontogramService.teethType());
 	public teeth = computed(() => this._odontogramService.teeth());
 
 	constructor() {
 		this._odontogramService.getTeethPieces();
-		this.getOdontogramConsultation();
 	}
 
-	private getOdontogramConsultation() {
-		this._consultationService
-			.getOdontogramConsultations(this.consultaid())
-			.pipe(takeUntilDestroyed(this._destroyRef))
-			.subscribe((data: any) => this.odontogramConsultations.set(data));
+	private onRefreshConsultations() {
+		this.refreshConsultations.emit();
 	}
 
 	public toggleTeethType() {
@@ -70,7 +58,7 @@ export class OdontogramComponent {
 				es_tratamiento: e
 			})
 			.pipe(takeUntilDestroyed(this._destroyRef))
-			.subscribe(() => this.getOdontogramConsultation());
+			.subscribe(() => this.onRefreshConsultations());
 	}
 
 	public deleteOdontogramConsultation(item: any) {
@@ -79,7 +67,7 @@ export class OdontogramComponent {
 		this._consultationService
 			.deleteOdontogramConsultation(this.consultaid(), item.piezaid)
 			.pipe(takeUntilDestroyed(this._destroyRef))
-			.subscribe(() => this.getOdontogramConsultation());
+			.subscribe(() => this.onRefreshConsultations());
 	}
 
 	public addTreatment(tooth?: ITooth) {
@@ -91,33 +79,7 @@ export class OdontogramComponent {
 		});
 		dialog.onClose.subscribe(({ cancel }) => {
 			if (cancel) return;
-			this.getOdontogramConsultation();
+			this.onRefreshConsultations();
 		});
-	}
-
-	public generatePDF() {
-		const div = this._elementRef.nativeElement.querySelector('#odontogram');
-
-		const options = {
-			useCORS: true,
-			logging: true,
-			allowTaint: true
-		};
-
-		html2canvas(div, options)
-			.then((canvas) => {
-				const img = canvas.toDataURL('image/jpeg');
-				const doc = new jsPDF('p', 'mm', 'a4', true);
-				const bufferX = 5;
-				const bufferY = 5;
-				const imgProps = (<any>doc).getImageProperties(img);
-				const pdfWidth = doc.internal.pageSize.getWidth() - 2 * bufferX;
-				const pdfHeight = (imgProps.height * pdfWidth) / imgProps.width;
-				doc.addImage(img, 'jpeg', bufferX, bufferY, pdfWidth, pdfHeight, undefined, 'FAST');
-				doc.save('odontograma.pdf');
-			})
-			.catch((error) => {
-				console.error('Error generating PDF:', error);
-			});
 	}
 }

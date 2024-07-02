@@ -13,7 +13,7 @@
 					nbInput
 					type="text"
 					placeholder="Medicamento..."
-					formControlName="medicine"
+					formControlName="medicamento"
 					fullWidth
 				/>
 			</div>
@@ -23,13 +23,13 @@
 					nbInput
 					type="text"
 					placeholder="Via de administración..."
-					formControlName="route"
+					formControlName="via_administrativa"
 					fullWidth
 				/>
 			</div>
 			<div class="col-md-6">
 				<label class="required fw-semibold mb-2">Dosis</label>
-				<input nbInput type="text" placeholder="Dosis..." formControlName="dose" fullWidth />
+				<input nbInput type="text" placeholder="Dosis..." formControlName="dosis" fullWidth />
 			</div>
 			<div class="col-md-6">
 				<label class="required fw-semibold mb-2">Frecuencia</label>
@@ -37,24 +37,24 @@
 					nbInput
 					type="text"
 					placeholder="Frecuencia..."
-					formControlName="frequency"
+					formControlName="frecuencia"
 					fullWidth
 				/>
 			</div>
 			<div class="col-md-6">
 				<label class="required fw-semibold mb-2">Tiempo</label>
-				<input nbInput type="text" placeholder="Tiempo..." formControlName="time" fullWidth />
+				<input nbInput type="text" placeholder="Tiempo..." formControlName="tiempo" fullWidth />
 			</div>
 			<div class="col-md-6">
 				<label class="required fw-semibold mb-2">Cantidad</label>
-				<input nbInput type="text" placeholder="Cantidad..." formControlName="quantity" fullWidth />
+				<input nbInput type="text" placeholder="Cantidad..." formControlName="cantidad" fullWidth />
 			</div>
 			<div class="col-md-12">
 				<label class="required fw-semibold mb-2">Indicaciones</label>
 				<textarea
 					nbInput
 					placeholder="Descripción..."
-					formControlName="indications"
+					formControlName="indicaciones"
 					rows="3"
 					fullWidth
 				></textarea>
@@ -62,7 +62,14 @@
 		</form>
 	</nb-card-body>
 	<nb-card-footer>
-		<button nbButton class="d-block ms-auto" status="primary" (click)="addRecipe()" fullWidth>
+		<button
+			nbButton
+			class="d-block ms-auto"
+			status="primary"
+			(click)="addRecipe()"
+			[disabled]="!form.valid"
+			fullWidth
+		>
 			Agregar
 		</button>
 	</nb-card-footer>

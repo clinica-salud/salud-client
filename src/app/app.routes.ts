@@ -39,7 +39,7 @@ export const routes: Routes = [
 				path: 'results',
 				loadChildren: () =>
 					import('./modules/results/results.routes').then((m) => m.RESULTS_ROUTES),
-				data: { breadcrumb: 'Resultados' }
+				data: { breadcrumb: 'Historias clínicas' }
 			},
 			{ path: '', pathMatch: 'full', redirectTo: 'dashboard' },
 			{

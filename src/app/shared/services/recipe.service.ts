@@ -1,7 +1,9 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { IResponse } from '@src/app/shared/models/response.model';
+import { IRecipe, IResponse } from '@src/app/shared/models';
+
 import { environment } from '@src/environments/environment';
+
 import { map } from 'rxjs';
 
 const { api } = environment;
@@ -12,9 +14,9 @@ const { api } = environment;
 export class RecipeService {
 	private _http = inject(HttpClient);
 
-	public getRecipes() {
+	public getRecipes(citaid: number) {
 		return this._http
-			.get<IResponse<any[]>>(`${api}/salud/recipe`)
+			.get<IResponse<IRecipe[]>>(`${api}/salud/recipe`, { params: { citaid } })
 			.pipe(map((response) => response.data));
 	}
 
