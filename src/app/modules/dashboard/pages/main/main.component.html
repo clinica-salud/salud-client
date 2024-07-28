@@ -1,6 +1,220 @@
 <nb-card class="border-0">
 	<nb-card-header class="border-0 px-2 px-md-4">
-		<span class="fs-4">Dashboard</span>
+		<div class="row g-3 align-items-center" [formGroup]="form">
+			<div class="col-sm-12 col-md-4 col-xxl-8">
+				<span class="fs-4">Dashboard</span>
+			</div>
+			<div class="col-sm-6 col-md-4 col-xxl-2">
+				<nb-select formControlName="year" fullWidth>
+					@for (year of years(); track $index) {
+						<nb-option [value]="year">{{ year }}</nb-option>
+					}
+				</nb-select>
+			</div>
+			<div class="col-sm-6 col-md-4 col-xxl-2">
+				<nb-select formControlName="month" fullWidth>
+					@for (month of months(); track $index) {
+						<nb-option [value]="month.id">{{ month.label }}</nb-option>
+					}
+				</nb-select>
+			</div>
+		</div>
 	</nb-card-header>
-	<nb-card-body> </nb-card-body>
+	<nb-card-body>
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-md-6 col-xl-3">
+					<nb-card>
+						<nb-card-body class="d-flex flex-column gap-3">
+							<div class="d-flex align-items-center justify-content-between">
+								<nb-icon class="icon" status="primary" icon="file-text-outline"></nb-icon>
+								<p class="fs-2 fw-semibold">{{ reports()?.citas || 0 }}</p>
+							</div>
+							<div class="d-flex align-items-center justify-content-between">
+								<p class="fs-6 fw-semibold">Citas</p>
+								<div class="d-flex align-items-center">
+									<p class="text-success fs-6 fw-semibold">
+										0.63%
+										<nb-icon status="success" icon="arrow-upward-outline"></nb-icon>
+									</p>
+								</div>
+							</div>
+						</nb-card-body>
+					</nb-card>
+				</div>
+				<div class="col-md-6 col-xl-3">
+					<nb-card>
+						<nb-card-body class="d-flex flex-column gap-3">
+							<div class="d-flex align-items-center justify-content-between">
+								<nb-icon class="icon" status="primary" icon="people-outline"></nb-icon>
+								<p class="fs-2 fw-semibold">{{ reports()?.medicos || 0 }}</p>
+							</div>
+							<div class="d-flex align-items-center justify-content-between">
+								<p class="fs-6 fw-semibold">Médicos</p>
+								<div class="d-flex align-items-center">
+									<p class="text-success fs-6 fw-semibold">
+										0.13%
+										<nb-icon status="success" icon="arrow-upward-outline"></nb-icon>
+									</p>
+								</div>
+							</div>
+						</nb-card-body>
+					</nb-card>
+				</div>
+				<div class="col-md-6 col-xl-3">
+					<nb-card>
+						<nb-card-body class="d-flex flex-column gap-3">
+							<div class="d-flex align-items-center justify-content-between">
+								<nb-icon class="icon" status="primary" icon="thermometer-plus-outline"></nb-icon>
+								<p class="fs-2 fw-semibold">{{ reports()?.tratamientos || 0 }}</p>
+							</div>
+							<div class="d-flex align-items-center justify-content-between">
+								<p class="fs-6 fw-semibold">Tratamientos</p>
+								<div class="d-flex align-items-center">
+									<p class="text-success fs-6 fw-semibold">
+										0.53%
+										<nb-icon status="success" icon="arrow-upward-outline"></nb-icon>
+									</p>
+								</div>
+							</div>
+						</nb-card-body>
+					</nb-card>
+				</div>
+				<div class="col-md-6 col-xl-3">
+					<nb-card>
+						<nb-card-body class="d-flex flex-column gap-3">
+							<div class="d-flex align-items-center justify-content-between">
+								<nb-icon class="icon" status="primary" icon="pie-chart-outline"></nb-icon>
+								<p class="fs-4 fw-semibold">S/. {{ reports()?.pagos || '0.00' }}</p>
+							</div>
+							<div class="d-flex align-items-center justify-content-between">
+								<p class="fs-6 fw-semibold">Pagos</p>
+								<div class="d-flex align-items-center">
+									<p class="text-success fs-6 fw-semibold">
+										0.33%
+										<nb-icon status="success" icon="arrow-upward-outline"></nb-icon>
+									</p>
+								</div>
+							</div>
+						</nb-card-body>
+					</nb-card>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-8">
+					<nb-card>
+						<nb-card-header
+							class="d-flex align-items-center justify-content-between flex-wrap gap-2"
+						>
+							<div>
+								<p class="fs-2 fw-semibold mb-2">Tratamientos</p>
+								<span class="fs-6 text-black-50 fw-semibold">Mas frecuentes</span>
+							</div>
+							<nb-select [formControl]="treatmentYear">
+								@for (year of years(); track $index) {
+									<nb-option [value]="year">{{ year }}</nb-option>
+								}
+							</nb-select>
+						</nb-card-header>
+						<nb-card-body>
+							<div echarts [options]="treatmentChart()" class="echart"></div>
+						</nb-card-body>
+					</nb-card>
+				</div>
+				<div class="col-lg-4">
+					<nb-card>
+						<nb-card-header>
+							<p class="fs-5 fw-semibold">Pacientes</p>
+						</nb-card-header>
+						<nb-card-body>
+							<div echarts [options]="patientChart()" class="echart"></div>
+						</nb-card-body>
+						<nb-card-footer>
+							<p class="fs-6 fw-semibold mb-4">Consultas</p>
+							<div class="row align-items-center">
+								<div class="col-md-6">
+									<p class="fs-4 fw-semibold mb-2">{{ reports()?.pacientesSexo?.length || 0 }}</p>
+									<span class="fs-6 text-black-50">Consultas mensuales</span>
+								</div>
+								<div class="col-md-6">
+									<div class="d-flex flex-column gap-2">
+										@for (item of pacienteSexo(); track $index) {
+											<p class="fs-6">* {{ item.name }} ({{ item.value }})</p>
+										}
+									</div>
+								</div>
+							</div>
+						</nb-card-footer>
+					</nb-card>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					<nb-card>
+						<nb-card-header>
+							<div class="d-flex justify-content-between align-items-center">
+								<p class="fs-5 fw-semibold">Actividad diaria</p>
+								<div>
+									<input
+										nbInput
+										placeholder="Pick Date"
+										[nbDatepicker]="dateTimePicker"
+										[formControl]="activityDay"
+										style="width: 120px"
+									/>
+									<nb-datepicker #dateTimePicker></nb-datepicker>
+								</div>
+							</div>
+						</nb-card-header>
+						<nb-card-body>
+							<ngx-timeline
+								langCode="es"
+								[events]="events()"
+								[groupEvent]="eventType"
+								[changeSide]="eventChangeSide"
+								[eventDescriptionCustomTemplate]="eventDescriptionCustomTemplate"
+							></ngx-timeline>
+						</nb-card-body>
+					</nb-card>
+				</div>
+				<div class="col-lg-6">
+					<nb-card>
+						<nb-card-header>
+							<p class="fs-5 fw-semibold">Registros</p>
+						</nb-card-header>
+						<nb-card-body>
+							<p class="fs-4 fw-semibold mb-2">{{ reports()?.tratamientos || 0 }}</p>
+							<span class="fs-6 text-black-50">Tratamientos</span>
+							<div class="d-flex flex-column gap-4 mt-4">
+								@for (item of reports()?.tipoTratamientos; track $index) {
+									<div class="d-flex flex-column gap-2">
+										<div class="d-flex align-items-center justify-content-between">
+											<p class="fs-6 fw-semibold">{{ item?.tipo_tratamiento }}</p>
+											<p class="fs-6 fw-semibold me-4">{{ item?.total_tratamientos }}</p>
+										</div>
+										<nb-progress-bar
+											[value]="(item?.total_tratamientos * 100) / reports()?.tratamientos"
+											status="primary"
+											size="tiny"
+										></nb-progress-bar>
+									</div>
+								}
+							</div>
+						</nb-card-body>
+					</nb-card>
+				</div>
+			</div>
+		</div>
+	</nb-card-body>
 </nb-card>
+
+<ng-template #eventDescriptionCustomTemplate let-event="event">
+	<div class="position-relative pe-5">
+		<p class="fs-6">{{ event.eventInfo?.data?.paciente }}</p>
+		<p class="fs-6 fw-semibold">{{ event?.eventInfo?.data?.descripcion }}</p>
+		<p class="fs-6 text-black-50">
+			{{ event?.eventInfo?.data?.doctor }} - {{ event?.eventInfo?.data?.edificio }}
+		</p>
+		<nb-badge text="Pending" status="warning" position="top right"></nb-badge>
+	</div>
+</ng-template>
