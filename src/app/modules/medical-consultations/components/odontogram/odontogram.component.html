@@ -11,11 +11,38 @@
 			<!-- <button nbButton size="small" class="button-black" (click)="toggleTeethType()">
 				Ver de {{ teethType === 1 ? 'Niño' : teethType === 2 ? 'Adulto' : '' }}
 			</button> -->
+			<!-- <nb-toggle labelPosition="start">Label Start</nb-toggle> -->
+			<div class="d-flex align-items-center gap-3">
+				<label
+					class="mr-2 ml-2"
+					style="font-size: 0.8125rem; font-weight: 600"
+					(click)="toggleOdontogram()"
+					>Previo</label
+				>
+				<nb-toggle
+					status="info"
+					labelPosition="right"
+					[formControl]="toggleValue"
+					(checkedChange)="toggleOdontogram()"
+				>
+					<span #text_muted>Realizado</span>
+				</nb-toggle>
+			</div>
 		</nb-card-header>
 		<nb-card-body class="px-2 px-md-4">
 			@defer (when teeth().length !== 0) {
 				<div class="wrapper">
-					<app-odontogram-graph (selectedTooth)="addTreatment($event)" />
+					@if (toggleValue.value) {
+						<app-odontogram-graph-reading
+							(selectedTooth)="addTreatment($event)"
+							[odontogramConsultations]="odontogramConsultations()"
+						/>
+					} @else {
+						<app-odontogram-graph
+							(selectedTooth)="addTreatment($event)"
+							[odontogramConsultations]="odontogramConsultations()"
+						/>
+					}
 				</div>
 				<div class="container-fluid">
 					<div class="table-responsive my-4 mt-5">
@@ -26,7 +53,8 @@
 									<th>Práctica</th>
 									<th>Pieza Dental</th>
 									<th>Cara</th>
-									<th>Tratamiento</th>
+									<th>Es Tratamiento</th>
+									<th>Estado</th>
 									<th>Acción</th>
 								</tr>
 							</thead>
@@ -35,17 +63,43 @@
 									<tr class="text-center align-middle">
 										<td>
 											<span>{{ item?.detalle }}</span> <br />
-											<small class="text-secondary">Observación: {{ item?.observacion }}</small>
+											<small class="text-secondary">{{ item?.observacion }}</small>
 										</td>
 										<td>{{ item?.tipo_tratamiento }}</td>
-										<td>Pieza {{ item?.pieza_numero }}{{ item?.pieza_fila }}</td>
+										<td>{{ item?.pieza_numero }}{{ item?.pieza_fila }}</td>
 										<td>{{ item?.tipo_cara }}</td>
 										<td>
 											<nb-checkbox
 												status="success"
-												(checkedChange)="patchTreatment($event, item)"
+												(checkedChange)="patchTreatment(item)"
 												[checked]="item?.es_tratamiento"
+												[disabled]="item?.faseodontogramaid === 2"
 											></nb-checkbox>
+										</td>
+										<td
+											[ngStyle]="{
+												'background-color':
+													item?.faseodontogramaid === 2
+														? '#aac9e8'
+														: item?.faseodontogramaid === 1
+															? '#bbdabb'
+															: '#fff',
+											}"
+										>
+											<div class="d-flex align-items-center justify-content-center gap-2">
+												<span>{{ item?.fase_odontograma }}</span>
+												<button
+													nbButton
+													ghost
+													size="small"
+													status="info"
+													nbTooltip="Cambiar estado"
+													(click)="patchTreatmentStatus(item)"
+													[disabled]="!item?.es_tratamiento"
+												>
+													<nb-icon icon="flip-2-outline"></nb-icon>
+												</button>
+											</div>
 										</td>
 										<td>
 											<button

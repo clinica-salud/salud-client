@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { Router } from '@angular/router';
 import { map } from 'rxjs';
@@ -14,10 +14,10 @@ import {
 	NbMenuService,
 	NbSidebarService,
 	NbThemeService,
-	NbUserModule
+	NbUserModule,
 } from '@nebular/theme';
 
-import { AuthService, MenuService, User } from '@src/app/core/services';
+import { AuthService, MenuService } from '@src/app/core/services';
 
 const NB_MODULES = [
 	NbActionsModule,
@@ -25,15 +25,18 @@ const NB_MODULES = [
 	NbContextMenuModule,
 	NbEvaIconsModule,
 	NbIconModule,
-	NbUserModule
+	NbUserModule,
 ];
+
+const PROFILE_PICTURE =
+	'https://static.vecteezy.com/system/resources/previews/005/129/844/original/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg';
 
 @Component({
 	selector: 'app-header',
 	standalone: true,
 	imports: [...NB_MODULES],
 	templateUrl: './header.component.html',
-	styleUrl: './header.component.scss'
+	styleUrl: './header.component.scss',
 })
 export class HeaderComponent {
 	private _authService = inject(AuthService);
@@ -47,7 +50,8 @@ export class HeaderComponent {
 	public hideMenuOnClick = signal(false);
 	public userPictureOnly = signal(false);
 
-	public user = signal<User>({ name: '', picture: '' });
+	public profilePicture = signal<string>(PROFILE_PICTURE);
+	public userName = computed(() => this._authService.user()?.name ?? '');
 	public userMenu = signal<NbMenuItem[]>([]);
 
 	constructor() {
@@ -64,13 +68,15 @@ export class HeaderComponent {
 				this.hideMenuOnClick.set(currentBreakpoint.width <= is);
 			});
 
-		this.user.set(this._menuService.user());
+		// this.user.set({
+		// 		name: this._authService.user()?.name,
+		// 	});
 		this.userMenu.set(this._menuService.userMenu());
 
 		this._nbMenuService.onItemClick().subscribe(({ item }) => {
 			if (this.hideMenuOnClick()) this._sidebarService.collapse('menu-sidebar');
 			if (item.data?.action === 'logout') {
-				this._authService.logout().subscribe(() => this._router.navigateByUrl('/auth'));
+				this._authService.logout().subscribe();
 			}
 		});
 	}

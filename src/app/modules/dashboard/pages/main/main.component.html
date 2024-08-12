@@ -28,14 +28,26 @@
 						<nb-card-body class="d-flex flex-column gap-3">
 							<div class="d-flex align-items-center justify-content-between">
 								<nb-icon class="icon" status="primary" icon="file-text-outline"></nb-icon>
-								<p class="fs-2 fw-semibold">{{ reports()?.citas || 0 }}</p>
+								<p class="fs-2 fw-semibold">{{ reports()?.citas?.current || 0 }}</p>
 							</div>
 							<div class="d-flex align-items-center justify-content-between">
 								<p class="fs-6 fw-semibold">Citas</p>
 								<div class="d-flex align-items-center">
-									<p class="text-success fs-6 fw-semibold">
-										0.63%
-										<nb-icon status="success" icon="arrow-upward-outline"></nb-icon>
+									<p
+										class="fs-6 fw-semibold"
+										ngClass="{{
+											reports()?.citas?.status == 'down' ? 'text-danger' : 'text-success'
+										}}"
+									>
+										{{ reports()?.citas?.diffPercent | number: '1.2-2' || '0.00' }}%
+										<nb-icon
+											[status]="reports()?.citas?.status == 'down' ? 'danger' : 'success'"
+											[icon]="
+												reports()?.citas?.status == 'down'
+													? 'arrow-downward-outline'
+													: 'arrow-upward-outline'
+											"
+										></nb-icon>
 									</p>
 								</div>
 							</div>
@@ -47,14 +59,26 @@
 						<nb-card-body class="d-flex flex-column gap-3">
 							<div class="d-flex align-items-center justify-content-between">
 								<nb-icon class="icon" status="primary" icon="people-outline"></nb-icon>
-								<p class="fs-2 fw-semibold">{{ reports()?.medicos || 0 }}</p>
+								<p class="fs-2 fw-semibold">{{ reports()?.medicos?.current || 0 }}</p>
 							</div>
 							<div class="d-flex align-items-center justify-content-between">
 								<p class="fs-6 fw-semibold">Médicos</p>
 								<div class="d-flex align-items-center">
-									<p class="text-success fs-6 fw-semibold">
-										0.13%
-										<nb-icon status="success" icon="arrow-upward-outline"></nb-icon>
+									<p
+										class="fs-6 fw-semibold"
+										ngClass="{{
+											reports()?.medicos?.status == 'down' ? 'text-danger' : 'text-success'
+										}}"
+									>
+										{{ reports()?.medicos?.diffPercent | number: '1.2-2' || '0.00' }}%
+										<nb-icon
+											[status]="reports()?.medicos?.status == 'down' ? 'danger' : 'success'"
+											[icon]="
+												reports()?.medicos?.status == 'down'
+													? 'arrow-downward-outline'
+													: 'arrow-upward-outline'
+											"
+										></nb-icon>
 									</p>
 								</div>
 							</div>
@@ -66,14 +90,26 @@
 						<nb-card-body class="d-flex flex-column gap-3">
 							<div class="d-flex align-items-center justify-content-between">
 								<nb-icon class="icon" status="primary" icon="thermometer-plus-outline"></nb-icon>
-								<p class="fs-2 fw-semibold">{{ reports()?.tratamientos || 0 }}</p>
+								<p class="fs-2 fw-semibold">{{ reports()?.tratamientos?.current || 0 }}</p>
 							</div>
 							<div class="d-flex align-items-center justify-content-between">
 								<p class="fs-6 fw-semibold">Tratamientos</p>
 								<div class="d-flex align-items-center">
-									<p class="text-success fs-6 fw-semibold">
-										0.53%
-										<nb-icon status="success" icon="arrow-upward-outline"></nb-icon>
+									<p
+										class="fs-6 fw-semibold"
+										ngClass="{{
+											reports()?.tratamientos?.status == 'down' ? 'text-danger' : 'text-success'
+										}}"
+									>
+										{{ reports()?.tratamientos?.diffPercent | number: '1.2-2' || '0.00' }}%
+										<nb-icon
+											[status]="reports()?.tratamientos?.status == 'down' ? 'danger' : 'success'"
+											[icon]="
+												reports()?.tratamientos?.status == 'down'
+													? 'arrow-downward-outline'
+													: 'arrow-upward-outline'
+											"
+										></nb-icon>
 									</p>
 								</div>
 							</div>
@@ -85,14 +121,28 @@
 						<nb-card-body class="d-flex flex-column gap-3">
 							<div class="d-flex align-items-center justify-content-between">
 								<nb-icon class="icon" status="primary" icon="pie-chart-outline"></nb-icon>
-								<p class="fs-4 fw-semibold">S/. {{ reports()?.pagos || '0.00' }}</p>
+								<p class="fs-4 fw-semibold">
+									S/. {{ reports()?.pagos?.current || 0 | number: '1.2-2' }}
+								</p>
 							</div>
 							<div class="d-flex align-items-center justify-content-between">
 								<p class="fs-6 fw-semibold">Pagos</p>
 								<div class="d-flex align-items-center">
-									<p class="text-success fs-6 fw-semibold">
-										0.33%
-										<nb-icon status="success" icon="arrow-upward-outline"></nb-icon>
+									<p
+										class="fs-6 fw-semibold"
+										ngClass="{{
+											reports()?.pagos?.status == 'down' ? 'text-danger' : 'text-success'
+										}}"
+									>
+										{{ reports()?.pagos?.diffPercent | number: '1.2-2' || '0.00' }}%
+										<nb-icon
+											[status]="reports()?.pagos?.status == 'down' ? 'danger' : 'success'"
+											[icon]="
+												reports()?.pagos?.status == 'down'
+													? 'arrow-downward-outline'
+													: 'arrow-upward-outline'
+											"
+										></nb-icon>
 									</p>
 								</div>
 							</div>
@@ -183,7 +233,7 @@
 							<p class="fs-5 fw-semibold">Registros</p>
 						</nb-card-header>
 						<nb-card-body>
-							<p class="fs-4 fw-semibold mb-2">{{ reports()?.tratamientos || 0 }}</p>
+							<p class="fs-4 fw-semibold mb-2">{{ reports()?.tratamientos?.current || 0 }}</p>
 							<span class="fs-6 text-black-50">Tratamientos</span>
 							<div class="d-flex flex-column gap-4 mt-4">
 								@for (item of reports()?.tipoTratamientos; track $index) {

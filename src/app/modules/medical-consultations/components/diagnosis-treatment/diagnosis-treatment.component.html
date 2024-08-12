@@ -25,9 +25,10 @@
 						<thead>
 							<tr class="text-center">
 								<th>Diagnóstico</th>
-								<th>Tratamiento</th>
+								<th>Práctica</th>
 								<th>Pieza Dental</th>
 								<th>Cara</th>
+								<th>Estado</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -35,8 +36,32 @@
 								<tr class="text-center align-middle">
 									<td>{{ t.observacion }}</td>
 									<td>{{ t.tipo_tratamiento }}</td>
-									<td>{{ t.pieza_numero }}{{ t.pieza_vila }}</td>
+									<td>{{ t?.pieza_numero }}{{ t?.pieza_fila }}</td>
 									<td>{{ t.tipo_cara }}</td>
+									<td
+										[ngStyle]="{
+											'background-color':
+												t?.faseodontogramaid === 2
+													? '#aac9e8'
+													: t?.faseodontogramaid === 1
+														? '#bbdabb'
+														: '#fff',
+										}"
+									>
+										<div class="d-flex align-items-center justify-content-center gap-2">
+											<span>{{ t?.fase_odontograma }}</span>
+											<button
+												nbButton
+												ghost
+												size="small"
+												status="info"
+												nbTooltip="Cambiar estado"
+												(click)="patchTreatmentStatus(t)"
+											>
+												<nb-icon icon="flip-2-outline"></nb-icon>
+											</button>
+										</div>
+									</td>
 								</tr>
 							} @empty {
 								<tr class="text-center align-middle">
@@ -122,7 +147,7 @@
 						<thead>
 							<tr class="text-center">
 								<th>Diagnóstico</th>
-								<th>Tratamiento</th>
+								<th>Práctica</th>
 								<th>Pieza Dental</th>
 								<th>Cara</th>
 							</tr>

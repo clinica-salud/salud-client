@@ -3,13 +3,20 @@ import { Injectable, computed, inject, signal } from '@angular/core';
 import { map } from 'rxjs';
 
 import { TeethType } from '@src/app/shared/enums';
-import { IFace, IResponse, ITooth, IToothMinimal, ITreatment } from '@src/app/shared/models';
+import {
+	IFace,
+	IPhase,
+	IResponse,
+	ITooth,
+	IToothMinimal,
+	ITreatment,
+} from '@src/app/shared/models';
 import { environment } from '@src/environments/environment';
 
 const { api } = environment;
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class OdontogramService {
 	private _http = inject(HttpClient);
@@ -48,6 +55,12 @@ export class OdontogramService {
 	public getFaces() {
 		return this._http
 			.get<IResponse<IFace[]>>(`${api}/salud/face-type`)
+			.pipe(map((response) => response.data));
+	}
+
+	public getPhases() {
+		return this._http
+			.get<IResponse<IPhase[]>>(`${api}/salud/phase`)
 			.pipe(map((response) => response.data));
 	}
 }

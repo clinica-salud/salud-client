@@ -5,6 +5,6 @@ import { RouterOutlet } from '@angular/router';
 	selector: 'app-appointments',
 	standalone: true,
 	imports: [RouterOutlet],
-	template: '<router-outlet />'
+	template: '<router-outlet />',
 })
 export class AppointmentsComponent {}

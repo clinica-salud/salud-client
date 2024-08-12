@@ -8,6 +8,7 @@ export interface ITooth {
 	fila: Fila;
 	numero: number;
 	imagen: string;
+	color?: string;
 }
 
 export interface IToothMinimal {
@@ -29,6 +30,15 @@ export interface IFace {
 	tipocaraid: number;
 	nombre: string;
 	abreviatura: string;
+	orden: number;
+	estado: boolean;
+}
+
+export interface IPhase {
+	faseodontogramaid: number;
+	nombre: string;
+	abreviatura: string;
+	color: string;
 	orden: number;
 	estado: boolean;
 }

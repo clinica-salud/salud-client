@@ -1,6 +1,8 @@
-import { Injectable, computed, signal } from '@angular/core';
+import { Injectable, computed, inject, signal } from '@angular/core';
 
 import { NbMenuItem } from '@nebular/theme';
+import { AuthService } from '@src/app/core/services/auth.service';
+import { IAccessMenu } from '@src/app/shared/models';
 
 export interface User {
 	name: string;
@@ -15,48 +17,65 @@ export interface Menu {
 }
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class MenuService {
-	#user = signal<User>({
-		name: 'Miguel',
-		picture:
-			'https://static.vecteezy.com/system/resources/previews/005/129/844/original/profile-user-icon-isolated-on-white-background-eps10-free-vector.jpg'
-	});
+	private _authService = inject(AuthService);
 
 	#userMenu = signal<NbMenuItem[]>([
-		// { title: 'Profile', icon: 'person-outline', data: { action: 'profile' } },
 		{
 			title: 'Cerrar sesión',
 			icon: 'power-outline',
-			data: { action: 'logout' }
-		}
+			data: { action: 'logout' },
+		},
 	]);
 
 	#menu = signal<Menu[]>([
-		{
-			title: 'Dashboard',
-			icon: 'grid-outline',
-			link: '/pages/dashboard'
-		},
-		{
-			title: 'Mis citas',
-			icon: 'calendar-outline',
-			link: '/pages/appointments'
-		},
-		{
-			title: 'Consultas médicas',
-			icon: 'book-outline',
-			link: '/pages/medical-consultations'
-		},
-		{
-			title: 'Historias clínicas',
-			icon: 'trending-up-outline',
-			link: '/pages/results'
-		}
+		// {
+		// 	title: 'Dashboard',
+		// 	icon: 'grid-outline',
+		// 	link: '/pages/dashboard',
+		// },
+		// {
+		// 	title: 'Mis citas',
+		// 	icon: 'calendar-outline',
+		// 	link: '/pages/appointments',
+		// },
+		// {
+		// 	title: 'Consultas médicas',
+		// 	icon: 'book-outline',
+		// 	link: '/pages/medical-consultations',
+		// },
+		// {
+		// 	title: 'Historias clínicas',
+		// 	icon: 'trending-up-outline',
+		// 	link: '/pages/results',
+		// },
 	]);
 
 	public menu = computed(() => this.#menu());
-	public user = computed(() => this.#user());
 	public userMenu = computed(() => this.#userMenu());
+
+	public setMenu(menu: IAccessMenu[]) {
+		if (menu.length === 0) this._authService.logout().subscribe();
+
+		const formattedMenu = menu
+			.filter((item) => item.padreid !== 0)
+			.map((item) => {
+				return {
+					title: item.titulo,
+					icon: item.imagen,
+					link: item.link,
+				};
+			});
+
+		this.#menu.set([
+			{
+				title: 'Dashboard',
+				icon: 'grid-outline',
+				link: '/pages/dashboard',
+			},
+			...formattedMenu,
+		]);
+	}
 }

@@ -1,4 +1,4 @@
-import { DatePipe } from '@angular/common';
+import { DatePipe, DecimalPipe, NgClass } from '@angular/common';
 import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, FormControl, FormGroup, ReactiveFormsModule } from '@angular/forms';
@@ -66,7 +66,7 @@ const MONTHS = [
 
 @Component({
 	standalone: true,
-	imports: [DatePipe, ReactiveFormsModule, ...NB_MODULES, ...OTHER_MODULES],
+	imports: [DatePipe, DecimalPipe, ReactiveFormsModule, NgClass, ...NB_MODULES, ...OTHER_MODULES],
 	templateUrl: './main.component.html',
 	styleUrl: './main.component.scss',
 	providers: [provideEcharts()],

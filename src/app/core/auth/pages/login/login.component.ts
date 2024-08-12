@@ -16,7 +16,7 @@ const NB_MODULES = [
 	NbInputModule,
 	NbButtonModule,
 	NbEvaIconsModule,
-	NbCheckboxModule
+	NbCheckboxModule,
 ];
 const COMPONENTS = [ControlErrorComponent];
 
@@ -24,7 +24,7 @@ const COMPONENTS = [ControlErrorComponent];
 	standalone: true,
 	imports: [ReactiveFormsModule, RouterLink, ...NB_MODULES, ...COMPONENTS],
 	templateUrl: './login.component.html',
-	styleUrls: ['./login.component.scss']
+	styleUrls: ['./login.component.scss'],
 })
 export class LoginComponent {
 	private _destroyRef = inject(DestroyRef);
@@ -35,9 +35,9 @@ export class LoginComponent {
 	public isLoading = signal(false);
 
 	public form: FormGroup = this._fb.group({
-		email: ['test@test.com', [Validators.required, Validators.email]],
-		password: ['ramirez', [Validators.required, Validators.minLength(6)]],
-		remember: [false]
+		email: ['medico@test.com', [Validators.required, Validators.email]],
+		password: ['123456', [Validators.required, Validators.minLength(6)]],
+		remember: [false],
 	});
 
 	get f() {
@@ -50,19 +50,22 @@ export class LoginComponent {
 
 		const loginRequest: ILoginReq = {
 			email: this.f['email'].value,
-			password: this.f['password'].value
+			password: this.f['password'].value,
 		};
 
 		this._authService
 			.login(loginRequest)
 			.pipe(
-				delay(500),
+				delay(200),
 				finalize(() => {
 					this.isLoading.set(false);
 					this.form.enable();
 				}),
 				takeUntilDestroyed(this._destroyRef)
 			)
-			.subscribe(() => this._router.navigateByUrl('/pages'));
+			.subscribe(() => {
+				this._router.navigateByUrl('/pages');
+				// this.getUserData();
+			});
 	}
 }
