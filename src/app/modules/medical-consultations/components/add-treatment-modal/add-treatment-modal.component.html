@@ -12,7 +12,7 @@
 			<div class="col-md-12">
 				<label class="required fw-semibold mb-2">Selecciona Pieza</label>
 				<nb-select placeholder="Selecciona Pieza" formControlName="piezaid" fullWidth>
-					<nb-option value="all">Todos</nb-option>
+					<!-- <nb-option value="all">Todos</nb-option> -->
 					@for (tooth of teeth(); track tooth.piezaid) {
 						<nb-option [value]="tooth.piezaid">{{ tooth.numero }}{{ tooth.fila }}</nb-option>
 					}
@@ -35,6 +35,14 @@
 				<nb-select placeholder="Selecciona Cara" formControlName="tipocaraid" fullWidth>
 					@for (face of faces(); track face.tipocaraid) {
 						<nb-option [value]="face.tipocaraid">{{ face.nombre }}</nb-option>
+					}
+				</nb-select>
+			</div>
+			<div class="col-md-12">
+				<label class="required fw-semibold mb-2">Selecciona Fase</label>
+				<nb-select placeholder="Selecciona Fase" formControlName="faseodontogramaid" fullWidth>
+					@for (phase of phases(); track phase.faseodontogramaid) {
+						<nb-option [value]="phase.faseodontogramaid">{{ phase.nombre }}</nb-option>
 					}
 				</nb-select>
 			</div>

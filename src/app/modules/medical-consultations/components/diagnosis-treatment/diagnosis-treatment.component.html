@@ -20,14 +20,15 @@
 						</button> -->
 					<!-- </div> -->
 				</div>
-				<div class="table-responsive">
+				<div class="table-responsive d-none d-lg-block d-xl-none d-xxl-block">
 					<table class="table table-sm table-bordered">
 						<thead>
 							<tr class="text-center">
 								<th>Diagnóstico</th>
-								<th>Tratamiento</th>
+								<th>Práctica</th>
 								<th>Pieza Dental</th>
 								<th>Cara</th>
+								<th>Estado</th>
 							</tr>
 						</thead>
 						<tbody>
@@ -35,12 +36,93 @@
 								<tr class="text-center align-middle">
 									<td>{{ t.observacion }}</td>
 									<td>{{ t.tipo_tratamiento }}</td>
-									<td>{{ t.pieza_numero }}{{ t.pieza_vila }}</td>
+									<td>{{ t.pieza_numero }}{{ t.pieza_fila }}</td>
 									<td>{{ t.tipo_cara }}</td>
+									<td
+										[ngStyle]="{
+											'background-color':
+												t?.faseodontogramaid === 2
+													? '#aac9e8'
+													: t?.faseodontogramaid === 1
+														? '#bbdabb'
+														: '#fff',
+										}"
+									>
+										<div class="d-flex align-items-center justify-content-center gap-2">
+											<span>{{ t?.fase_odontograma }}</span>
+											<button
+												nbButton
+												ghost
+												size="small"
+												status="info"
+												nbTooltip="Cambiar estado"
+												(click)="patchTreatmentStatus(t)"
+											>
+												<nb-icon icon="flip-2-outline"></nb-icon>
+											</button>
+										</div>
+									</td>
 								</tr>
 							} @empty {
 								<tr class="text-center align-middle">
 									<td colspan="4">No hay tratamientos</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+				<div class="table-responsive d-block d-lg-none d-xl-block d-xxl-none">
+					<table class="table table-sm table-bordered">
+						<tbody>
+							@for (item of treatments(); track $index) {
+								<tr>
+									<th>Diagnóstico:</th>
+									<td>{{ item.observacion }}</td>
+								</tr>
+								<tr>
+									<th>Práctica:</th>
+									<td>{{ item.tipo_tratamiento }}</td>
+								</tr>
+								<tr>
+									<th>Pieza Dental:</th>
+									<td>{{ item?.pieza_numero }}{{ item?.pieza_fila }}</td>
+								</tr>
+								<tr>
+									<th>Cara:</th>
+									<td>{{ item.tipo_cara }}</td>
+								</tr>
+								<tr class="last-row">
+									<th>Estado:</th>
+									<td
+										[ngStyle]="{
+											'background-color':
+												item?.faseodontogramaid === 2
+													? '#aac9e8'
+													: item?.faseodontogramaid === 1
+														? '#bbdabb'
+														: '#fff',
+										}"
+										class="px-2"
+									>
+										<div class="d-flex align-items-center justify-content-start gap-2">
+											<small>{{ item?.fase_odontograma }}</small>
+											<button
+												nbButton
+												ghost
+												size="tiny"
+												status="info"
+												(click)="patchTreatmentStatus(item)"
+												[disabled]="!item?.es_tratamiento"
+											>
+												<nb-icon icon="flip-2-outline"></nb-icon>
+												Cambiar estado
+											</button>
+										</div>
+									</td>
+								</tr>
+							} @empty {
+								<tr class="text-center align-middle">
+									<td colspan="1">No hay tratamientos</td>
 								</tr>
 							}
 						</tbody>
@@ -58,7 +140,7 @@
 						</button>
 					</div>
 				</div>
-				<div class="table-responsive">
+				<div class="table-responsive d-none d-lg-block d-xl-none d-xxl-block">
 					<table class="table table-sm table-bordered">
 						<thead>
 							<tr class="text-center">
@@ -105,6 +187,60 @@
 						</tbody>
 					</table>
 				</div>
+				<div class="table-responsive d-block d-lg-none d-xl-block d-xxl-none">
+					<table class="table table-sm table-bordered">
+						<tbody>
+							@for (item of recipes(); track $index) {
+								<tr>
+									<th>Medicamento:</th>
+									<td>{{ item.medicamento }}</td>
+								</tr>
+								<tr>
+									<th>Indicaciones:</th>
+									<td>{{ item.indicaciones }}</td>
+								</tr>
+								<tr>
+									<th>Via de administración:</th>
+									<td>{{ item.via_administracion }}</td>
+								</tr>
+								<tr>
+									<th>Dosis:</th>
+									<td>{{ item.dosis }}</td>
+								</tr>
+								<tr>
+									<th>Frecuencia:</th>
+									<td>{{ item.frecuencia }}</td>
+								</tr>
+								<tr>
+									<th>Tiempo:</th>
+									<td>{{ item.tiempo }}</td>
+								</tr>
+								<tr>
+									<th>Cantidad:</th>
+									<td>{{ item.cantidad }}</td>
+								</tr>
+								<tr>
+									<th>Acción:</th>
+									<td>
+										<button
+											nbButton
+											status="danger"
+											size="tiny"
+											(click)="deleteRecipe(item.recetaid)"
+										>
+											<nb-icon icon="trash-outline"></nb-icon>
+											Eliminar
+										</button>
+									</td>
+								</tr>
+							} @empty {
+								<tr class="text-center align-middle">
+									<td colspan="1">No hay recetas.</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
 				<hr class="my-5" />
 				<div class="d-flex align-items-center justify-content-between my-3">
 					<p class="fs-5">Diagnóstico</p>
@@ -117,12 +253,12 @@
               </button> -->
 					<!-- </div> -->
 				</div>
-				<div class="table-responsive">
+				<div class="table-responsive d-none d-lg-block d-xl-none d-xxl-block">
 					<table class="table table-sm table-bordered">
 						<thead>
 							<tr class="text-center">
 								<th>Diagnóstico</th>
-								<th>Tratamiento</th>
+								<th>Práctica</th>
 								<th>Pieza Dental</th>
 								<th>Cara</th>
 							</tr>
@@ -132,12 +268,40 @@
 								<tr class="align-middle text-center">
 									<td>{{ d.observacion }}</td>
 									<td>{{ d.tipo_tratamiento }}</td>
-									<td>{{ d.pieza_numero }}{{ d.pieza_vila }}</td>
+									<td>{{ d.pieza_numero }}{{ d.pieza_fila }}</td>
 									<td>{{ d.tipo_cara }}</td>
 								</tr>
 							} @empty {
 								<tr class="text-center align-middle">
 									<td colspan="4">No hay tratamientos</td>
+								</tr>
+							}
+						</tbody>
+					</table>
+				</div>
+				<div class="table-responsive d-block d-lg-none d-xl-block d-xxl-none">
+					<table class="table table-sm table-bordered">
+						<tbody>
+							@for (item of diagnosis(); track $index) {
+								<tr>
+									<th>Diagnóstico:</th>
+									<td>{{ item.observacion }}</td>
+								</tr>
+								<tr>
+									<th>Práctica:</th>
+									<td>{{ item.tipo_tratamiento }}</td>
+								</tr>
+								<tr>
+									<th>Pieza Dental:</th>
+									<td>{{ item?.pieza_numero }}{{ item?.pieza_fila }}</td>
+								</tr>
+								<tr class="last-row">
+									<th>Cara:</th>
+									<td>{{ item.tipo_cara }}</td>
+								</tr>
+							} @empty {
+								<tr class="text-center align-middle">
+									<td colspan="1">No hay tratamientos</td>
 								</tr>
 							}
 						</tbody>

@@ -1,4 +1,4 @@
-import { Component, computed, inject, signal } from '@angular/core';
+import { Component, computed, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
 
 import {
@@ -6,14 +6,14 @@ import {
 	NbLayoutModule,
 	NbMenuModule,
 	NbSidebarModule,
-	NbSpinnerModule
+	NbSpinnerModule,
 } from '@nebular/theme';
 
 import { BreadcrumbComponent, BreadcrumbItemDirective } from 'xng-breadcrumb';
 
 import { FooterComponent } from '@src/app/core/layout/components/footer/footer.component';
 import { HeaderComponent } from '@src/app/core/layout/components/header/header.component';
-import { Menu, MenuService, SpinnerService } from '@src/app/core/services';
+import { MenuService, SpinnerService } from '@src/app/core/services';
 
 const NB_MODULES = [NbLayoutModule, NbSpinnerModule, NbSidebarModule, NbMenuModule, NbCardModule];
 const BREADCRUMB = [BreadcrumbComponent, BreadcrumbItemDirective];
@@ -49,12 +49,12 @@ const COMPONENTS = [FooterComponent, HeaderComponent];
 			</nb-layout>
 		</div>
 	`,
-	styleUrl: './layout.component.scss'
+	styleUrl: './layout.component.scss',
 })
 export class LayoutComponent {
 	private _spinnerService = inject(SpinnerService);
 	private _menuService = inject(MenuService);
 
-	public menu = signal<Menu[]>(this._menuService.menu());
+	public menu = computed(() => this._menuService.menu());
 	public spinner = computed(() => this._spinnerService.spinner());
 }

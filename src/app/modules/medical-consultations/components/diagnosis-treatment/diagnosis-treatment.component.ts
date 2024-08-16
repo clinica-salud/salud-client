@@ -1,3 +1,4 @@
+import { NgStyle } from '@angular/common';
 import {
 	Component,
 	DestroyRef,
@@ -5,10 +6,17 @@ import {
 	SimpleChanges,
 	inject,
 	input,
-	signal
+	output,
+	signal,
 } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { NbButtonModule, NbCardModule, NbDialogService, NbIconModule } from '@nebular/theme';
+import {
+	NbButtonModule,
+	NbCardModule,
+	NbDialogService,
+	NbIconModule,
+	NbTooltipModule,
+} from '@nebular/theme';
 import { AddRecipeModalComponent } from '@src/app/modules/medical-consultations/components/add-recipe-modal/add-recipe-modal.component';
 
 import { DetailTabComponent } from '@src/app/modules/medical-consultations/components/detail-tab/detail-tab.component';
@@ -17,11 +25,13 @@ import { ConsultationService, RecipeService } from '@src/app/shared/services';
 
 const COMPONENTS = [DetailTabComponent, NbCardModule, NbIconModule, NbButtonModule];
 
+const NB_MODULES = [NbTooltipModule];
+
 @Component({
 	selector: 'app-diagnosis-treatment',
 	standalone: true,
-	imports: [...COMPONENTS],
-	templateUrl: './diagnosis-treatment.component.html'
+	imports: [NgStyle, ...COMPONENTS, ...NB_MODULES],
+	templateUrl: './diagnosis-treatment.component.html',
 })
 export class DiagnosisTreatmentComponent implements OnChanges {
 	private _dialogService = inject(NbDialogService);
@@ -29,14 +39,21 @@ export class DiagnosisTreatmentComponent implements OnChanges {
 	private _destroyRef = inject(DestroyRef);
 	private _consultationService = inject(ConsultationService);
 
-	treatments = input.required<any[]>();
-	diagnosis = input.required<any[]>();
-	consulta = input.required<any>();
+	public treatments = input.required<any[]>();
+	public diagnosis = input.required<any[]>();
+	public consulta = input.required<any>();
+	public consultaid = input.required<number>();
+
+	public refreshConsultations = output();
 
 	public recipes = signal<IRecipe[]>([]);
 
 	ngOnChanges(changes: SimpleChanges): void {
 		if (changes['consulta'] && this.consulta().citaid) this.getRecipes();
+	}
+
+	private onRefreshConsultations() {
+		this.refreshConsultations.emit();
 	}
 
 	private getRecipes() {
@@ -62,9 +79,20 @@ export class DiagnosisTreatmentComponent implements OnChanges {
 			});
 	}
 
+	public patchTreatmentStatus(item: any) {
+		const { piezaid, es_tratamiento, faseodontogramaid } = item;
+		this._consultationService
+			.patchOdontogramConsultation(this.consultaid(), piezaid, {
+				es_tratamiento,
+				faseodontogramaid: faseodontogramaid === 2 ? 1 : 2,
+			})
+			.pipe(takeUntilDestroyed(this._destroyRef))
+			.subscribe(() => this.onRefreshConsultations());
+	}
+
 	public addRecipe() {
 		const dialog = this._dialogService.open(AddRecipeModalComponent, {
-			context: { citaid: this.consulta().citaid }
+			context: { citaid: this.consulta().citaid },
 		});
 		dialog.onClose.subscribe(({ cancel }) => {
 			if (!cancel) this.getRecipes();

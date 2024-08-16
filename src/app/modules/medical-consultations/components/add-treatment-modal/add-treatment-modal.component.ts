@@ -9,7 +9,7 @@ import {
 	NbIconModule,
 	NbInputModule,
 	NbOptionModule,
-	NbSelectModule
+	NbSelectModule,
 } from '@nebular/theme';
 
 import { WindowDirective } from '@src/app/shared/helpers/window/window.directive';
@@ -22,7 +22,7 @@ const NB_MODULES = [
 	NbIconModule,
 	NbInputModule,
 	NbOptionModule,
-	NbSelectModule
+	NbSelectModule,
 ];
 const DIRECTIVES = [WindowDirective];
 
@@ -31,7 +31,7 @@ const DIRECTIVES = [WindowDirective];
 	standalone: true,
 	imports: [ReactiveFormsModule, ...NB_MODULES, ...DIRECTIVES],
 	templateUrl: './add-treatment-modal.component.html',
-	styleUrl: './add-treatment-modal.component.scss'
+	styleUrl: './add-treatment-modal.component.scss',
 })
 export class AddTreatmentModalComponent implements OnInit {
 	private _fb = inject(FormBuilder);
@@ -45,19 +45,20 @@ export class AddTreatmentModalComponent implements OnInit {
 	public teeth = toSignal(this._odontogramService.getMinimalTeethPieces());
 	public treatments = toSignal(this._odontogramService.getTreatments());
 	public faces = toSignal(this._odontogramService.getFaces());
+	public phases = toSignal(this._odontogramService.getPhases());
 
 	public form: FormGroup = this._fb.group({
 		piezaid: ['', [Validators.required]],
 		tipotratamientoid: ['', [Validators.required]],
+		faseodontogramaid: [1, [Validators.required]],
 		tipocaraid: [''],
 		observacion: [''],
-		es_tratamiento: [true]
 	});
 
 	ngOnInit(): void {
 		if (this.selectedTooth) {
 			this.form.patchValue({
-				piezaid: this.selectedTooth.piezaid
+				piezaid: this.selectedTooth.piezaid,
 			});
 		}
 	}

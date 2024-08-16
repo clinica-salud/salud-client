@@ -1,6 +1,7 @@
 import { Component, DestroyRef, Input, OnInit, inject } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
+
 import {
 	NbButtonModule,
 	NbCardModule,
@@ -9,6 +10,7 @@ import {
 	NbOptionModule,
 	NbSelectModule
 } from '@nebular/theme';
+
 import { WindowDirective } from '@src/app/shared/helpers/window/window.directive';
 import { AppointmentService } from '@src/app/shared/services';
 
@@ -36,9 +38,7 @@ export class ChangeStatusModalComponent implements OnInit {
 	});
 
 	ngOnInit(): void {
-		if (this.estadoid) {
-			this.form.patchValue({ estadoid: this.estadoid });
-		}
+		if (this.estadoid) this.form.patchValue({ estadoid: this.estadoid });
 	}
 
 	public updateStatus() {
