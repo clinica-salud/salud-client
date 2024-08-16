@@ -44,8 +44,12 @@
 						/>
 					}
 				</div>
-				<div class="container-fluid">
-					<div class="table-responsive my-4 mt-5">
+				<div class="container-fluid my-4 mt-5">
+					<button nbButton class="d-block ms-auto mb-2" status="primary" (click)="addTreatment()">
+						<nb-icon icon="plus-outline"></nb-icon>
+						Agregar
+					</button>
+					<div class="table-responsive d-none d-lg-block d-xl-none d-xxl-block">
 						<table class="table table-sm table-bordered table-hover">
 							<thead>
 								<tr class="text-center">
@@ -62,8 +66,10 @@
 								@for (item of odontogramConsultations(); track $index) {
 									<tr class="text-center align-middle">
 										<td>
-											<span>{{ item?.detalle }}</span> <br />
-											<small class="text-secondary">{{ item?.observacion }}</small>
+											<!-- <span>{{ item?.detalle }}</span> <br /> -->
+											<!-- <small class="text-secondary"> -->
+											{{ item?.observacion }}
+											<!-- </small> -->
 										</td>
 										<td>{{ item?.tipo_tratamiento }}</td>
 										<td>{{ item?.pieza_numero }}{{ item?.pieza_fila }}</td>
@@ -120,10 +126,84 @@
 							</tbody>
 						</table>
 					</div>
-					<button nbButton class="d-block ms-auto" status="primary" (click)="addTreatment()">
-						<nb-icon icon="plus-outline"></nb-icon>
-						Agregar
-					</button>
+					<div class="table-responsive d-block d-lg-none d-xl-block d-xxl-none">
+						<table class="table table-sm table-bordered">
+							<tbody>
+								@for (item of odontogramConsultations(); track $index) {
+									<tr>
+										<th>Diagnóstico:</th>
+										<td>{{ item.observacion }}</td>
+									</tr>
+									<tr>
+										<th>Práctica:</th>
+										<td>{{ item.tipo_tratamiento }}</td>
+									</tr>
+									<tr>
+										<th>Pieza Dental:</th>
+										<td>{{ item?.pieza_numero }}{{ item?.pieza_fila }}</td>
+									</tr>
+									<tr>
+										<th>Cara:</th>
+										<td>{{ item.tipo_cara }}</td>
+									</tr>
+									<tr>
+										<th>Es Tratamiento:</th>
+										<td class="px-2">
+											<nb-checkbox
+												status="success"
+												(checkedChange)="patchTreatment(item)"
+												[checked]="item?.es_tratamiento"
+												[disabled]="item?.faseodontogramaid === 2"
+											></nb-checkbox>
+										</td>
+									</tr>
+									<tr>
+										<th>Estado:</th>
+										<td
+											[ngStyle]="{
+												'background-color':
+													item?.faseodontogramaid === 2
+														? '#aac9e8'
+														: item?.faseodontogramaid === 1
+															? '#bbdabb'
+															: '#fff',
+											}"
+											class="px-2"
+										>
+											<div class="d-flex align-items-center justify-content-start gap-2">
+												<small>{{ item?.fase_odontograma }}</small>
+												<button
+													nbButton
+													ghost
+													size="tiny"
+													status="info"
+													(click)="patchTreatmentStatus(item)"
+													[disabled]="!item?.es_tratamiento"
+												>
+													<nb-icon icon="flip-2-outline"></nb-icon>
+													Cambiar estado
+												</button>
+											</div>
+										</td>
+									</tr>
+									<tr class="align-middle last-row">
+										<th>Acción:</th>
+										<td>
+											<button
+												nbButton
+												(click)="deleteOdontogramConsultation(item)"
+												status="danger"
+												size="tiny"
+											>
+												<nb-icon icon="trash-outline"></nb-icon>
+												Eliminar
+											</button>
+										</td>
+									</tr>
+								}
+							</tbody>
+						</table>
+					</div>
 				</div>
 			} @placeholder {
 				<p class="text-center">Cargando odontograma...</p>
