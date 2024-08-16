@@ -59,7 +59,9 @@ export class OdontogramGraphComponent {
 			return {
 				...tooth,
 				color:
-					pieza && (pieza.faseodontogramaid === 1 || pieza.faseodontogramaid === 2)
+					pieza &&
+					((pieza.faseodontogramaid === 1 && pieza.es_tratamiento) ||
+						(pieza.faseodontogramaid === 2 && pieza.es_tratamiento))
 						? '#bbdabb'
 						: '#fff',
 			};

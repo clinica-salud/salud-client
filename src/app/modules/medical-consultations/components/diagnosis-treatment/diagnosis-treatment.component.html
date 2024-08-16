@@ -36,7 +36,7 @@
 								<tr class="text-center align-middle">
 									<td>{{ t.observacion }}</td>
 									<td>{{ t.tipo_tratamiento }}</td>
-									<td>{{ t?.pieza_numero }}{{ t?.pieza_fila }}</td>
+									<td>{{ t.pieza_numero }}{{ t.pieza_fila }}</td>
 									<td>{{ t.tipo_cara }}</td>
 									<td
 										[ngStyle]="{
@@ -119,6 +119,10 @@
 											</button>
 										</div>
 									</td>
+								</tr>
+							} @empty {
+								<tr class="text-center align-middle">
+									<td colspan="1">No hay tratamientos</td>
 								</tr>
 							}
 						</tbody>
@@ -229,6 +233,10 @@
 										</button>
 									</td>
 								</tr>
+							} @empty {
+								<tr class="text-center align-middle">
+									<td colspan="1">No hay recetas.</td>
+								</tr>
 							}
 						</tbody>
 					</table>
@@ -260,7 +268,7 @@
 								<tr class="align-middle text-center">
 									<td>{{ d.observacion }}</td>
 									<td>{{ d.tipo_tratamiento }}</td>
-									<td>{{ d.pieza_numero }}{{ d.pieza_vila }}</td>
+									<td>{{ d.pieza_numero }}{{ d.pieza_fila }}</td>
 									<td>{{ d.tipo_cara }}</td>
 								</tr>
 							} @empty {
@@ -290,6 +298,10 @@
 								<tr class="last-row">
 									<th>Cara:</th>
 									<td>{{ item.tipo_cara }}</td>
+								</tr>
+							} @empty {
+								<tr class="text-center align-middle">
+									<td colspan="1">No hay tratamientos</td>
 								</tr>
 							}
 						</tbody>

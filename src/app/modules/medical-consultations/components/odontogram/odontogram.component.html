@@ -85,9 +85,9 @@
 										<td
 											[ngStyle]="{
 												'background-color':
-													item?.faseodontogramaid === 2
+													item?.faseodontogramaid === 2 && item?.es_tratamiento
 														? '#aac9e8'
-														: item?.faseodontogramaid === 1
+														: item?.faseodontogramaid === 1 && item?.es_tratamiento
 															? '#bbdabb'
 															: '#fff',
 											}"
@@ -162,9 +162,9 @@
 										<td
 											[ngStyle]="{
 												'background-color':
-													item?.faseodontogramaid === 2
+													item?.faseodontogramaid === 2 && item?.es_tratamiento
 														? '#aac9e8'
-														: item?.faseodontogramaid === 1
+														: item?.faseodontogramaid === 1 && item?.es_tratamiento
 															? '#bbdabb'
 															: '#fff',
 											}"
@@ -199,6 +199,10 @@
 												Eliminar
 											</button>
 										</td>
+									</tr>
+								} @empty {
+									<tr class="text-center align-middle">
+										<td colspan="1">No hay tratamientos</td>
 									</tr>
 								}
 							</tbody>
