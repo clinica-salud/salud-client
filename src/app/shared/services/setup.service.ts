@@ -9,14 +9,14 @@ import {
 	IResponse,
 	ITypesService,
 	ITypesSpeciality,
-	ITypesTreatment
+	ITypesTreatment,
 } from '@src/app/shared/models';
 import { environment } from '@src/environments/environment';
 
 const { api } = environment;
 
 @Injectable({
-	providedIn: 'root'
+	providedIn: 'root',
 })
 export class SetupService {
 	private _http = inject(HttpClient);
@@ -30,6 +30,12 @@ export class SetupService {
 	public getDoctors() {
 		return this._http
 			.get<IResponse<IDoctor[]>>(`${api}/salud/doctor`)
+			.pipe(map((response) => response.data));
+	}
+
+	public getDoctorsBySpeciality(especialidadid: number) {
+		return this._http
+			.get<IResponse<IDoctor[]>>(`${api}/salud/doctor/${especialidadid}`)
 			.pipe(map((response) => response.data));
 	}
 
