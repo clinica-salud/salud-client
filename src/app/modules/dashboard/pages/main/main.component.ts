@@ -77,7 +77,9 @@ export class MainComponent {
 	private _destroyRef = inject(DestroyRef);
 	private _datePipe = inject(DatePipe);
 
-	public years = signal<number[]>([2024, 2023]);
+	public years = signal<number[]>([
+		...Array.from({ length: new Date().getFullYear() - 2023 + 1 }, (_, i) => 2023 + i),
+	]);
 	public months = signal<Month[]>(MONTHS);
 
 	public form: FormGroup = this._fb.group({
