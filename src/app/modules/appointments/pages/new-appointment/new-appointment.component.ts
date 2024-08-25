@@ -16,7 +16,7 @@ import {
 	NbListModule,
 	NbRadioModule,
 	NbTimepickerModule,
-	NbUserModule
+	NbUserModule,
 } from '@nebular/theme';
 import { SummaryModalComponent } from '@src/app/modules/appointments/components/summary-modal/summary-modal.component';
 
@@ -36,7 +36,7 @@ const NB_MODULES = [
 	NbRadioModule,
 	NbTimepickerModule,
 	NbUserModule,
-	NbDateFnsDateModule
+	NbDateFnsDateModule,
 ];
 const COMPONENTS = [ControlErrorComponent];
 
@@ -44,7 +44,7 @@ const COMPONENTS = [ControlErrorComponent];
 	standalone: true,
 	imports: [ReactiveFormsModule, CurrencyPipe, ...NB_MODULES, ...COMPONENTS],
 	templateUrl: './new-appointment.component.html',
-	styleUrl: './new-appointment.component.scss'
+	styleUrl: './new-appointment.component.scss',
 })
 export class NewAppointmentComponent {
 	private _destroyRef = inject(DestroyRef);
@@ -77,16 +77,16 @@ export class NewAppointmentComponent {
 				Validators.required,
 				Validators.minLength(8),
 				Validators.maxLength(8),
-				Validators.pattern('^[0-9]*$')
-			]
+				Validators.pattern('^[0-9]*$'),
+			],
 		],
 		tiposervicioid: ['', [Validators.required]],
 		especialidadid: ['', [Validators.required]],
-		tipotratamientoid: [''],
+		// tipotratamientoid: [''],
 		medicoid: ['', [Validators.required]],
 		hora: ['', [Validators.required]],
 		costo: [''],
-		observacion: ['']
+		observacion: [''],
 	});
 
 	constructor() {
@@ -117,14 +117,14 @@ export class NewAppointmentComponent {
 			if (val === 2) this.getTypesTreatments();
 		});
 
-		this.f['tipotratamientoid'].valueChanges.subscribe((val) => {
-			this.doctors.set([]);
-			if (val === 3) this.getDoctors(val);
-		});
+		// this.f['tipotratamientoid'].valueChanges.subscribe((val) => {
+		// 	this.doctors.set([]);
+		// 	if (val === 3) this.getDoctors(val);
+		// });
 
 		this.f['especialidadid'].valueChanges.subscribe((val) => {
 			this.doctors.set([]);
-			if (val === 1) this.getDoctors(val);
+			if (val) this.getDoctorsBySpeciality(val);
 		});
 
 		this.f['medicoid'].valueChanges.subscribe((val) => {
@@ -178,7 +178,7 @@ export class NewAppointmentComponent {
 						medicoid: this.appointment().medicoid,
 						hora: new Date(`${this.appointment().fecha} ${this.appointment().hora}`),
 						costo: this.appointment().costo,
-						observacion: this.appointment().observacion
+						observacion: this.appointment().observacion,
 					});
 				}
 			});
@@ -198,10 +198,9 @@ export class NewAppointmentComponent {
 			.subscribe((typesTreatments) => this.typesTreatments.set(typesTreatments));
 	}
 
-	public getDoctors(tratamientoid: number) {
-		// console.log(tratamientoid);
+	public getDoctorsBySpeciality(especialidad: number) {
 		this._setupService
-			.getDoctors()
+			.getDoctorsBySpeciality(especialidad)
 			.pipe(takeUntilDestroyed(this._destroyRef))
 			.subscribe((doctors) => this.doctors.set(doctors));
 	}
@@ -210,7 +209,7 @@ export class NewAppointmentComponent {
 		const params = {
 			tiposervicioid: this.f['tiposervicioid'].value,
 			medicoid: this.f['medicoid'].value,
-			especialidadid: this.f['especialidadid'].value
+			especialidadid: this.f['especialidadid'].value,
 		};
 
 		this._setupService
@@ -235,7 +234,7 @@ export class NewAppointmentComponent {
 			pacienteid: this.pacientId(),
 			fecha: this._datePipe.transform(this.selectedDate, 'yyyy-MM-dd'),
 			hora: this._datePipe.transform(this.f['hora'].value, 'HH:mm:ss'),
-			costo: Number(this.cost())
+			costo: Number(this.cost()),
 		};
 
 		if (this.appointment()) {
@@ -244,7 +243,7 @@ export class NewAppointmentComponent {
 				.pipe(takeUntilDestroyed(this._destroyRef))
 				.subscribe((appointment) =>
 					this._dialogService.open(SummaryModalComponent, {
-						context: { detail: appointment, id: appointment.citaid }
+						context: { detail: appointment, id: appointment.citaid },
 					})
 				);
 		} else {
@@ -253,7 +252,7 @@ export class NewAppointmentComponent {
 				.pipe(takeUntilDestroyed(this._destroyRef))
 				.subscribe((appointment) =>
 					this._dialogService.open(SummaryModalComponent, {
-						context: { detail: appointment, id: appointment.citaid }
+						context: { detail: appointment, id: appointment.citaid },
 					})
 				);
 		}

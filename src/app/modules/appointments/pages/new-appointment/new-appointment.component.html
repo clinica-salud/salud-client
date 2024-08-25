@@ -57,23 +57,23 @@
 						<nb-checkbox class="pe-4" status="success">Tomografia</nb-checkbox>
 						<nb-checkbox class="pe-4" status="success">Otro</nb-checkbox> -->
 					<!-- </div> -->
-					@if (f['tiposervicioid'].value === 1) {
-						<div>
-							<p class="fs-6 fw-medium">Especialidades</p>
-						</div>
-						<nb-radio-group
-							class="d-flex flex-wrap gap-3"
-							name="especialidadid"
-							formControlName="especialidadid"
-							status="success"
-						>
-							@for (typeSpeciality of typesSpecialities(); track typeSpeciality.especialidadid) {
-								<nb-radio [value]="typeSpeciality.especialidadid">
-									{{ typeSpeciality.nombre }}
-								</nb-radio>
-							}
-						</nb-radio-group>
-					} @else if (f['tiposervicioid'].value === 2) {
+					<!-- @if (f['tiposervicioid'].value === 1) { -->
+					<div>
+						<p class="fs-6 fw-medium">Especialidades</p>
+					</div>
+					<nb-radio-group
+						class="d-flex flex-wrap gap-3"
+						name="especialidadid"
+						formControlName="especialidadid"
+						status="success"
+					>
+						@for (typeSpeciality of typesSpecialities(); track typeSpeciality.especialidadid) {
+							<nb-radio [value]="typeSpeciality.especialidadid">
+								{{ typeSpeciality.nombre }}
+							</nb-radio>
+						}
+					</nb-radio-group>
+					<!-- } @else if (f['tiposervicioid'].value === 2) {
 						<div>
 							<p class="fs-6 fw-medium">Tratamientos</p>
 						</div>
@@ -89,7 +89,7 @@
 								</nb-radio>
 							}
 						</nb-radio-group>
-					}
+					} -->
 					<div class="d-flex flex-column gap-3">
 						<p class="fs-6 fw-semibold">Escoge a tu especialista</p>
 						<nb-radio-group status="success" formControlName="medicoid">
